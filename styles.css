@@ -40,11 +40,11 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(255, 255, 255, 0.42);
+  background: rgba(255, 255, 255, 0.12);
   z-index: -1;
 }
 
-/* Landing prellamada */
+/* Landing prellamada y VSL */
 
 .page {
   min-height: 100vh;
@@ -165,6 +165,17 @@ h1 {
   background: #00606E;
   color: #ffffff;
   border: 1px solid #00606E;
+}
+
+/* Botón único VSL */
+
+.single-button-wrapper {
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.single-cta {
+  width: 100%;
 }
 
 /* Home principal */
@@ -302,6 +313,10 @@ h1 {
 
   .video-wrapper {
     border-radius: 18px;
+  }
+
+  .single-button-wrapper {
+    max-width: 100%;
   }
 }
 
