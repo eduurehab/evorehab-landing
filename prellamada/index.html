@@ -11,65 +11,330 @@
     content="EVOREHAB es un programa online de readaptación de rodilla para deportistas lesionados que quieren volver a entrenar con seguridad."
   />
 
-  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
-  <main class="page">
-    <section class="hero">
-      <div class="badge">
-        @edu.rehab · EVOREHAB
-      </div>
 
-      <h1>
-        Mira esto antes de tu videollamada
-      </h1>
+  <!-- Cabecera fija -->
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a href="index.html" class="site-logo-link">
+        <img src="assets/logo-evorehab.png" alt="EVOREHAB" class="site-logo" />
+      </a>
+
+      <a
+        class="site-header-cta"
+        href="https://wa.me/34644516082?text=Hola%20Edu%21%20Quiero%20saber%20m%C3%A1s%20acerca%20de%20tu%20programa%20y%20c%C3%B3mo%20me%20puedes%20ayudar%20con%20mi%20lesi%C3%B3n"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img src="assets/whatsapp.png" alt="" class="button-icon" />
+        <span>Quiero recuperar mi rodilla</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="landing">
+
+    <!-- HERO + VSL -->
+    <section class="section hero-section">
+      <div class="badge">@edu.rehab · EVOREHAB</div>
+
+      <h1><span class="highlight">Evoluciona tu rodilla</span> y vuelve a <span class="highlight">rendir en tu deporte</span></h1>
 
       <p class="subtitle">
-        Para que aprovechemos al máximo el tiempo en ella, observa el siguiente vídeo, y así en la videollamada podremos centrarnos directamente en tu caso concreto, en lo que te está bloqueando ahora mismo y en qué pasos tendría sentido dar.
+        Un programa online de readaptación de rodilla diseñado para llevarte paso a paso desde el inicio de tu lesión hasta la vuelta a tu deporte al 100%.
       </p>
 
-      <div class="video-wrapper">
+      <div class="single-button-wrapper">
+        <a
+          class="button button-whatsapp single-cta"
+          href="https://wa.me/34644516082?text=Hola%20Edu%21%20Quiero%20saber%20m%C3%A1s%20acerca%20de%20tu%20programa%20y%20c%C3%B3mo%20me%20puedes%20ayudar%20con%20mi%20lesi%C3%B3n"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img src="assets/whatsapp.png" alt="" class="button-icon" />
+          <span>Quiero recuperar mi rodilla</span>
+        </a>
+      </div>
+    </section>
+
+    <div class="page-divider"></div>
+
+    <!-- CASOS DE ÉXITO -->
+    <section class="section testimonials-section" id="casos-exito">
+      <h2 class="section-title">Casos de éxito y procesos de nuestros deportistas</h2>
+      <p class="section-lead">
+        Pincha en un caso y descubre algunos de los ejercicios que hicieron, las progresiones que siguieron, y lo que están logrando hacer a día de hoy.
+      </p>
+
+      <div class="ig-stories-grid">
+        <a href="https://www.instagram.com/p/DdERJDBiqVd/" target="_blank" rel="noopener noreferrer" class="ig-story-card">
+          <span class="ig-story-thumb">
+            <img src="assets/testi-danir.png" alt="" />
+            <span class="ig-badge"><img src="assets/instagram.png" alt="" /></span>
+          </span>
+          <span class="ig-story-name">Dani R.</span>
+          <span class="ig-story-injury">Esguince y tendinopatía</span>
+        </a>
+
+        <a href="https://www.instagram.com/p/DbTPexTjO06/" target="_blank" rel="noopener noreferrer" class="ig-story-card">
+          <span class="ig-story-thumb">
+            <img src="assets/testi-alvarom.png" alt="" />
+            <span class="ig-badge"><img src="assets/instagram.png" alt="" /></span>
+          </span>
+          <span class="ig-story-name">Álvaro M.</span>
+          <span class="ig-story-injury">Cirugía LCA y menisco</span>
+        </a>
+      </div>
+
+      <div class="testimonials-divider">
+        <h3 class="ig-stories-title">Te lo cuentan ellos en solo 3 minutos</h3>
+        <p class="ig-stories-lead">Te dejo algunos testimonios de deportistas que han superado su lesión con nosotros. Si quieres ver más como estos, pincha en el botón de abajo.</p>
+      </div>
+
+      <div class="testimonials-grid">
+
+<article class="testimonial-card">
+          <a href="https://youtu.be/17c42B9orIE" rel="noopener noreferrer" class="testimonial-video" data-yt-id="17c42B9orIE">
+            <img src="https://img.youtube.com/vi/17c42B9orIE/hqdefault.jpg" alt="" />
+            <span class="play-badge">▶</span>
+          </a>
+          <h3 class="testimonial-name">Emilio M.</h3>
+          <p class="testimonial-injury">Cirugía LCA</p>
+
+          <div class="before-after">
+            <div class="before-after-col before-col">
+              <span class="before-after-tag tag-before">Antes</span>
+              <p>Recién operado, sin movilidad, y sensación de fracaso tras cirugía.</p>
+            </div>
+            <div class="before-after-col after-col">
+              <span class="before-after-tag tag-after">Después</span>
+              <p>Vuelve a fútbol 7 meses tras operarse, al mismo nivel que antes.</p>
+            </div>
+          </div>
+        </article>
+
+<article class="testimonial-card">
+          <a href="https://youtu.be/pgtwjihgiUM" rel="noopener noreferrer" class="testimonial-video" data-yt-id="pgtwjihgiUM">
+            <img src="https://img.youtube.com/vi/pgtwjihgiUM/hqdefault.jpg" alt="" />
+            <span class="play-badge">▶</span>
+          </a>
+          <h3 class="testimonial-name">Raquel G.</h3>
+          <p class="testimonial-injury">Menisco roto y condromalacia II</p>
+        
+          <div class="before-after">
+            <div class="before-after-col before-col">
+              <span class="before-after-tag tag-before">Antes</span>
+              <p>Sin poder hacer sus deportes favoritos por culpa del dolor y las limitaciones.</p>
+            </div>
+            <div class="before-after-col after-col">
+              <span class="before-after-tag tag-after">Después</span>
+              <p>Movilidad completa, 0 dolor. Bailando, yendo a la montaña y corriendo.</p>
+            </div>
+          </div>
+        </article>
+
+<article class="testimonial-card">
+          <a href="https://youtu.be/pjUF-SeAlkE" rel="noopener noreferrer" class="testimonial-video" data-yt-id="pjUF-SeAlkE">
+            <img src="https://img.youtube.com/vi/pjUF-SeAlkE/hqdefault.jpg" alt="" />
+            <span class="play-badge">▶</span>
+          </a>
+          <h3 class="testimonial-name">Samir e.A</h3>
+          <p class="testimonial-injury">Tendinopatía rotuliana</p>
+        
+          <div class="before-after">
+            <div class="before-after-col before-col">
+              <span class="before-after-tag tag-before">Antes</span>
+              <p>Sin poder jugar más de 30 minutos al pádel y sin poder entrenar en el gimnasio por dolor.</p>
+            </div>
+            <div class="before-after-col after-col">
+              <span class="before-after-tag tag-after">Después</span>
+              <p>Jugando partidos de pádel sin dolor, y cargando más que antes en gimnasio.</p>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="single-button-wrapper testimonials-more">
+        <a class="button button-outline single-cta" href="testimonios/">
+          Quiero ver más testimonios
+        </a>
+      </div>
+    </section>
+
+    <div class="page-divider"></div>
+
+    <!-- PROBLEMAS -->
+    <section class="section problems-section">
+      <h2 class="section-title">La mayoría de las personas que llegan a mí, se han encontrado con alguno de los siguientes problemas:</h2>
+
+      <div class="problems-grid">
+        <div class="problem-card">
+          <h3>No sabes si estás haciendo lo correcto</h3>
+          <p>Llevas tiempo haciendo cosas para mejorar tu rodilla, pero no tienes claro si estás avanzando al ritmo que deberías, si hay ejercicios que te podrían ayudar más, o si lo que te van pautando médicos y fisios es lo correcto...</p>
+        </div>
+
+        <div class="problem-card">
+          <h3>Llevas tiempo sintiendo que estás estancado</h3>
+          <p>Han pasado semanas o meses, has hecho caso a todo lo que te decían, pero tu rodilla sigue sin responder como esperabas...</p>
+        </div>
+
+        <div class="problem-card">
+          <h3>Tienes miedo de volver a lesionarte</h3>
+          <p>Tienes un pensamiento constante de que la rodilla puede volver a fallar en cualquier momento...</p>
+        </div>
+
+        <div class="problem-card">
+          <h3>Tu lesión ha cambiado tu día a día</h3>
+          <p>Tu lesión ha condicionado tu entrenamiento, tu deporte y muchas cosas sencillas que antes dabas por hechas de la vida cotidiana, como agacharte, caminar largas distancias o bajar escaleras...</p>
+        </div>
+      </div>
+
+      <div class="problems-callout">
+        <p class="problems-callout-question">¿A ti también está pasando?</p>
+        <p class="problems-callout-answer">Pues no te preocupes, porque hay solución 👇</p>
+      </div>
+    </section>
+
+    <!-- PARA QUIÉN ES -->
+    <section class="section for-whom-section">
+      <h2 class="section-title">Este programa es para ti si...</h2>
+
+      <ul class="for-whom-list">
+        <li>Quieres evitar pasar por quirófano y buscas <span class="highlight-dark">fortalecer la rodilla al máximo</span> antes de decidir.</li>
+        <li>Estás en <span class="highlight-dark">fase preoperatoria</span> y quieres llegar a la operación en las mejores condiciones posibles.</li>
+        <li>Te han operado hace poco y sientes que <span class="highlight-dark">no te están haciendo un seguimiento real</span>.</li>
+        <li>Llevas meses de rehabilitación <span class="highlight-dark">sin un plan claro</span> ni una fecha estimada de vuelta a tu deporte.</li>
+        <li>Tienes <span class="highlight-dark">miedo de volver a lesionarte</span> y necesitas recuperar la confianza en tu rodilla, no solo la fuerza.</li>
+      </ul>
+    </section>
+
+    <!-- CÓMO FUNCIONA -->
+    <section class="section steps-section" id="como-funciona">
+      <h2 class="section-title">Cómo funciona el programa</h2>
+
+      <div class="steps-grid">
+        <div class="step-card">
+          <span class="step-number">1</span>
+          <span class="step-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="6" width="14" height="12" rx="2" stroke="currentColor" stroke-width="1.6"/>
+              <path d="M16 10.5L21.5 7.5C22 7.2 22.5 7.6 22.5 8.1V15.9C22.5 16.4 22 16.8 21.5 16.5L16 13.5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <h3>Videollamada inicial</h3>
+          <p>Analizamos tu caso concreto: lesión, historial, intentos previos, objetivo deportivo...</p>
+        </div>
+
+        <div class="step-card">
+          <span class="step-number">2</span>
+          <span class="step-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="10" cy="10" r="6.5" stroke="currentColor" stroke-width="1.6"/>
+              <path d="M14.8 14.8L20.5 20.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M7.5 10L9.2 11.7L12.8 8.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <h3>Evaluación inicial</h3>
+          <p>Una amplia variedad de tests para detectar los déficits más importantes que están ralentizando tu recuperación.</p>
+        </div>
+
+        <div class="step-card">
+          <span class="step-number">3</span>
+          <span class="step-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="3" width="16" height="19" rx="2" stroke="currentColor" stroke-width="1.6"/>
+              <path d="M9 2.5H15V4.5C15 5.05 14.55 5.5 14 5.5H10C9.45 5.5 9 5.05 9 4.5V2.5Z" stroke="currentColor" stroke-width="1.6"/>
+              <path d="M8 11H16M8 15H13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <h3>Plan personalizado</h3>
+          <p>A raíz de esa valoración, se diseña tu programa de readaptación según tu deporte, tu lesión y la fase de tu recuperación.</p>
+        </div>
+
+        <div class="step-card">
+          <span class="step-number">4</span>
+          <span class="step-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 17L9 11L13 15L21 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M15 6H21V12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <h3>Seguimiento diario y semanal</h3>
+          <p>Ajustamos la carga y los ejercicios cada semana y cada día según tu evolución real, si hay dolor... y mucho más.</p>
+        </div>
+      </div>
+
+      <div class="steps-callout">
+        <p>Gracias a este paso a paso exacto es como hemos conseguido que <strong>+150 personas</strong> se hayan recuperado con nosotros ya.</p>
+      </div>
+    </section>
+
+    <div class="page-divider"></div>
+
+    <!-- QUÉ NOS DIFERENCIA -->
+    <section class="section diff-section">
+      <h2 class="section-title">Deja de conformarte con una rehabilitación genérica</h2>
+
+      <div class="diff-grid">
+        <div class="diff-card diff-card-no">
+          <span class="diff-icon">✕</span>
+          <h3>Rehabilitación tradicional</h3>
+          <p>Protocolos genéricos, ejercicios repetitivos sin progresión, y sin un criterio claro para saber cuándo puedes volver a tu deporte.</p>
+        </div>
+
+        <div class="diff-card diff-card-yes">
+          <span class="diff-icon">✓</span>
+          <h3>Programa EVOREHAB</h3>
+          <p>Plan 100% personalizado a tu lesión y tu deporte, seguimiento semanal real, y criterios claros por fases para volver con garantías.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="section final-cta-section">
+      <h2 class="section-title">¿Empezamos?</h2>
+      <p class="section-lead">Cuéntame tu caso y te digo cómo podemos trabajar juntos.</p>
+
+      <div class="single-button-wrapper">
+        <a
+          class="button button-whatsapp single-cta"
+          href="https://wa.me/34644516082?text=Hola%20Edu%21%20Quiero%20saber%20m%C3%A1s%20acerca%20de%20tu%20programa%20y%20c%C3%B3mo%20me%20puedes%20ayudar%20con%20mi%20lesi%C3%B3n"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img src="assets/whatsapp.png" alt="" class="button-icon" />
+          <span>Quiero recuperar mi rodilla</span>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 Edu · EVOREHAB · Todos los derechos reservados · @edu.rehab</p>
+  </footer>
+  <!-- Modal de vídeo: se abre encima de la página, sin salir a YouTube -->
+  <div class="video-modal" id="videoModal" aria-hidden="true">
+    <div class="video-modal-backdrop" data-close></div>
+    <div class="video-modal-content">
+      <button class="video-modal-close" data-close aria-label="Cerrar vídeo">✕</button>
+      <div class="video-modal-frame">
         <iframe
-          src="https://www.youtube.com/embed/_WQz8iVJQ5g?autoplay=0&rel=0"
-          title="Vídeo prellamada EVOREHAB"
+          id="videoModalIframe"
+          src=""
+          title="Vídeo"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen>
         </iframe>
       </div>
+    </div>
+  </div>
 
-      <div class="button-grid">
-        <div class="button-card">
-          <p class="button-intro">
-            Soluciona tus dudas antes de la llamada.
-          </p>
+  <script src="script.js"></script>
 
-          <a
-            class="button button-secondary"
-            href="https://www.notion.so/FAQs-Preguntas-frecuentes-2cc391c16449801ca566e2744cd31271?source=copy_link"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Preguntas frecuentes❓
-          </a>
-        </div>
-
-        <div class="button-card">
-          <p class="button-intro">
-            Mira lo que han conseguido otras personas en tu misma situación.
-          </p>
-
-          <a
-            class="button button-primary"
-            href="https://www.notion.so/Casos-de-xito-1b5391c16449809aa18deb61bd534e8a?source=copy_link"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Casos de éxito⭐
-          </a>
-        </div>
-      </div>
-    </section>
-  </main>
 </body>
 </html>
