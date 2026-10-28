@@ -355,3 +355,29 @@ footer { border-top: 1px solid var(--line); padding: 28px 0; text-align: center;
   height: 100%;
   border: 0;
 }
+
+/* Página de casos de éxito */
+
+.tp-hero { padding: 70px 0 10px; }
+.tp-title { font-family: "Plus Jakarta Sans", sans-serif; text-transform: none; font-size: clamp(32px, 4.6vw, 52px); line-height: 1.1; letter-spacing: -1.4px; font-weight: 700; margin-top: 14px; }
+.tp-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: -18px; }
+.tp-chip { display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 999px; border: 1px solid var(--line); background: #fff; color: var(--black); font-weight: 700; font-size: 14px; text-decoration: none; box-shadow: 0 4px 12px rgba(11,42,61,.05); transition: border-color .2s, transform .2s; }
+.tp-chip:hover { border-color: var(--cyan); transform: translateY(-2px); }
+.tp-chip span { min-width: 24px; padding: 1px 7px; border-radius: 999px; background: var(--cyan-soft); color: var(--navy); font-size: 12px; text-align: center; }
+.tp-cat { padding: 70px 0 10px; scroll-margin-top: 70px; }
+.tp-cat-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.tp-cat-head h2 { font-size: clamp(26px, 3.4vw, 38px); margin: 0; }
+.tp-count { font-size: 14px; font-weight: 600; color: var(--muted); }
+.tp-count b { color: var(--cyan); }
+.tp-cta { display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; margin-top: 4px; }
+.tp-cta p { font-size: 16px; font-weight: 700; color: var(--black); }
+.tp-cat + .final { margin-top: 90px; }
+
+@media (max-width: 860px) {
+  .tp-hero { padding-top: 44px; }
+  .tp-chips { margin-top: -26px; gap: 8px; }
+  .tp-chip { font-size: 12.5px; padding: 7px 12px; }
+  .tp-cat { padding-top: 50px; }
+  .tp-cat-head { flex-direction: column; gap: 4px; }
+  .tp-cta p { font-size: 14px; }
+}
