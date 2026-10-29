@@ -13,7 +13,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="landing.css?v=4" />
+  <link rel="stylesheet" href="landing.css?v=5" />
   <script>
   // Portadas de YouTube en máxima calidad; si el vídeo no la tiene (error o imagen gris de 120 px), se usa hqdefault
   function ytThumb(img, failed) {
@@ -125,7 +125,6 @@
         </div>
       </article>
   </div>
-  <div class="dots" id="dots"></div>
   <div class="wrap">
     <div class="more"><a class="btn-more2" href="testimonios/index.html">Quiero ver más testimonios <span class="go"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></div>
   </div>
@@ -226,26 +225,13 @@
   </div>
 </div>
 
-<script src="script.js?v=4"></script>
+<script src="script.js?v=5"></script>
 <script>
 // Carrusel de testimonios: deslizable con el dedo, el trackpad o arrastrando con el ratón.
 (function () {
   var el = document.getElementById('carousel');
   if (!el) return;
-  var car;
-  var dotsBox = document.getElementById('dots');
-  var dots = Array.prototype.map.call(el.querySelectorAll('.tc'), function (card, i) {
-    var b = document.createElement('button');
-    b.setAttribute('aria-label', 'Ver caso ' + (i + 1));
-    b.addEventListener('click', function () { car.go(i, true); });
-    dotsBox.appendChild(b);
-    return b;
-  });
-
-  car = initCarousel(el, {
-    startAt: 1,
-    onChange: function (n) { dots.forEach(function (d, i) { d.classList.toggle('on', i === n); }); }
-  });
+  initCarousel(el, { startAt: 1 });
 })();
 </script>
 </body>
