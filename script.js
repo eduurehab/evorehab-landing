@@ -44,18 +44,21 @@ function initCarousel(el, opts) {
   opts = opts || {};
   var cards = [], aim = null, idle, raf;
 
-  // Envoltorio con una flecha a cada lado
+  // Envoltorio con las flechas juntas debajo del caso central
   var box = document.createElement('div');
   box.className = 'car';
   el.parentNode.insertBefore(box, el);
   box.appendChild(el);
+  var nav = document.createElement('div');
+  nav.className = 'car-nav';
+  box.appendChild(nav);
   function arrow(dir, label, d) {
     var b = document.createElement('button');
     b.type = 'button';
     b.className = 'car-arrow ' + dir;
     b.setAttribute('aria-label', label);
     b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="' + d + '" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-    box.appendChild(b);
+    nav.appendChild(b);
     return b;
   }
   var prev = arrow('prev', 'Caso anterior', 'M15 18l-6-6 6-6');
