@@ -141,6 +141,25 @@ h2 .cy { color: var(--cyan); }
 .tl-lb.r { color: #dc2626; } .tl-lb.g { color: #16a34a; }
 .tl-b { font-size: 14px; color: var(--muted); line-height: 1.5; }
 .tl-a { font-size: 14.5px; font-weight: 700; color: var(--black); line-height: 1.5; }
+/* Flechas ‹ › a cada lado del caso central, a la altura de la portada */
+.car { --w: 460px; --pad: 16px; position: relative; }
+.car-arrow { position: absolute; z-index: 3; top: calc(16px + var(--pad) + (var(--w) - 2 * var(--pad)) * 9 / 32); width: 50px; height: 50px; margin-top: -25px; padding: 0; border: 0; border-radius: 50%; display: grid; place-items: center; background: var(--navy); color: #00E5FF; cursor: pointer; box-shadow: 0 0 0 4px rgba(0,229,255,.18), 0 10px 26px rgba(11,42,61,.3); transition: opacity .25s, transform .2s, background .2s, color .2s; }
+.car-arrow svg { width: 24px; height: 24px; }
+.car-arrow.prev { left: calc(50% - var(--w) / 2 - 74px); }
+.car-arrow.next { right: calc(50% - var(--w) / 2 - 74px); }
+.car-arrow:hover { background: #00E5FF; color: var(--navy); transform: scale(1.06); }
+.car-arrow:focus-visible { outline: 2px solid #00E5FF; outline-offset: 3px; }
+.car-arrow:disabled { opacity: .28; cursor: default; pointer-events: none; }
+
+/* Última tarjeta: "Ver más casos" / "Ver menos" */
+.tc-more { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; border: 0; cursor: pointer; font: inherit; color: #fff; background: radial-gradient(420px 260px at 80% 0%, rgba(0,229,255,.26), transparent 70%), var(--navy); }
+.tm-ic { position: relative; width: 64px; height: 64px; border-radius: 50%; border: 2px solid #00E5FF; box-shadow: 0 0 0 8px rgba(0,229,255,.12); transition: background .2s, transform .2s; }
+.tm-ic::before, .tm-ic::after { content: ""; position: absolute; left: 50%; top: 50%; width: 24px; height: 3px; margin: -1.5px 0 0 -12px; border-radius: 2px; background: #00E5FF; }
+.tm-ic::after { transform: rotate(90deg); transition: transform .25s; }
+.tc-more[aria-expanded="true"] .tm-ic::after { transform: rotate(0deg); }
+.tc-more:hover .tm-ic { background: rgba(0,229,255,.14); transform: scale(1.06); }
+.tm-lb { font-size: 21px; font-weight: 800; letter-spacing: -.3px; }
+
 .dots { display: flex; justify-content: center; gap: 8px; }
 .dots button { width: 8px; height: 8px; border-radius: 4px; border: 0; padding: 0; background: #d5dee4; cursor: pointer; transition: width .25s, background .25s; }
 .dots button.on { width: 24px; background: var(--cyan); }
@@ -297,6 +316,14 @@ footer { border-top: 1px solid var(--line); padding: 28px 0; text-align: center;
   .final-box { padding: 48px 22px; }
   .final-box p { font-size: 13.5px; line-height: 1.5; }
   .carousel { --w: min(72vw, 460px); gap: 12px; -webkit-mask-image: none; mask-image: none; }
+  /* Flechas pequeñas en el hueco lateral, sin tapar la portada del caso central */
+  .car { --w: min(72vw, 460px); --pad: 10px; }
+  .car-arrow { width: 32px; height: 32px; margin-top: -16px; box-shadow: 0 0 0 3px rgba(0,229,255,.18), 0 6px 16px rgba(11,42,61,.3); }
+  .car-arrow svg { width: 17px; height: 17px; }
+  .car-arrow.prev { left: max(4px, calc((50% - var(--w) / 2 - 12px - 32px) / 2)); }
+  .car-arrow.next { right: max(4px, calc((50% - var(--w) / 2 - 12px - 32px) / 2)); }
+  .tm-ic { width: 52px; height: 52px; box-shadow: 0 0 0 6px rgba(0,229,255,.12); }
+  .tm-lb { font-size: 17px; }
   .tc-head { flex-direction: column; align-items: flex-start; gap: 6px; }
   .testi, .testi:nth-child(even), .chat-sec, .forwhom, .compare { grid-template-columns: 1fr; }
   .chat-sec { gap: 20px; }
@@ -377,8 +404,13 @@ footer { border-top: 1px solid var(--line); padding: 28px 0; text-align: center;
 .tp-chip { display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 999px; border: 1px solid var(--line); background: #fff; color: var(--black); font-weight: 700; font-size: 14px; text-decoration: none; box-shadow: 0 4px 12px rgba(11,42,61,.05); transition: border-color .2s, transform .2s; }
 .tp-chip:hover { border-color: var(--cyan); transform: translateY(-2px); }
 .tp-cat { padding: 70px 0 10px; scroll-margin-top: 70px; }
-.tp-cat-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.tp-cat-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 .tp-cat-head h2 { font-size: clamp(26px, 3.4vw, 38px); margin: 0; }
+.tp-cat-title { display: flex; align-items: center; gap: 16px; }
+/* Dibujo de la rodilla con la zona lesionada en cian */
+.knee { flex: none; width: 64px; height: 64px; border-radius: 18px; background: radial-gradient(circle at 70% 25%, #124e70, var(--navy) 70%); box-shadow: 0 10px 24px rgba(11,42,61,.22), inset 0 0 0 1px rgba(0,229,255,.18); }
+.kn-hl { fill: none; stroke: #00E5FF; stroke-width: 5; stroke-linecap: round; filter: url(#knee-glow); }
+.kn-hl.kn-f { fill: #00E5FF; stroke-width: 1.5; stroke-linejoin: round; }
 .tp-count { font-size: 14px; font-weight: 600; color: var(--muted); }
 .tp-count b { color: var(--cyan); }
 .tp-cta { display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; margin-top: 4px; }
@@ -390,6 +422,8 @@ footer { border-top: 1px solid var(--line); padding: 28px 0; text-align: center;
   .tp-chips { margin-top: -26px; gap: 8px; }
   .tp-chip { font-size: 12.5px; padding: 7px 12px; }
   .tp-cat { padding-top: 50px; }
-  .tp-cat-head { flex-direction: column; gap: 4px; }
+  .tp-cat-head { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .tp-cat-title { gap: 10px; }
+  .knee { width: 46px; height: 46px; border-radius: 13px; }
   .tp-cta p { font-size: 14px; }
 }
