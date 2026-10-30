@@ -668,6 +668,16 @@
 
 <script src="../script.js?v=5"></script>
 <script>
+// Si se llega desde la prellamada, "Volver" lleva de vuelta a la prellamada
+(function () {
+  try {
+    var from = new URL(document.referrer);
+    if (from.origin === location.origin && from.pathname.indexOf('/prellamada') === 0) {
+      document.querySelector('.back').href = from.href;
+    }
+  } catch (e) {}
+})();
+
 // Un carrusel por lesión (initCarousel está en script.js)
 document.querySelectorAll('.tp-cat').forEach(function (section) {
   var el = section.querySelector('.carousel');

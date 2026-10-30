@@ -11,282 +11,272 @@
     content="EVOREHAB es un programa online de readaptación de rodilla para deportistas lesionados que quieren volver a entrenar con seguridad."
   />
 
-  <link rel="stylesheet" href="../styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../landing.css?v=6" />
+  <script>
+  // Portadas de YouTube en máxima calidad; si el vídeo no la tiene (error o imagen gris de 120 px), se usa hqdefault
+  function ytThumb(img, failed) {
+    if (img.src.indexOf('/maxresdefault.jpg') < 0) return;
+    if (failed || img.naturalWidth <= 120) img.src = img.src.replace('/maxresdefault.jpg', '/hqdefault.jpg');
+  }
+  </script>
 </head>
-
 <body>
-  <main class="landing">
 
-    <section class="section hero-section">
-      <div class="badge">
-        @edu.rehab · EVOREHAB
-      </div>
+<header>
+  <div class="wrap">
+    <span class="logo"><img src="../assets/logo-evorehab.png" alt="EVOREHAB" /></span>
+  </div>
+</header>
 
-      <h1>
-        Mira esto antes de tu videollamada
-      </h1>
-
-      <p class="subtitle">
-        Para que aprovechemos al máximo el tiempo en ella, observa el siguiente vídeo, y así en la videollamada podremos centrarnos directamente en tu caso concreto, en lo que te está bloqueando ahora mismo y en qué pasos tendría sentido dar.
-      </p>
-
-      <div class="video-wrapper">
-        <iframe
-          src="https://www.youtube.com/embed/_WQz8iVJQ5g?autoplay=0&rel=0"
-          title="Vídeo prellamada EVOREHAB"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>
-      </div>
-    </section>
-
-    <div class="page-divider"></div>
-
-    <!-- FAQ -->
-    <section class="section faq-section">
-      <h2 class="section-title">Preguntas frecuentes</h2>
-      <p class="section-lead">
-        Antes de tomar cualquier decisión, es importante entender bien cómo funciona el proceso. Aquí te explicamos, sin rodeos, los puntos que más suelen generar dudas.
-      </p>
-
-      <div class="faq-list">
-
-        <details class="faq-item">
-          <summary>¿Es este programa para mí?</summary>
-          <div class="faq-answer">
-            <p>Si tienes un dolor o lesión de rodilla, quieres recuperarte de verdad y estás dispuesto a implicarte en el proceso... sí, este programa es para ti.</p>
-            <p>Requiere compromiso y continuidad, por lo que no es adecuado para quien busca soluciones rápidas o "mágicas".</p>
-          </div>
-        </details>
-
-        <details class="faq-item">
-          <summary>¿Puedes conseguir resultados si el entrenador no te ve en persona?</summary>
-          <div class="faq-answer">
-            <p>Sí, se puede.</p>
-            <p>Es normal dudar de un sistema de trabajo cuando nunca lo has usado, pero si lo analizas desde una perspectiva científica, te darás cuenta de que es posible.</p>
-            <p><strong>Plantéate: ¿Qué es lo que hace que un deportista obtenga resultados?</strong></p>
-            <p>No es que el entrenador te vea o te toque, sino cómo, cuántas veces y con qué calidad entrenas.</p>
-            <p>Para que una rodilla mejore necesita:</p>
-            <ul>
-              <li>estímulo frecuente</li>
-              <li>progresión</li>
-              <li>seguimiento</li>
-              <li>y ajustes constantes</li>
-            </ul>
-            <p>Eso no depende de estar en la misma sala, sino de cómo se organiza el proceso. En muchos modelos presenciales:</p>
-            <ul>
-              <li>entrenas 1–2 veces por semana (como mucho)</li>
-              <li>dependes de horarios, cancelaciones o imprevistos</li>
-              <li>y el trabajo se centra solo en la sesión, sin controlar otras variables importantes, ni lo que haces fuera de ella</li>
-            </ul>
-            <p>En un modelo online bien hecho:</p>
-            <ul>
-              <li>puedes entrenar los días que realmente necesitas</li>
-              <li>adaptas el entrenamiento a tu semana real y los imprevistos que te puedan surgir</li>
-              <li>se tienen en cuenta factores como descanso, carga, estrés y hábitos</li>
-              <li>y recibes correcciones personalizadas mediante vídeos y seguimiento continuo</li>
-            </ul>
-            <p>Por eso, en muchos casos, la readaptación online permite avanzar más rápido que el presencial: porque suma estímulos más días a la semana y no deja la recuperación en manos de una sola sesión.</p>
-            <p><strong>Lo importante no es dónde entrenas. Lo importante es cómo de bien y con qué frecuencia trabajas tu rodilla.</strong></p>
-          </div>
-        </details>
-
-        <details class="faq-item">
-          <summary>¿Qué pasa si tengo dolor mientras entreno?</summary>
-          <div class="faq-answer">
-            <p>Es normal que durante el proceso aparezcan molestias, sobre todo al inicio o al introducir nuevos estímulos.</p>
-            <p>El objetivo no es entrenar con dolor descontrolado, sino aprender a gestionarlo, ajustar cargas y progresar sin empeorar los síntomas.</p>
-            <p>Si algo molesta más de lo esperado, se adapta. No se fuerza ni se ignora.</p>
-            <p>Eso es precisamente lo que vas a aprender aquí: estrategias para gestionar el dolor, reducirlo progresivamente y evitar que vuelva a limitarte en tu día a día.</p>
-          </div>
-        </details>
-
-        <details class="faq-item">
-          <summary>¿Cuántos días a la semana tendría que entrenar?</summary>
-          <div class="faq-answer">
-            <p><strong>El programa se adapta a la persona y no la persona al programa.</strong></p>
-            <p>¿Qué quiere decir esto?</p>
-            <p>Que no hay un número fijo de días que tengas que entrenar por obligación. La frecuencia depende de tu lesión, del momento en el que estés y del tiempo real que puedas dedicarle.</p>
-            <p>El objetivo es encontrar una estructura que puedas mantener en el tiempo y que permita que tu rodilla mejore, sin imponerte un plan que no encaje con tu vida.</p>
-            <p>Si en algún momento tu disponibilidad cambia, el plan se ajusta. La prioridad es que puedas entrenar con continuidad y sentido, no que encajes en un esquema rígido.</p>
-          </div>
-        </details>
-
-        <details class="faq-item">
-          <summary>He probado muchas cosas y nada parece dar resultado, ¿qué tiene esto de diferente?</summary>
-          <div class="faq-answer">
-            <p><strong>¡Es normal que pienses así!</strong></p>
-            <p>Yo tengo claro que también lo haría.</p>
-            <p>La mayoría de personas que llegan aquí no lo hacen a la primera.</p>
-            <p>Suelen venir después de haber probado fisio, ejercicios sueltos, reposo, recomendaciones contradictorias o incluso varios intentos de volver al deporte... sin éxito. Así que no eres el único.</p>
-            <p>Como ya te he comentado, aquí se trabaja de forma activa en tu lesión y en base a una estrategia clara y definida, y eso es lo que muchas veces falta cuando llevas tiempo estancado.</p>
-            <p>Por eso, aunque hayas probado muchas cosas antes, aquí vas a dejar de dar palos de ciego: vas a saber qué hacer, cuándo hacerlo y cómo adaptarlo según tu evolución.</p>
-          </div>
-        </details>
-
-        <details class="faq-item">
-          <summary>¿Cuánto tiempo suele tardarse en notar mejoras?</summary>
-          <div class="faq-answer">
-            <p>No hay una respuesta única a esta pregunta, depende mucho de cada caso. Dos personas con la misma lesión y que practiquen el mismo deporte, van a avanzar a ritmos completamente diferentes.</p>
-            <p>Influyen factores como el punto de partida, el historial de lesiones, la tolerancia al dolor, el nivel de fuerza previo o la constancia con el entrenamiento.</p>
-            <p>Lo que sí es común es que, cuando se deja de improvisar y se empieza a trabajar con una estrategia clara, ejercicios adecuados y estímulos frecuentes, las mejoras suelen aparecer antes que en procesos poco estructurados.</p>
-            <p><strong>No se trata de ir rápido, sino de ir en la dirección correcta.</strong></p>
-            <p>Eso es lo que permite que el progreso sea más estable y sostenido en el tiempo.</p>
-          </div>
-        </details>
-
-        <details class="faq-item">
-          <summary>¿Qué pasa si no soy constante o me cuesta seguir el plan?</summary>
-          <div class="faq-answer">
-            <p>Es una preocupación muy habitual, y por eso el proceso no se basa únicamente en enviarte un plan y esperar que lo cumplas sin más.</p>
-            <p>No todos los días se entrena igual ni se tiene la misma motivación, y eso forma parte del proceso.</p>
-            <p>El seguimiento continuo, el contacto frecuente, las videollamadas periódicas y los controles (tests) que se van realizando durante el proceso están pensados precisamente para ayudarte a mantener la constancia y ajustar el plan cuando sea necesario.</p>
-            <p>Si en algún momento baja la motivación o surgen dificultades, se verbaliza y se cambia el enfoque para poder seguir avanzando.</p>
-            <p><strong>No se trata de hacerlo perfecto, sino de hacerlo sostenible...</strong></p>
-            <p>Y esto se consigue gracias a tener una estructura clara y un acompañamiento que lo facilite.</p>
-          </div>
-        </details>
-
-        <details class="faq-item">
-          <summary>¿Y si no tengo experiencia entrenando o nunca he ido al gimnasio?</summary>
-          <div class="faq-answer">
-            <p>Es normal que tengas este miedo. "A ver qué tipos de ejercicios me mandan y si voy a saber hacerlo..." es una preocupación que yo también tendría.</p>
-            <p>La realidad es que no tener experiencia entrenando no es un impedimento.</p>
-            <p>El proceso no parte de ejercicios complejos ni de niveles avanzados, sino de tu punto de partida real, por eso realizamos la videollamada y una valoración física inicial.</p>
-            <p>El trabajo se adapta desde el primer día y se va progresando poco a poco, con explicaciones claras y ajustes continuos para que entrenar no sea una fuente de estrés ni de miedo.</p>
-            <p>Además, una de las ventajas del entrenamiento online es que puedes revisar los vídeos explicativos tantas veces como necesites y grabarte para comparar tu técnica, tanto con el ejemplo como con tu propia evolución con el paso del tiempo.</p>
-          </div>
-        </details>
-
-        <details class="faq-item">
-          <summary>¿Cómo sé que estoy haciendo los ejercicios correctamente si el trabajo es online?</summary>
-          <div class="faq-answer">
-            <p>El objetivo no es que ejecutes los ejercicios "perfectos" desde el primer día, sino que el proceso esté supervisado y vaya evolucionando contigo.</p>
-            <p>A lo largo del programa se revisa cómo realizas los ejercicios <strong>a diario</strong>, gracias a esto he visto cómo personas realizaban algunos ejercicios con muchos errores la primera vez, y cómo al finalizar el programa su ejecución era igual o incluso mejor que la mía.</p>
-            <p>Las revisiones diarias permiten detectar errores a tiempo antes de que se conviertan en un problema real. No pasa nada por realizarlos mal una vez, pero sí por hacerlos mal de forma continuada.</p>
-          </div>
-        </details>
-
-        <details class="faq-item">
-          <summary>¿Me garantizáis resultados?</summary>
-          <div class="faq-answer">
-            <p>¿Te fiarías de alguien que te garantiza una recuperación total sin tener en cuenta tu punto de partida, tu experiencia con el entrenamiento, tu historial de lesiones, tu tiempo disponible o tu implicación en el proceso?</p>
-            <p><strong>Nosotros tampoco.</strong></p>
-            <p>No garantizamos resultados, y de hecho te recomendamos desconfiar de quien lo haga, porque nadie puede trabajar por ti ni saber cómo va a responder tu rodilla desde el primer día.</p>
-            <p>Lo que sí podemos garantizarte es que:</p>
-            <ul>
-              <li>Trabajarás con un plan adaptado a tu caso concreto, no con ejercicios genéricos.</li>
-              <li>Habrá seguimiento continuo y ajustes según cómo respondas a los entrenamientos.</li>
-              <li>El proceso estará basado en criterio, experiencia y progresión, no en falsas promesas ni algo "mágico".</li>
-            </ul>
-            <p><strong>La recuperación no es magia.</strong></p>
-            <p>Es un proceso que depende de muchos factores, y nuestro trabajo es guiarte, ajustarte el camino y ayudarte a avanzar con sentido.</p>
-          </div>
-        </details>
-
-      </div>
-    </section>
-
-    <div class="page-divider"></div>
-
-    <!-- TESTIMONIOS (opcional, sin presión) -->
-    <section class="section testimonials-section">
-      <h2 class="section-title">Si te apetece, así lo cuentan ellos mismos</h2>
-      <p class="section-lead">
-        No es obligatorio que los veas antes de la llamada, pero por si te ayuda: así es como algunas personas en tu misma situación han vivido el proceso.
-      </p>
-
-      <div class="testimonials-grid">
-
-        <article class="testimonial-card">
-          <a href="https://youtu.be/17c42B9orIE" rel="noopener noreferrer" class="testimonial-video" data-yt-id="17c42B9orIE">
-            <img src="https://img.youtube.com/vi/17c42B9orIE/hqdefault.jpg" alt="" />
-            <span class="play-badge">▶</span>
-          </a>
-          <h3 class="testimonial-name">Emilio M.</h3>
-          <p class="testimonial-injury">Cirugía LCA</p>
-
-          <div class="before-after">
-            <div class="before-after-col before-col">
-              <span class="before-after-tag tag-before">Antes</span>
-              <p>Recién operado, sin movilidad, y sensación de fracaso tras cirugía.</p>
-            </div>
-            <div class="before-after-col after-col">
-              <span class="before-after-tag tag-after">Después</span>
-              <p>Vuelve a fútbol 7 meses tras operarse, al mismo nivel que antes.</p>
-            </div>
-          </div>
-        </article>
-
-        <article class="testimonial-card">
-          <a href="https://youtu.be/pgtwjihgiUM" rel="noopener noreferrer" class="testimonial-video" data-yt-id="pgtwjihgiUM">
-            <img src="https://img.youtube.com/vi/pgtwjihgiUM/hqdefault.jpg" alt="" />
-            <span class="play-badge">▶</span>
-          </a>
-          <h3 class="testimonial-name">Raquel G.</h3>
-          <p class="testimonial-injury">Condromalacia II, menisco, quiste de Baker y derrame articular</p>
-
-          <div class="before-after">
-            <div class="before-after-col before-col">
-              <span class="before-after-tag tag-before">Antes</span>
-              <p>Sin poder hacer sus deportes favoritos por culpa del dolor y las limitaciones.</p>
-            </div>
-            <div class="before-after-col after-col">
-              <span class="before-after-tag tag-after">Después</span>
-              <p>Movilidad completa, 0 dolor. Bailando, yendo a la montaña y corriendo.</p>
-            </div>
-          </div>
-        </article>
-
-        <article class="testimonial-card">
-          <a href="https://youtu.be/pjUF-SeAlkE" rel="noopener noreferrer" class="testimonial-video" data-yt-id="pjUF-SeAlkE">
-            <img src="https://img.youtube.com/vi/pjUF-SeAlkE/hqdefault.jpg" alt="" />
-            <span class="play-badge">▶</span>
-          </a>
-          <h3 class="testimonial-name">Samir e.A</h3>
-          <p class="testimonial-injury">Tendinopatía rotuliana</p>
-
-          <div class="before-after">
-            <div class="before-after-col before-col">
-              <span class="before-after-tag tag-before">Antes</span>
-              <p>Sin poder jugar más de 30 minutos al pádel y sin poder entrenar en el gimnasio por dolor.</p>
-            </div>
-            <div class="before-after-col after-col">
-              <span class="before-after-tag tag-after">Después</span>
-              <p>Jugando partidos de pádel sin dolor, y cargando más que antes en gimnasio.</p>
-            </div>
-          </div>
-        </article>
-
-      </div>
-
-      <div class="single-button-wrapper testimonials-more">
-        <a class="button button-outline single-cta" href="../testimonios/">
-          Quiero ver más testimonios
-        </a>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- Modal de vídeo: se abre encima de la página, sin salir a YouTube -->
-  <div class="video-modal" id="videoModal" aria-hidden="true">
-    <div class="video-modal-backdrop" data-close></div>
-    <div class="video-modal-content">
-      <button class="video-modal-close" data-close aria-label="Cerrar vídeo">✕</button>
-      <div class="video-modal-frame">
-        <iframe
-          id="videoModalIframe"
-          src=""
-          title="Vídeo"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>
-      </div>
+<div class="hero pre-hero">
+  <div class="wrap">
+    <h1>Mira esto antes de<br /><span class="cy">tu videollamada</span></h1>
+    <p class="lead">Para que aprovechemos al máximo el tiempo en ella, observa el siguiente vídeo, y así en la videollamada podremos centrarnos directamente en tu caso concreto, en lo que te está bloqueando ahora mismo y en qué pasos tendría sentido dar.</p>
+    <div class="pre-vid">
+      <iframe
+        src="https://www.youtube.com/embed/_WQz8iVJQ5g?autoplay=0&rel=0"
+        title="Vídeo prellamada EVOREHAB"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
     </div>
   </div>
+</div>
 
-  <script src="../script.js"></script>
+<!-- Icono de bandera de meta -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-finish" viewBox="0 0 24 24">
+      <clipPath id="fl"><path d="M6 4.5c2.5-1.6 5-1.6 7.5 0s5 1.6 6.5.4v7.7c-1.5 1.2-4 1.2-6.5-.4s-5-1.6-7.5 0z"/></clipPath>
+      <g clip-path="url(#fl)">
+        <rect x="5" y="2" width="16" height="13" fill="#fff"/>
+        <g fill="#15803d">
+          <rect x="6" y="2" width="3.5" height="3.3"/><rect x="13" y="2" width="3.5" height="3.3"/>
+          <rect x="9.5" y="5.3" width="3.5" height="3.3"/><rect x="16.5" y="5.3" width="3.5" height="3.3"/>
+          <rect x="6" y="8.6" width="3.5" height="3.3"/><rect x="13" y="8.6" width="3.5" height="3.3"/>
+          <rect x="9.5" y="11.9" width="3.5" height="3.3"/><rect x="16.5" y="11.9" width="3.5" height="3.3"/>
+        </g>
+      </g>
+      <path d="M6 4.5c2.5-1.6 5-1.6 7.5 0s5 1.6 6.5.4v7.7c-1.5 1.2-4 1.2-6.5-.4s-5-1.6-7.5 0" fill="none" stroke="#15803d" stroke-width="1.4" stroke-linejoin="round"/>
+      <path d="M6 21V3.5" stroke="#15803d" stroke-width="2" stroke-linecap="round"/>
+    </symbol>
+  </defs>
+</svg>
 
+<section>
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="kicker">Sin rodeos</span>
+      <h2>Preguntas <span class="cy">frecuentes</span></h2>
+      <p>Antes de tomar cualquier decisión, es importante entender bien cómo funciona el proceso. Aquí te explicamos, sin rodeos, los puntos que más suelen generar dudas.</p>
+    </div>
+
+    <div class="faq">
+
+      <details class="faq-q">
+        <summary><span class="fq-t">¿Es este programa para mí?</span><span class="fq-ic"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></summary>
+        <div class="faq-a">
+          <p>Si tienes un dolor o lesión de rodilla, quieres recuperarte de verdad y estás dispuesto a implicarte en el proceso... sí, este programa es para ti.</p>
+          <p>Requiere compromiso y continuidad, por lo que no es adecuado para quien busca soluciones rápidas o "mágicas".</p>
+        </div>
+      </details>
+
+      <details class="faq-q">
+        <summary><span class="fq-t">¿Puedes conseguir resultados si el entrenador no te ve en persona?</span><span class="fq-ic"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></summary>
+        <div class="faq-a">
+          <p>Sí, se puede.</p>
+          <p>Es normal dudar de un sistema de trabajo cuando nunca lo has usado, pero si lo analizas desde una perspectiva científica, te darás cuenta de que es posible.</p>
+          <p><strong>Plantéate: ¿Qué es lo que hace que un deportista obtenga resultados?</strong></p>
+          <p>No es que el entrenador te vea o te toque, sino cómo, cuántas veces y con qué calidad entrenas.</p>
+          <p>Para que una rodilla mejore necesita:</p>
+          <ul>
+            <li>estímulo frecuente</li>
+            <li>progresión</li>
+            <li>seguimiento</li>
+            <li>y ajustes constantes</li>
+          </ul>
+          <p>Eso no depende de estar en la misma sala, sino de cómo se organiza el proceso. En muchos modelos presenciales:</p>
+          <ul>
+            <li>entrenas 1–2 veces por semana (como mucho)</li>
+            <li>dependes de horarios, cancelaciones o imprevistos</li>
+            <li>y el trabajo se centra solo en la sesión, sin controlar otras variables importantes, ni lo que haces fuera de ella</li>
+          </ul>
+          <p>En un modelo online bien hecho:</p>
+          <ul>
+            <li>puedes entrenar los días que realmente necesitas</li>
+            <li>adaptas el entrenamiento a tu semana real y los imprevistos que te puedan surgir</li>
+            <li>se tienen en cuenta factores como descanso, carga, estrés y hábitos</li>
+            <li>y recibes correcciones personalizadas mediante vídeos y seguimiento continuo</li>
+          </ul>
+          <p>Por eso, en muchos casos, la readaptación online permite avanzar más rápido que el presencial: porque suma estímulos más días a la semana y no deja la recuperación en manos de una sola sesión.</p>
+          <p><strong>Lo importante no es dónde entrenas. Lo importante es cómo de bien y con qué frecuencia trabajas tu rodilla.</strong></p>
+        </div>
+      </details>
+
+      <details class="faq-q">
+        <summary><span class="fq-t">¿Qué pasa si tengo dolor mientras entreno?</span><span class="fq-ic"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></summary>
+        <div class="faq-a">
+          <p>Es normal que durante el proceso aparezcan molestias, sobre todo al inicio o al introducir nuevos estímulos.</p>
+          <p>El objetivo no es entrenar con dolor descontrolado, sino aprender a gestionarlo, ajustar cargas y progresar sin empeorar los síntomas.</p>
+          <p>Si algo molesta más de lo esperado, se adapta. No se fuerza ni se ignora.</p>
+          <p>Eso es precisamente lo que vas a aprender aquí: estrategias para gestionar el dolor, reducirlo progresivamente y evitar que vuelva a limitarte en tu día a día.</p>
+        </div>
+      </details>
+
+      <details class="faq-q">
+        <summary><span class="fq-t">¿Cuántos días a la semana tendría que entrenar?</span><span class="fq-ic"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></summary>
+        <div class="faq-a">
+          <p><strong>El programa se adapta a la persona y no la persona al programa.</strong></p>
+          <p>¿Qué quiere decir esto?</p>
+          <p>Que no hay un número fijo de días que tengas que entrenar por obligación. La frecuencia depende de tu lesión, del momento en el que estés y del tiempo real que puedas dedicarle.</p>
+          <p>El objetivo es encontrar una estructura que puedas mantener en el tiempo y que permita que tu rodilla mejore, sin imponerte un plan que no encaje con tu vida.</p>
+          <p>Si en algún momento tu disponibilidad cambia, el plan se ajusta. La prioridad es que puedas entrenar con continuidad y sentido, no que encajes en un esquema rígido.</p>
+        </div>
+      </details>
+
+      <details class="faq-q">
+        <summary><span class="fq-t">He probado muchas cosas y nada parece dar resultado, ¿qué tiene esto de diferente?</span><span class="fq-ic"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></summary>
+        <div class="faq-a">
+          <p><strong>¡Es normal que pienses así!</strong></p>
+          <p>Yo tengo claro que también lo haría.</p>
+          <p>La mayoría de personas que llegan aquí no lo hacen a la primera.</p>
+          <p>Suelen venir después de haber probado fisio, ejercicios sueltos, reposo, recomendaciones contradictorias o incluso varios intentos de volver al deporte... sin éxito. Así que no eres el único.</p>
+          <p>Como ya te he comentado, aquí se trabaja de forma activa en tu lesión y en base a una estrategia clara y definida, y eso es lo que muchas veces falta cuando llevas tiempo estancado.</p>
+          <p>Por eso, aunque hayas probado muchas cosas antes, aquí vas a dejar de dar palos de ciego: vas a saber qué hacer, cuándo hacerlo y cómo adaptarlo según tu evolución.</p>
+        </div>
+      </details>
+
+      <details class="faq-q">
+        <summary><span class="fq-t">¿Cuánto tiempo suele tardarse en notar mejoras?</span><span class="fq-ic"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></summary>
+        <div class="faq-a">
+          <p>No hay una respuesta única a esta pregunta, depende mucho de cada caso. Dos personas con la misma lesión y que practiquen el mismo deporte, van a avanzar a ritmos completamente diferentes.</p>
+          <p>Influyen factores como el punto de partida, el historial de lesiones, la tolerancia al dolor, el nivel de fuerza previo o la constancia con el entrenamiento.</p>
+          <p>Lo que sí es común es que, cuando se deja de improvisar y se empieza a trabajar con una estrategia clara, ejercicios adecuados y estímulos frecuentes, las mejoras suelen aparecer antes que en procesos poco estructurados.</p>
+          <p><strong>No se trata de ir rápido, sino de ir en la dirección correcta.</strong></p>
+          <p>Eso es lo que permite que el progreso sea más estable y sostenido en el tiempo.</p>
+        </div>
+      </details>
+
+      <details class="faq-q">
+        <summary><span class="fq-t">¿Qué pasa si no soy constante o me cuesta seguir el plan?</span><span class="fq-ic"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></summary>
+        <div class="faq-a">
+          <p>Es una preocupación muy habitual, y por eso el proceso no se basa únicamente en enviarte un plan y esperar que lo cumplas sin más.</p>
+          <p>No todos los días se entrena igual ni se tiene la misma motivación, y eso forma parte del proceso.</p>
+          <p>El seguimiento continuo, el contacto frecuente, las videollamadas periódicas y los controles (tests) que se van realizando durante el proceso están pensados precisamente para ayudarte a mantener la constancia y ajustar el plan cuando sea necesario.</p>
+          <p>Si en algún momento baja la motivación o surgen dificultades, se verbaliza y se cambia el enfoque para poder seguir avanzando.</p>
+          <p><strong>No se trata de hacerlo perfecto, sino de hacerlo sostenible...</strong></p>
+          <p>Y esto se consigue gracias a tener una estructura clara y un acompañamiento que lo facilite.</p>
+        </div>
+      </details>
+
+      <details class="faq-q">
+        <summary><span class="fq-t">¿Y si no tengo experiencia entrenando o nunca he ido al gimnasio?</span><span class="fq-ic"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></summary>
+        <div class="faq-a">
+          <p>Es normal que tengas este miedo. "A ver qué tipos de ejercicios me mandan y si voy a saber hacerlo..." es una preocupación que yo también tendría.</p>
+          <p>La realidad es que no tener experiencia entrenando no es un impedimento.</p>
+          <p>El proceso no parte de ejercicios complejos ni de niveles avanzados, sino de tu punto de partida real, por eso realizamos la videollamada y una valoración física inicial.</p>
+          <p>El trabajo se adapta desde el primer día y se va progresando poco a poco, con explicaciones claras y ajustes continuos para que entrenar no sea una fuente de estrés ni de miedo.</p>
+          <p>Además, una de las ventajas del entrenamiento online es que puedes revisar los vídeos explicativos tantas veces como necesites y grabarte para comparar tu técnica, tanto con el ejemplo como con tu propia evolución con el paso del tiempo.</p>
+        </div>
+      </details>
+
+      <details class="faq-q">
+        <summary><span class="fq-t">¿Cómo sé que estoy haciendo los ejercicios correctamente si el trabajo es online?</span><span class="fq-ic"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></summary>
+        <div class="faq-a">
+          <p>El objetivo no es que ejecutes los ejercicios "perfectos" desde el primer día, sino que el proceso esté supervisado y vaya evolucionando contigo.</p>
+          <p>A lo largo del programa se revisa cómo realizas los ejercicios <strong>a diario</strong>, gracias a esto he visto cómo personas realizaban algunos ejercicios con muchos errores la primera vez, y cómo al finalizar el programa su ejecución era igual o incluso mejor que la mía.</p>
+          <p>Las revisiones diarias permiten detectar errores a tiempo antes de que se conviertan en un problema real. No pasa nada por realizarlos mal una vez, pero sí por hacerlos mal de forma continuada.</p>
+        </div>
+      </details>
+
+      <details class="faq-q">
+        <summary><span class="fq-t">¿Me garantizáis resultados?</span><span class="fq-ic"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></summary>
+        <div class="faq-a">
+          <p>¿Te fiarías de alguien que te garantiza una recuperación total sin tener en cuenta tu punto de partida, tu experiencia con el entrenamiento, tu historial de lesiones, tu tiempo disponible o tu implicación en el proceso?</p>
+          <p><strong>Nosotros tampoco.</strong></p>
+          <p>No garantizamos resultados, y de hecho te recomendamos desconfiar de quien lo haga, porque nadie puede trabajar por ti ni saber cómo va a responder tu rodilla desde el primer día.</p>
+          <p>Lo que sí podemos garantizarte es que:</p>
+          <ul>
+            <li>Trabajarás con un plan adaptado a tu caso concreto, no con ejercicios genéricos.</li>
+            <li>Habrá seguimiento continuo y ajustes según cómo respondas a los entrenamientos.</li>
+            <li>El proceso estará basado en criterio, experiencia y progresión, no en falsas promesas ni algo "mágico".</li>
+          </ul>
+          <p><strong>La recuperación no es magia.</strong></p>
+          <p>Es un proceso que depende de muchos factores, y nuestro trabajo es guiarte, ajustarte el camino y ayudarte a avanzar con sentido.</p>
+        </div>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<section style="padding-top: 0;">
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="kicker">Casos de éxito</span>
+      <h2>Si te apetece, así lo cuentan <span class="cy">ellos mismos</span></h2>
+      <p>No es obligatorio que los veas antes de la llamada, pero por si te ayuda: así es como algunas personas en tu misma situación han vivido el proceso.</p>
+    </div>
+  </div>
+  <div class="carousel" id="carousel">
+      <article class="tc">
+        <a class="tc-vid" href="https://youtu.be/pgtwjihgiUM" data-yt-id="pgtwjihgiUM"><img src="https://img.youtube.com/vi/pgtwjihgiUM/maxresdefault.jpg" onload="ytThumb(this)" onerror="ytThumb(this, true)" alt="" draggable="false" /><span class="tc-play" aria-label="Reproducir vídeo"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span></a>
+        <div class="tc-head"><span class="tc-inj">Menisco roto y condromalacia II</span><span class="tc-name">Raquel G. · 50 años</span></div>
+        <div class="tc-tl">
+          <div class="tl-row"><span class="tl-dot"></span><div><span class="tl-lb r">Antes</span><p class="tl-b">Sin poder hacer sus deportes favoritos por el dolor y las limitaciones.</p></div></div>
+          <div class="tl-row"><span class="tl-flag"><svg><use href="#i-finish"/></svg></span><div><span class="tl-lb g">Después</span><p class="tl-a">Movilidad completa, 0 dolor. Bailando, yendo a la montaña y corriendo.</p></div></div>
+        </div>
+      </article>
+      <article class="tc">
+        <a class="tc-vid" href="https://youtu.be/17c42B9orIE" data-yt-id="17c42B9orIE"><img src="https://img.youtube.com/vi/17c42B9orIE/maxresdefault.jpg" onload="ytThumb(this)" onerror="ytThumb(this, true)" alt="" draggable="false" /><span class="tc-play" aria-label="Reproducir vídeo"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span></a>
+        <div class="tc-head"><span class="tc-inj">Cirugía LCA</span><span class="tc-name">Emilio M. · 25 años</span></div>
+        <div class="tc-tl">
+          <div class="tl-row"><span class="tl-dot"></span><div><span class="tl-lb r">Antes</span><p class="tl-b">Recién operado, sin movilidad, y sensación de fracaso tras la cirugía.</p></div></div>
+          <div class="tl-row"><span class="tl-flag"><svg><use href="#i-finish"/></svg></span><div><span class="tl-lb g">Después</span><p class="tl-a">Vuelve al fútbol 7 meses tras operarse, al mismo nivel que antes.</p></div></div>
+        </div>
+      </article>
+      <article class="tc">
+        <a class="tc-vid" href="https://youtu.be/pjUF-SeAlkE" data-yt-id="pjUF-SeAlkE"><img src="https://img.youtube.com/vi/pjUF-SeAlkE/maxresdefault.jpg" onload="ytThumb(this)" onerror="ytThumb(this, true)" alt="" draggable="false" /><span class="tc-play" aria-label="Reproducir vídeo"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span></a>
+        <div class="tc-head"><span class="tc-inj">Tendinopatía rotuliana</span><span class="tc-name">Samir E. A. · 22 años</span></div>
+        <div class="tc-tl">
+          <div class="tl-row"><span class="tl-dot"></span><div><span class="tl-lb r">Antes</span><p class="tl-b">Sin poder jugar más de 30 minutos al pádel ni entrenar en el gimnasio por dolor.</p></div></div>
+          <div class="tl-row"><span class="tl-flag"><svg><use href="#i-finish"/></svg></span><div><span class="tl-lb g">Después</span><p class="tl-a">Jugando partidos de pádel sin dolor y cargando más que antes en el gimnasio.</p></div></div>
+        </div>
+      </article>
+  </div>
+  <div class="wrap">
+    <div class="more"><a class="btn-more2" href="../testimonios/index.html">Quiero ver más testimonios <span class="go"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></div>
+  </div>
+</section>
+
+<footer>© EVOREHAB · @edu.rehab</footer>
+<!-- Modal de vídeo: se abre encima de la página, sin salir a YouTube -->
+<div class="video-modal" id="videoModal" aria-hidden="true">
+  <div class="video-modal-backdrop" data-close></div>
+  <div class="video-modal-content">
+    <button class="video-modal-close" data-close aria-label="Cerrar vídeo">✕</button>
+    <div class="video-modal-frame">
+      <iframe
+        id="videoModalIframe"
+        src=""
+        title="Vídeo"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+</div>
+
+<script src="../script.js?v=5"></script>
+<script>
+// Carrusel de testimonios: deslizable con el dedo, el trackpad o arrastrando con el ratón.
+(function () {
+  var el = document.getElementById('carousel');
+  if (!el) return;
+  initCarousel(el, { startAt: 1 });
+})();
+</script>
 </body>
 </html>
