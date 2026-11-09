@@ -1,0 +1,11 @@
+/* Aviso de cookies: tarjeta abajo, discreta, con los dos botones del mismo tamaño. */
+.ck { position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 100; max-width: 460px; margin: 0 auto; padding: 18px 20px; border-radius: 18px; background: #fff; color: #1b2b36; border: 1px solid #e3eaef; box-shadow: 0 18px 50px rgba(11,42,61,.22); font-family: "Plus Jakarta Sans", system-ui, sans-serif; }
+.ck p { margin: 0 0 14px; font-size: 14px; line-height: 1.5; color: #5d7180; }
+.ck p b { color: #0a0f14; font-size: 15px; }
+.ck a { color: #00869c; }
+.ck-bt { display: flex; gap: 10px; }
+.ck-bt button { flex: 1; font: inherit; font-size: 14px; font-weight: 700; padding: 11px 14px; border-radius: 999px; cursor: pointer; border: 2px solid #00b8d4; background: #fff; color: #0b2a3d; }
+.ck-bt button[data-ck="todas"] { background: #00b8d4; color: #00151c; }
+.ck-bt button:hover { filter: brightness(.96); }
+footer .ck-enlace { color: inherit; margin-left: 10px; text-decoration: underline; }
+@media (min-width: 640px) { .ck { left: 24px; right: auto; bottom: 24px; margin: 0; } }

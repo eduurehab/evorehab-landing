@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (!modal || !iframe) return;
 
   function openModal(videoId) {
-    iframe.src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0';
+    iframe.src = EvoCookies.embed(videoId, true);
     modal.classList.add('is-open');
     modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
@@ -25,7 +25,9 @@ document.addEventListener('DOMContentLoaded', function () {
   document.querySelectorAll('[data-yt-id]').forEach(function (link) {
     link.addEventListener('click', function (e) {
       e.preventDefault();
-      openModal(link.getAttribute('data-yt-id'));
+      // Con las cookies de YouTube aceptadas, el vídeo se ve aquí; si no, se abre en YouTube (otra pestaña).
+      if (window.EvoCookies && EvoCookies.acepta()) openModal(link.getAttribute('data-yt-id'));
+      else window.open(link.href, '_blank', 'noopener');
     });
   });
 

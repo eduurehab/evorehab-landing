@@ -463,3 +463,7 @@ footer { border-top: 1px solid var(--line); padding: 28px 0; text-align: center;
   .knee { width: 46px; height: 46px; border-radius: 13px; }
   .tp-cta p { font-size: 14px; }
 }
+
+/* Prellamada: portada del vídeo (se cambia por el reproductor si se aceptan las cookies de YouTube) */
+.pre-vid .pre-yt { position: absolute; inset: 0; display: block; }
+.pre-vid .pre-yt img { width: 100%; height: 100%; object-fit: cover; display: block; }
