@@ -298,3 +298,11 @@
 .lm-ahora .lm-ir{margin-top:14px;border:0;cursor:pointer;font:inherit;font-weight:800;padding:12px 26px;color:#fff}
 @media(max-width:600px){.lm-tabs{grid-template-columns:repeat(2,1fr)}.lm-r{flex-direction:column;text-align:center}}
 .lm-doc .lm-solo{display:inline-block;margin:0 0 4px;padding:8px 18px;border-radius:999px;background:var(--cyan-soft);border:1px solid rgba(0,184,212,.35);font-size:14.5px;color:var(--ink)}
+
+/* Cierre LM16 */
+.lm-doc .lm-final-l{max-width:600px;margin:22px auto}
+.lm-doc .lm-final{max-width:640px;margin:22px auto;padding:22px 26px;border-radius:18px;background:linear-gradient(160deg,var(--navy),#0d4d6b);color:#fff;box-shadow:0 18px 44px rgba(11,42,61,.22)}
+.lm-doc .lm-final p{margin:0;color:rgba(255,255,255,.88);font-size:16.5px;line-height:1.6}
+.lm-doc .lm-final p.g{margin-bottom:12px;font-size:19px;color:#fff}
+.lm-doc .lm-final strong{color:#fff}
+.lm-doc .lm-final .ac{color:#4fe0f5;background:none}

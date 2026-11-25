@@ -780,6 +780,13 @@ def html_contenido(elementos, destino, num=0):
             while _j < len(out) and not out[_j].startswith("<p>Sea cual sea"):
                 _j += 1
             out[_ini:_j] = [_w]
+        _a = next((i for i, o in enumerate(out) if o.startswith("<p>Sea cual sea")), None)
+        _b = next((i for i, o in enumerate(out) if o.startswith("<p>De hecho, te invito")), None)
+        if _a is not None and _b is not None and _b >= _a + 2:
+            out[_a:_b + 1] = [
+                '<p class="lm-final-l">Sea cual sea el número de ítems que hayas seleccionado, <strong>siempre hay trabajo por hacer</strong>. En algunas ocasiones más, y en otras menos.</p>',
+                '<div class="lm-final"><p class="g">Ya hemos ayudado a <strong>muchos deportistas como tú</strong> a volver a rendir a buen nivel en el deporte que practica cada uno.</p><p>Sé que parece imposible, que a lo mejor piensas que no lo vas a conseguir y que tus resultados no van a ser tan buenos como los de otros, pero <strong class="ac">te aseguro que no es cierto.</strong></p></div>',
+                '<p class="lm-final-l">Mira alguno de los <strong>vídeos de YouTube</strong> en los que hablamos con gente que ya ha trabajado con nosotros: están recuperados aunque al principio no parecía posible. Estoy seguro de que te supondrá un <strong>chute de motivación bastante grande</strong>.</p>']
         a = next((i for i, o in enumerate(out) if "escanea" in o.lower()), None)
         if a is not None:
             out[a:a + 2] = ['<p class="lm-cta"><a class="lm-btn" href="https://edurehab.onrender.com/testimonios" target="_blank" rel="noopener noreferrer">Ver testimonios</a></p>']
@@ -901,7 +908,7 @@ def pagina(titulo, lead, cuerpo, kicker, num):
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700;1,800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../landing.css?v=6" />
-  <link rel="stylesheet" href="../lm.css?v=21" />
+  <link rel="stylesheet" href="../lm.css?v=22" />
   <link rel="stylesheet" href="../cookies.css?v=1" />
 </head>
 <body>
