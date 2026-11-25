@@ -727,6 +727,7 @@ def html_contenido(elementos, destino, num=0):
             ps = out[a + 1:a + 7]
             casos = [ps[0:1], ps[1:4], ps[4:6]]
             txt = "".join('<div class="lm-caso">' + "".join(c) + "</div>" for c in casos)
+            txt = re.sub(r"(Nerea|Lucio|Luzía)", r"<strong></strong>", txt)
             out[a:a + 7] = [f'<div class="lm-casos"><div class="lm-casos-txt">{txt}</div>{fig}</div>']
     if num == 6:
         a = next((i for i, o in enumerate(out) if "Te ha sido de utilidad" in o), None)
