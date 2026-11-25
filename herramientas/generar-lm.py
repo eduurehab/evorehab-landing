@@ -4,7 +4,7 @@ import pymupdf
 from PIL import Image
 
 ORIGEN = r"C:/Users/Usuario/Desktop/@edu.rehab/1. Instagram/Lead Magnets, Regalos/Nuevos/"
-DESTINO = r"C:/Users/Usuario/Desktop/Proyectos CLAUDE/Landing ER (post-samu)/"
+DESTINO = os.environ.get("LM_DESTINO", r"C:/Users/Usuario/Desktop/Proyectos CLAUDE/Landing ER (post-samu)/")
 
 # num, slug, pdf, kicker
 LMS = [
@@ -30,6 +30,22 @@ LMS = [
 ]
 
 REGIONES = {23: {2: [(15, 805)]}, 7: {3: [(295, 695)]}, 15: {0: [(420, 650)], 2: [(90, 715)]}}
+# Resaltado en cian dentro del título (por número de LM)
+DESTACAR = {1: "eliminar los pinchazos", 2: "de forma segura", 3: "volver a rendir", 4: "del dolor", 5: "autoevaluación", 6: "Elimina tu dolor de rodilla",
+            7: "rotuliana vs femoral", 9: "sin miedo", 10: "bisturí", 11: "volver a tu deporte", 12: "reconstrucción de LCA", 13: "artrofibrosis",
+            14: "gimnasio", 15: "retomar la carrera", 16: "señales de progreso", 17: "preguntas", 18: "masa muscular", 19: "mis lesiones pasadas", 23: "decisión"}
+# Títulos en cápsula que en el PDF son imagen: se pasan a texto real (HTML), en orden de aparición
+CAPSULAS = {
+    1: ["La falsa solución que está <span class=\"cy\">debilitando</span> tu rodilla", "El camino real para <span class=\"cy\">recuperar tu rodilla</span>", "Tu punto de partida <span class=\"cy\">hoy mismo</span>"],
+    2: ["Los errores que hacen que <span class=\"cy\">no te quites el dolor</span> ni la lesión", "Los 3 pilares de tu entrenamiento", "Lo más importante de todo"],
+    3: ["Los problemas de hacer una <span class=\"cy\">mala rehab</span>", "El mapa de las 5 fases",
+        "Fase 1 · Movilidad base, musculatura base, entrenamiento cruzado y recuperación de la marcha <small>Semanas 1 a 6, aprox.</small>",
+        "Fase 2 · Movilidad avanzada, reducción de asimetrías y ganancia de masa muscular",
+        "Fase 3 · Carrera, pliometría, potencia y cambios de dirección (COD)",
+        "Fase 4 · Maximización del rendimiento y contexto deportivo real",
+        "Fase 5 · Evolución y prevención", "Extra · Preoperatorio", "No te olvides de <span class=\"cy\">esto</span>"],
+}
+SIN_CIERRE = {1, 2, 3}   # sin botón de WhatsApp: el texto del PDF ya manda al chat de Instagram
 SIN_PORTADA = {15: ["Cómo retomar la carrera", "Método CaCo (caminar-correr)"], 16: ["Checklist de señales de progreso"]}
 CABECERA = re.compile(r"^(pregunta\s+s[ií]\s+no|evorehab\s*·\s*las 5 fases.*|.*edurehab.*c[oó]mo retomar.*|puedes preguntarme lo que quieras.*|pregunta\s+s[ií]\s+no|siguiente p[aá]gina|[↓⬇⬇️]+|programa\s*evorehab|eduardo est[ée]vez|@edu\.rehab|sigue leyendo|evorehab)$", re.I)
 AUTOR = re.compile(r"(^lesiones de rodilla$|eduardo est[ée]vez|@edu\.rehab|graduado en|posgrado|ceo programa|especialista en readaptaci|programa\s*evorehab|ciencias de la (a\.f|actividad)|experto universitario|m[úu]ltiples formaciones)", re.I)
@@ -296,7 +312,7 @@ def procesar(doc, destino, nombre_base, num=0):
         cajas = []
         reales = []
         for r in unicas:
-            dentro = [l for l in lin if pymupdf.Rect(l["bbox"]).intersects(r) and (pymupdf.Rect(l["bbox"]) & r).get_area() > 0.6 * pymupdf.Rect(l["bbox"]).get_area()]
+            dentro = [l for l in lin if pymupdf.Rect(l["bbox"]).intersects(r) and (pymupdf.Rect(l["bbox"]) & r).get_area() > 0.9 * pymupdf.Rect(l["bbox"]).get_area()]
             if dentro and r.height < 260:
                 cajas.append(r)
             elif dentro and r.height >= 260 and pi == 0:
@@ -436,7 +452,8 @@ def miniatura_yt(i, vertical, destino, nombre):
     return im.size
 
 
-def html_contenido(elementos, destino):
+def html_contenido(elementos, destino, num=0):
+    caps = list(CAPSULAS.get(num, []))
     out = []
     ul = []
     cuenta_li = 0
@@ -454,6 +471,9 @@ def html_contenido(elementos, destino):
             continue
         cerrar_ul()
         if k == "img":
+            if len(dat) == 1 and caps and dat[0][1] / dat[0][2] > 4.5:
+                out.append(f'<h2 class="lm-h2d">{caps.pop(0)}</h2>')
+                continue
             if len(dat) == 1:
                 n, w, h, pct = dat[0]
                 est = f' style="width:{pct}%;margin-left:auto;margin-right:auto"' if pct < 90 else ""
@@ -489,11 +509,13 @@ def html_contenido(elementos, destino):
 WA_SVG = '<svg class="wa-ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>'
 
 
-def pagina(titulo, lead, cuerpo, kicker):
+def pagina(titulo, lead, cuerpo, kicker, num):
     t_plano = " ".join(titulo).strip()
     t_plano = re.sub(r"\s+", " ", t_plano)
     largo = " lm-largo" if len(t_plano) > 34 else ""
-    h1 = "<br />".join(esc(x) for x in titulo) if len(titulo) <= 3 else esc(t_plano)
+    h1 = esc(t_plano)
+    if DESTACAR.get(num):
+        h1 = re.sub("(" + re.escape(esc(DESTACAR[num])) + ")", lambda m: '<span class="cy">' + m.group(1) + "</span>", h1, count=1, flags=re.I)
     leadh = "".join(f'<p class="lm-sub">{esc(x)}</p>' for x in lead[:3])
     wa = urllib.parse.quote(f"Hola Edu! Acabo de ver «{t_plano}» y quiero comentarte mi caso")
     meta = html.escape(t_plano[:150])
@@ -510,7 +532,7 @@ def pagina(titulo, lead, cuerpo, kicker):
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../landing.css?v=6" />
-  <link rel="stylesheet" href="../lm.css?v=3" />
+  <link rel="stylesheet" href="../lm.css?v=4" />
   <link rel="stylesheet" href="../cookies.css?v=1" />
 </head>
 <body>
@@ -526,15 +548,23 @@ def pagina(titulo, lead, cuerpo, kicker):
     <span class="kicker">{esc(kicker)}</span>
     <h1 class="{largo.strip()}" style="margin-top:18px">{h1}</h1>
     {leadh}
-    <div class="lm-autor">
-      <img src="../assets/logo-evorehab.png" alt="" />
-      <div><b>Eduardo Estévez</b><span>@edu.rehab</span></div>
+    <div class="lm-yo">
+      <div class="lm-yo-fotos" aria-hidden="true">
+        <span class="lm-ring r1"><img src="../assets/yo-salto.jpg" alt="" /></span>
+        <span class="lm-ring r2"><img src="../assets/yo-sentadilla.jpg" alt="" /></span>
+        <span class="lm-ring r3"><img src="../assets/yo-graduacion.jpg" alt="" /></span>
+      </div>
+      <div class="lm-yo-txt">
+        <b>Eduardo Estévez</b>
+        <span class="lm-yo-user">@edu.rehab</span>
+        <p>Especialista en readaptación de lesiones de rodilla</p>
+        <ul>
+          <li>Ciencias de la A.F. y el deporte · UAH</li>
+          <li>Experto universitario PT · Uni. LaSalle</li>
+          <li>Múltiples formaciones de referentes del sector</li>
+        </ul>
+      </div>
     </div>
-    <ul class="lm-cred">
-      <li>Ciencias de la A.F. y el deporte · UAH</li>
-      <li>Experto universitario PT · Uni. LaSalle</li>
-      <li>Múltiples formaciones de referentes del sector</li>
-    </ul>
   </div>
 </section>
 
@@ -548,10 +578,10 @@ def pagina(titulo, lead, cuerpo, kicker):
 
 <section class="lm-sec lm-fin">
   <div class="wrap">
-    <div class="lm-cierre">
+    {"" if num in SIN_CIERRE else f'''<div class="lm-cierre">
       <p><strong>¿Quieres que lo veamos aplicado a tu caso?</strong> Cada rodilla y cada proceso es distinto, y muchas veces pequeños ajustes marcan una gran diferencia.</p>
       <a class="btn-wa" href="https://wa.me/34644516082?text={wa}" target="_blank" rel="noopener noreferrer">{WA_SVG} Escríbeme sin compromiso</a>
-    </div>
+    </div>'''}
   </div>
 </section>
 
@@ -575,9 +605,9 @@ def main(sel=None):
                     os.remove(os.path.join(destino, f))
         doc = pymupdf.open(ORIGEN + pdf)
         titulo, lead, el = procesar(doc, destino, slug, num)
-        cuerpo = html_contenido(el, destino)
+        cuerpo = html_contenido(el, destino, num)
         with open(os.path.join(destino, "index.html"), "w", encoding="utf-8", newline="\n") as f:
-            f.write(pagina(titulo, lead, cuerpo, kicker))
+            f.write(pagina(titulo, lead, cuerpo, kicker, num))
         print(carpeta, "|", " ".join(titulo)[:60], "| elementos:", len(el))
 
 
