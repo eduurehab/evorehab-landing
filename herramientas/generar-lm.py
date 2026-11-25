@@ -214,6 +214,8 @@ def clasificar(p, tam_cuerpo, sobre_caja):
         return "lab"
     if p["size"] >= 1.7 * tam_cuerpo and n < 120 and not re.fullmatch(r"[\d\s%+.,]+", p["text"].strip()):
         return "h2"
+    if sobre_caja and re.match(r"PILAR \d", p["text"].strip()):
+        return "h3"
     if sobre_caja and n < 160 and (todo_neg or p["size"] >= tam_cuerpo + 2):
         return "h2"
     if todo_neg and (todo_ac or p["size"] >= tam_cuerpo + 2.5) and n < 140:
