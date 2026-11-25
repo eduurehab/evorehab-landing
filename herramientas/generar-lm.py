@@ -26,14 +26,14 @@ LMS = [
     (17, "20-preguntas-plan-optimo", "LM 20 preguntas plan óptimo.pdf", "Cuestionario"),
     (18, "3-claves-masa-muscular", "LM Las 3 claves para ganar masa muscular.pdf", "Guía"),
     (19, "errores-que-cometi", "LM Errores que cometí en mis lesiones y que tú puedes evitar.pdf", "Guía"),
-    (23, "test4preguntas", "LM arbol decision 4 preguntas.pdf", "Test"),
+    (21, "test4preguntas", "LM arbol decision 4 preguntas.pdf", "Test"),
 ]
 
-REGIONES = {23: {2: [(15, 805)]}, 7: {3: [(295, 695)]}, 15: {0: [(420, 650)], 2: [(90, 715)]}}
+REGIONES = {21: {2: [(15, 805)]}, 7: {3: [(295, 695)]}, 15: {0: [(420, 650)], 2: [(90, 715)]}}
 # Resaltado en cian dentro del título (por número de LM)
 DESTACAR = {1: "eliminar los pinchazos", 2: "de forma segura", 3: "volver a rendir", 4: "del dolor", 5: "autoevaluación", 6: "Elimina tu dolor de rodilla",
             7: "rotuliana vs femoral", 9: "sin miedo", 10: "bisturí", 11: "volver a tu deporte", 12: "reconstrucción de LCA", 13: "artrofibrosis",
-            14: "gimnasio", 15: "retomar la carrera", 16: "señales de progreso", 17: "preguntas", 18: "masa muscular", 19: "mis lesiones pasadas", 23: "decisión"}
+            14: "gimnasio", 15: "retomar la carrera", 16: "señales de progreso", 17: "preguntas", 18: "masa muscular", 19: "mis lesiones pasadas", 21: "decisión"}
 # Títulos en cápsula que en el PDF son imagen: se pasan a texto real (HTML), en orden de aparición
 CAPSULAS = {
     1: ["La falsa solución que está <span class=\"cy\">debilitando</span> tu rodilla", "El camino real para <span class=\"cy\">recuperar tu rodilla</span>", "Tu punto de partida <span class=\"cy\">hoy mismo</span>"],

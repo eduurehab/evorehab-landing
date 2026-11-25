@@ -48,6 +48,7 @@ Los que vienen de PDF se generaron con `herramientas/generar-lm.py` y después s
 | `/lm17-20-preguntas-plan-optimo` | 20 preguntas plan óptimo |
 | `/lm18-3-claves-masa-muscular` | 3 claves para ganar masa muscular |
 | `/lm19-errores-que-cometi` | 5 errores que cometí |
-| `/lm23-test4preguntas` | Árbol de decisión (4 preguntas) |
+| `/lm20-ejercicios-prohibidos` | Ejercicios prohibidos (vídeo Miró) |
+| `/lm21-test4preguntas` | Árbol de decisión (4 preguntas) |
 
-Pendientes: `lm20` (vídeo Ejs Prohibidos Miró) y los case study (`/case-study-adri-a`, `/case-study-alvaro-m`, `/case-study-luzia-r`), a falta de los enlaces de YouTube.
+Pendientes: los case study, con su propio sistema de nombres (`/cs1-adri-a`, `/cs2-alvaro-m`, `/cs3-luzia-r`), a falta de los enlaces de YouTube.
