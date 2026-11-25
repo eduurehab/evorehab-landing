@@ -173,3 +173,11 @@
 .lm-doc .lm-cierre { margin: 44px auto 0; padding: 28px 28px 30px; }
 .lm-doc .lm-cierre p:first-child { margin-top: 0; }
 .lm-doc .lm-cierre p:last-child { margin-bottom: 0; }
+
+/* Todos los textos centrados */
+.lm-doc { text-align: center; }
+.lm-doc .lm-ig { text-align: left; }
+.lm-lista li { padding-left: 0; }
+.lm-lista li::before { position: static; display: inline-block; vertical-align: middle; margin-right: 10px; }
+.lm-lista li.chk::before { width: 13px; height: 13px; }
+.lm-lista li::before { top: auto; left: auto; }
