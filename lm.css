@@ -116,3 +116,17 @@
 .lm-cta .btn-wa { max-width: 100%; white-space: normal; text-align: center; }
 .lm-doc .lm-lab:has(+ .lm-h2d) { margin-top: 48px; text-align: center; }
 .lm-doc .lm-lab + .lm-h2d { margin-top: 8px; }
+
+/* Cierre de las bienvenidas: el pase al chat de Instagram, bien visible */
+.lm-doc .lm-chat { position: relative; margin-top: 56px; padding: 34px 30px 30px; border-radius: 26px; background: linear-gradient(160deg, var(--navy), #0d4d6b); color: rgba(255,255,255,.9); box-shadow: 0 24px 60px rgba(11,42,61,.25); overflow: hidden; }
+.lm-doc .lm-chat::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 6px; background: linear-gradient(90deg, #f9a03f, #e1306c 55%, #833ab4); }
+.lm-doc .lm-chat p { margin-top: 16px; font-size: 17px; line-height: 1.6; color: rgba(255,255,255,.9); }
+.lm-doc .lm-chat p:first-child { margin-top: 0; font-size: 20px; font-weight: 700; color: #fff; }
+.lm-doc .lm-chat strong { color: #fff; }
+.lm-doc .lm-chat .ac { color: #4fe0f5; }
+.lm-doc .lm-chat em { color: inherit; }
+.lm-doc .lm-chat p:has(.ac) { margin-top: 24px; padding: 18px 20px; border-radius: 16px; background: rgba(0,184,212,.18); border: 1px solid rgba(79,224,245,.45); font-size: 18px; color: #fff; }
+.lm-doc .lm-chat p:has(.ac) .ac, .lm-doc .lm-chat p:has(.ac) strong { color: #4fe0f5; font-weight: 800; }
+.lm-doc .lm-chat p:last-child { margin-top: 20px; font-size: 14px; color: rgba(255,255,255,.65); }
+.lm-doc .lm-chat ul { margin-top: 16px; }
+.lm-doc .lm-chat li { color: #fff; font-weight: 700; }

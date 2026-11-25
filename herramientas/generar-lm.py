@@ -535,6 +535,10 @@ def html_contenido(elementos, destino, num=0):
         else:
             out.append(f"<p>{html_spans(dat['spans'])}</p>")
     cerrar_ul()
+    if num in SIN_CIERRE:
+        k = next((i for i, o in enumerate(out) if "chat abierto" in o), None)
+        if k is not None:
+            out = out[:k] + ['<div class="lm-chat">'] + out[k:] + ["</div>"]
     return "\n".join(out)
 
 
@@ -564,7 +568,7 @@ def pagina(titulo, lead, cuerpo, kicker, num):
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../landing.css?v=6" />
-  <link rel="stylesheet" href="../lm.css?v=6" />
+  <link rel="stylesheet" href="../lm.css?v=7" />
   <link rel="stylesheet" href="../cookies.css?v=1" />
 </head>
 <body>
