@@ -720,6 +720,9 @@ def html_contenido(elementos, destino, num=0):
         a = next((i for i, o in enumerate(out) if "ESCANEA" in o), None)
         if a is not None:
             out[a:a + 2] = ['<p class="lm-cta"><a class="lm-btn" href="https://www.notion.so/Casos-de-xito-1b5391c16449809aa18deb61bd534e8a" target="_blank" rel="noopener noreferrer">Ver los casos de éxito</a></p>']
+    if num == 11:
+        for n_, nom in enumerate(["ASIENTA", "CONSOLIDA", "ELEVA", "RINDE", "EVOLUCIONA"], 1):
+            out = [o.replace('<h2 class="lm-h2d">', f'<h2 class="lm-h2d lm-fase f{n_}">', 1) if o.startswith('<h2 class="lm-h2d">') and re.sub(r"<[^>]+>", "", o).strip().upper() == nom else o for o in out]
     if num == 10:
         a = next((i for i, o in enumerate(out) if "lm-mont" in o), None)
         if a is not None and a + 6 < len(out) and all(o.startswith("<p") for o in out[a + 1:a + 7]):

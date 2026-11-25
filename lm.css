@@ -196,3 +196,12 @@
   .lm-casos .lm-fig { order: -1; max-width: 340px; margin: 0 auto; }
   .lm-caso { padding: 8px 0; }
 }
+
+/* Fases: degradado de la marca, de cian a azul marino */
+.lm-h2d.lm-fase { color: #fff; border-color: transparent; box-shadow: 0 10px 24px rgba(11,42,61,.18); }
+.lm-h2d.lm-fase strong { color: #fff; }
+.lm-h2d.lm-fase.f1 { background: rgb(0,184,212); }
+.lm-h2d.lm-fase.f2 { background: rgb(3,148,174); }
+.lm-h2d.lm-fase.f3 { background: rgb(6,113,137); }
+.lm-h2d.lm-fase.f4 { background: rgb(8,78,99); }
+.lm-h2d.lm-fase.f5 { background: rgb(11,42,61); }
