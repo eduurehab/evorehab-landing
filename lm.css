@@ -197,11 +197,13 @@
   .lm-caso { padding: 8px 0; }
 }
 
-/* Fases: los colores del mapa (azul, verde, amarillo, naranja, rojo) */
-.lm-h2d.lm-fase { color: #fff; border-color: transparent; box-shadow: 0 10px 24px rgba(11,42,61,.16); }
-.lm-h2d.lm-fase strong { color: inherit; }
-.lm-h2d.lm-fase.f1 { background: #4672d2; }
-.lm-h2d.lm-fase.f2 { background: #3dc49d; }
-.lm-h2d.lm-fase.f3 { background: #fde476; color: var(--navy); }
-.lm-h2d.lm-fase.f4 { background: #eca364; color: var(--navy); }
-.lm-h2d.lm-fase.f5 { background: #b5524f; }
+/* Fases: bloque de color del mapa con etiqueta, nombre y frase dentro */
+.lm-doc .lm-fasebox { margin: 54px 0 14px; padding: 22px 24px 26px; border-radius: 22px; text-align: center; color: #fff; box-shadow: 0 12px 28px rgba(11,42,61,.18); }
+.lm-doc .lm-fasebox .lm-lab { margin: 0; color: inherit; opacity: .9; }
+.lm-doc .lm-fasebox h2 { margin: 8px 0 0; font-family: "Barlow Condensed", sans-serif; font-weight: 800; font-size: clamp(34px, 6.4vw, 48px); line-height: 1; text-transform: uppercase; color: inherit; }
+.lm-doc .lm-fasebox p:not(.lm-lab) { margin: 12px 0 0; font-size: 17px; line-height: 1.45; color: inherit; font-weight: 600; }
+.lm-fasebox.f1 { background: #4672d2; }
+.lm-fasebox.f2 { background: #3dc49d; }
+.lm-fasebox.f3 { background: #fde476; color: var(--navy); }
+.lm-fasebox.f4 { background: #eca364; color: var(--navy); }
+.lm-fasebox.f5 { background: #b5524f; }

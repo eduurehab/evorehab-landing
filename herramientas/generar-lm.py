@@ -721,8 +721,18 @@ def html_contenido(elementos, destino, num=0):
         if a is not None:
             out[a:a + 2] = ['<p class="lm-cta"><a class="lm-btn" href="https://www.notion.so/Casos-de-xito-1b5391c16449809aa18deb61bd534e8a" target="_blank" rel="noopener noreferrer">Ver los casos de éxito</a></p>']
     if num == 11:
-        for n_, nom in enumerate(["ASIENTA", "CONSOLIDA", "ELEVA", "RINDE", "EVOLUCIONA"], 1):
-            out = [o.replace('<h2 class="lm-h2d">', f'<h2 class="lm-h2d lm-fase f{n_}">', 1) if o.startswith('<h2 class="lm-h2d">') and re.sub(r"<[^>]+>", "", o).strip().upper() == nom else o for o in out]
+        res, i = [], 0
+        while i < len(out):
+            m = re.match(r'<h2 class="lm-h2d">(ASIENTA|CONSOLIDA|ELEVA|RINDE|EVOLUCIONA)</h2>', out[i]) if out[i].startswith("<h2") else None
+            if m and res and "lm-lab" in res[-1] and i + 1 < len(out) and out[i + 1].startswith("<p>"):
+                n_ = ["ASIENTA", "CONSOLIDA", "ELEVA", "RINDE", "EVOLUCIONA"].index(m.group(1)) + 1
+                lab = res.pop()
+                sub = out[i + 1][3:-4] if out[i + 1].endswith("</p>") else out[i + 1][3:]
+                res.append(f'<div class="lm-fasebox f{n_}">{lab}<h2>{m.group(1)}</h2><p>{sub}</p></div>')
+                i += 2
+                continue
+            res.append(out[i]); i += 1
+        out = res
     if num == 10:
         a = next((i for i, o in enumerate(out) if "lm-mont" in o), None)
         if a is not None and a + 6 < len(out) and all(o.startswith("<p") for o in out[a + 1:a + 7]):
