@@ -774,6 +774,22 @@ def html_contenido(elementos, destino, num=0):
         _a = next((i for i, o in enumerate(out) if o.startswith('<figure') and 'img-01.jpg' in o), None)
         if _a is not None:
             out[_a] = '<div class="lm-arbol" id="lm-arbol"><div class="lm-arbol-top"><span id="lm-arbol-n">Pregunta 1 de 5</span><i><b id="lm-arbol-b"></b></i></div><div id="lm-arbol-q"></div></div><script src="../lm-arbol.js?v=1" defer></script>'
+        _n = []
+        for o in out:
+            if o.startswith("<p>Espero que te haya sido"):
+                continue
+            if o.startswith("<p>Acabas de aprender"):
+                o = '<p>Acabas de aprender <strong>los pasos lógicos para iniciar a correr tras una lesión de rodilla</strong>, al menos lo más genérico del proceso.</p><p>Cada paso tiene ejercicios <strong>muy específicos y concretos</strong> que ayudarán a que vuelvas a correr, mientras que otros solo te harán dar vueltas en círculos y perder el tiempo.</p>'
+            elif o.startswith("<p>Como has visto"):
+                continue
+            elif "Si te quedas bloqueado" in o:
+                o = '<div class="lm-final"><p class="g">Si te quedas bloqueado en algún «NO» o reaparecen síntomas, <span class="ac">no es un fallo tuyo: es falta de información.</span></p></div>'
+            elif o.startswith("<p>Nosotros te hemos planteado"):
+                o = '<p>Nosotros te hemos planteado <strong>a grosso modo</strong> el tipo de ejercicio que hay que hacer, pero luego <strong>cada rodilla y cómo responda a los ejercicios es completamente diferente</strong>.</p>'
+            elif "Ahí es donde una progresión" in o:
+                o = '<h2 class="lm-h2d">Ahí es donde una progresión individualizada marca la diferencia</h2>'
+            _n.append(o)
+        out = _n
     if num == 19:
         ICO19 = [
             '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
@@ -971,7 +987,7 @@ def pagina(titulo, lead, cuerpo, kicker, num):
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700;1,800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../landing.css?v=6" />
-  <link rel="stylesheet" href="../lm.css?v=29" />
+  <link rel="stylesheet" href="../lm.css?v=30" />
   <link rel="stylesheet" href="../cookies.css?v=1" />
 </head>
 <body>
