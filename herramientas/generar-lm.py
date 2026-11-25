@@ -770,6 +770,20 @@ def html_contenido(elementos, destino, num=0):
             if _h is not None:
                 _ult = max(i for i, o in enumerate(out) if o.startswith("<ul class=\"lm-lista\"><li>Si has marcado"))
                 out[_qi[0]:_ult + 1] = [_w, '<script src="../lm-cuestionario.js?v=1" defer></script>']
+    if num == 18:
+        _r = []
+        for _i, o in enumerate(out):
+            _m = re.match(r'<h3 class="lm-h3d"><em><strong>(\d) - (.*?)</strong></em></h3>', o)
+            if _m:
+                o = f'<h2 class="lm-h2d">{_m.group(1)} – {_m.group(2)}</h2>'
+            elif o.startswith('<ul class="lm-lista">'):
+                o = o.replace('<ul class="lm-lista">', '<ul class="lm-claves">', 1)
+            elif 'lm-clave"><span>¡DALE' in o:
+                o = '<p class="lm-cta"><a class="lm-btn" href="https://www.instagram.com/edu.rehab/" target="_blank" rel="noopener noreferrer">¡Dale caña! Ver casos reales en mi perfil</a></p>'
+            elif o.startswith('<figure') and 'img-03.jpg' in o:
+                continue
+            _r.append(o)
+        out = _r
     if num == 17:
         out = [o.replace("Responde con total sinceridad a estas 20 preguntas y pasa a la siguiente página para analizar los resultados", "Responde con total sinceridad a estas 20 preguntas") for o in out]
     if num == 16:
@@ -930,7 +944,7 @@ def pagina(titulo, lead, cuerpo, kicker, num):
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700;1,800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../landing.css?v=6" />
-  <link rel="stylesheet" href="../lm.css?v=24" />
+  <link rel="stylesheet" href="../lm.css?v=25" />
   <link rel="stylesheet" href="../cookies.css?v=1" />
 </head>
 <body>
