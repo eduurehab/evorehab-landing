@@ -770,6 +770,10 @@ def html_contenido(elementos, destino, num=0):
             if _h is not None:
                 _ult = max(i for i, o in enumerate(out) if o.startswith("<ul class=\"lm-lista\"><li>Si has marcado"))
                 out[_qi[0]:_ult + 1] = [_w, '<script src="../lm-cuestionario.js?v=1" defer></script>']
+    if num == 21:
+        _a = next((i for i, o in enumerate(out) if o.startswith('<figure') and 'img-01.jpg' in o), None)
+        if _a is not None:
+            out[_a] = '<div class="lm-arbol" id="lm-arbol"><div class="lm-arbol-top"><span id="lm-arbol-n">Pregunta 1 de 5</span><i><b id="lm-arbol-b"></b></i></div><div id="lm-arbol-q"></div></div><script src="../lm-arbol.js?v=1" defer></script>'
     if num == 19:
         ICO19 = [
             '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
@@ -967,7 +971,7 @@ def pagina(titulo, lead, cuerpo, kicker, num):
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700;1,800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../landing.css?v=6" />
-  <link rel="stylesheet" href="../lm.css?v=28" />
+  <link rel="stylesheet" href="../lm.css?v=29" />
   <link rel="stylesheet" href="../cookies.css?v=1" />
 </head>
 <body>
