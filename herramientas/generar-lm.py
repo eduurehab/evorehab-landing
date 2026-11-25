@@ -45,7 +45,7 @@ CAPSULAS = {
         "~Fase 4 · Maximización del rendimiento y contexto deportivo real",
         "~Fase 5 · Evolución y prevención", "~Extra · Preoperatorio", "No te olvides de <span class=\"cy\">esto</span>"],
 }
-CTA_WA = {10: "Hola Edu! He visto el documento del preoperatorio y quiero agendar una reunión contigo", 9: "Hola Edu! Vengo del documento de \"Impacta sin miedo\", el de las condromalacias, y quiero agendar una reunión contigo a ver si me puedes ayudar"}
+CTA_WA = {10: "Hola Edu! He visto el documento del preoperatorio y quiero agendar una reunión contigo para ver si me puedes ayudar", 9: "Hola Edu! Vengo del documento de \"Impacta sin miedo\", el de las condromalacias, y quiero agendar una reunión contigo a ver si me puedes ayudar"}
 CTA = "!Quiero agendar una reunión con Edu y contarle mi caso"
 CAPSULAS[9] = ["~Isometría en ángulos seguros", "~Fuerza excéntrica controlada", "~Pliometría extensiva de bajo impacto", CTA]
 CAPSULAS[10] = ["~Extensión máxima (0°) y flexión de al menos 110-120°", "~Ausencia de inflamación activa", "~Capacidad de carga con ejercicios clave", "~Déficit de fuerza entre piernas menos al 15-10%", CTA]
