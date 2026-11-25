@@ -61,7 +61,7 @@ ENFASIS = {4: ["El dolor no es tu enemigo", "algo PUEDE estar en peligro", "El d
                "(VERDE, AMARILLO Y ROJO)", "el dolor no es tu enemigo, sino tu aliado", "pedir ayuda es de sabios",
                "PORQUE SÍ, YO TAMBIÉN ESTUVE CON DOLOR CRÓNICO Y LLENO DE LESIONES, Y CONSEGUÍ ELIMINARLAS DE MI VIDA"]}
 # Guías cuyo PDF ya trae su propia llamada final (chat de Instagram, botón de reunión, etc.): no se añade el cierre estándar
-SIN_CIERRE = {1, 2, 3, 9, 10}
+SIN_CIERRE = {1, 2, 3, 6, 9, 10}
 WA_TEXTO = {4: "Hola Edu! Acabo de terminar de leer tu guía del dolor y me han surgido algunas dudas. ¿Podrías ayudarme a resolverlas?"}
 STRAY = re.compile(r"^(@edu\.rehab|evorehab|e\s*v\s*o\s*r\s*e\s*h\s*a\s*b|evorehab\s*·\s*especialista.*|pregunta\s+s[ií]\s+no|ya casi estamos terminando.*|mira la siguiente p[aá]gina|pincha aqu[ií]:?)$", re.I)
 DEMOTE = {10: ["Muy atent@"]}          # titulares que en realidad son subtítulos
@@ -719,6 +719,12 @@ def html_contenido(elementos, destino, num=0):
         a = next((i for i, o in enumerate(out) if "ESCANEA" in o), None)
         if a is not None:
             out[a:a + 2] = ['<p class="lm-cta"><a class="lm-btn" href="https://www.notion.so/Casos-de-xito-1b5391c16449809aa18deb61bd534e8a" target="_blank" rel="noopener noreferrer">Ver los casos de éxito</a></p>']
+    if num == 6:
+        a = next((i for i, o in enumerate(out) if "Te ha sido de utilidad" in o), None)
+        if a is not None and a + 1 < len(out):
+            btn = re.search(r'<a class="lm-btn".*?</a>', out[a + 1])
+            resto = "".join(o for o in out[a + 2:] if o.startswith("<p"))
+            out[a:] = ['<div class="lm-cierre"><p><strong>¿Te ha sido de utilidad la sesión? ¿Tienes alguna duda acerca de ella?</strong> Mándame un mensaje privado.</p><p style="margin-top:22px">' + (btn.group(0) if btn else "") + '</p>' + resto.replace("<p>", '<p style="margin-top:22px">') + '</div>']
     for fr in ENFASIS.get(num, []):
         ok = False
         for i, o in enumerate(out):
@@ -770,7 +776,7 @@ def pagina(titulo, lead, cuerpo, kicker, num):
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700;1,800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../landing.css?v=6" />
-  <link rel="stylesheet" href="../lm.css?v=14" />
+  <link rel="stylesheet" href="../lm.css?v=15" />
   <link rel="stylesheet" href="../cookies.css?v=1" />
 </head>
 <body>
