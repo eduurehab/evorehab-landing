@@ -772,6 +772,18 @@ def html_contenido(elementos, destino, num=0):
             res.append(out[i]); i += 1
         out = res
     if num == 15:
+        _a = next((i for i, o in enumerate(out) if "He preparado este documento" in o), None)
+        _b = next((i for i, o in enumerate(out) if "A continuación os dejo" in o), None)
+        if _a is not None and _b is not None and _b >= _a:
+            out[_a:_b + 1] = [
+                '<p>He preparado este documento para poder explicarte con ejemplos cómo debemos <strong>retomar la carrera tras o durante una lesión de rodilla</strong>.</p>',
+                '<div class="lm-aviso"><b>Aviso</b><p>Esto es una progresión genérica, donde no conozco exactamente tu contexto: tu lesión, en qué fase estás o lo que has trabajado hasta día de hoy… Así que recuerda que lo ideal sería <strong>dejarte guiar por un especialista</strong>.</p></div>',
+                '<h3 class="lm-h3d">Para empezar a correr, el método CaCo (Caminar-Correr) es ideal</h3>',
+                '<div class="lm-pasos"><div><span>1</span><b>Carrera muy breve</b><p>Intervalos de 30" o 1&prime;</p></div><div><span>2</span><b>Caminatas de 1–2&prime;</b><p>Intercaladas entre cada intervalo</p></div><div><span>3</span><b>Más tiempo corriendo</b><p>Aumentamos la proporción a medida que la rodilla lo tolere</p></div></div>',
+                '<p>Como le digo a mis deportistas, iremos consensuando de forma conjunta <strong>las progresiones exactas para cada caso</strong>, con el objetivo de ir aumentando el ritmo de carrera y el tiempo, y reduciendo el tiempo de caminata hasta ser capaces de <strong>eliminarla por completo</strong>.</p>',
+                '<p>A continuación os dejo un ejemplo estandarizado. Una vez más destaco que es <strong>prácticamente imposible establecer tiempos y ritmos precisos</strong>, porque en cada persona varía mucho por diversos motivos (patrón de carrera, dolor, inflamación, fuerza, resistencia, características anatómicas y biomecánicas…).</p>']
+        out = [o.replace("No es necesario que cumplas a rajatabla la tabla de ejemplo estandarizada", "<strong>No es necesario que cumplas a rajatabla</strong> la tabla de ejemplo estandarizada") if o.startswith("<p>No es necesario") else o for o in out]
+    if num == 15:
         _filas = [(8,"1'30\"","1'","8'"),(8,"1'","1'30\"","12'"),(10,"1'","1'30\"","15'"),(8,"1'","2'","16'"),(10,"1'","2'","20'"),(6,"1'","3'","18'"),(8,"1'","3'","24'"),(6,"1'","4'","24'"),(5,"1'","5'","25'"),(3,"1'","8'","24'"),(4,"1'","8'","32'"),(3,"1'","10'","30'"),(4,"1'","10'","40'"),(3,"1'","12'","36'"),(4,"1'","12'","48'"),(3,"1'","15'","45'"),(3,"1'","15'","45'"),(2,"1'","20'","40'"),(2,"1'","20'","40'"),(1,"—","40'","40'")]
         _mx = max(int(f[3][:-1]) for f in _filas)
         t1 = '<div class="lm-tabla"><table class="lm-t lm-t-ej"><thead><tr><th>Sesión</th><th>Series</th><th>Caminar</th><th class="cy">Correr</th><th>Tiempo total de carrera</th></tr></thead><tbody>' + "".join(f'<tr><th>{i+1}</th><td>{f[0]}</td><td class="mu">{f[1]}</td><td><b>{f[2]}</b></td><td class="barra"><span class="bar"><i style="width:{int(f[3][:-1])*100//_mx}%"></i></span><b>{f[3]}</b></td></tr>' for i, f in enumerate(_filas)) + '</tbody></table></div><p class="lm-nota">Ca = caminar · Co = correr. La barra muestra el tiempo total corriendo en cada sesión.</p>'
@@ -864,7 +876,7 @@ def pagina(titulo, lead, cuerpo, kicker, num):
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700;1,800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../landing.css?v=6" />
-  <link rel="stylesheet" href="../lm.css?v=17" />
+  <link rel="stylesheet" href="../lm.css?v=18" />
   <link rel="stylesheet" href="../cookies.css?v=1" />
 </head>
 <body>

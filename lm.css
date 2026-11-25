@@ -243,3 +243,14 @@
 .lm-doc .lm-nota{font-size:13px;color:var(--muted);margin-top:8px}
 @media(max-width:600px){.lm-t{font-size:13px}.lm-t thead th{font-size:10px;padding:10px 4px;letter-spacing:.6px}.lm-t .barra{gap:6px;padding:9px 8px}}
 .lm-t-vacia td{border-left:1px solid #e3e9ef}
+
+/* Introducción LM15 */
+.lm-doc .lm-aviso{margin:22px 0;padding:18px 22px;border-radius:16px;background:var(--cyan-soft);border:1px solid rgba(0,184,212,.35);text-align:center}
+.lm-doc .lm-aviso b{display:inline-block;margin-bottom:6px;padding:3px 14px;border-radius:999px;background:var(--cyan);color:#fff;font-size:12px;letter-spacing:1.6px;text-transform:uppercase}
+.lm-doc .lm-aviso p{margin:0}
+.lm-doc .lm-pasos{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0 24px}
+.lm-doc .lm-pasos div{padding:18px 14px;border-radius:16px;background:#fff;border:1px solid var(--line);box-shadow:0 8px 22px rgba(11,42,61,.07);text-align:center}
+.lm-doc .lm-pasos span{display:grid;place-items:center;width:34px;height:34px;margin:0 auto 10px;border-radius:50%;background:var(--navy);color:#4fe0f5;font-weight:800}
+.lm-doc .lm-pasos b{display:block;color:var(--black);font-size:16px;line-height:1.25}
+.lm-doc .lm-pasos p{margin:6px 0 0;font-size:14.5px;line-height:1.45}
+@media(max-width:600px){.lm-doc .lm-pasos{grid-template-columns:1fr}}
