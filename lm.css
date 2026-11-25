@@ -333,3 +333,7 @@
 .lm-claves li+li{border-top:1px solid #edf1f5}
 .lm-claves li::before{content:"";position:absolute;left:2px;top:14px;width:18px;height:18px;border-radius:50%;background:var(--cyan)}
 .lm-claves li::after{content:"";position:absolute;left:8px;top:18px;width:5px;height:9px;border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg)}
+
+/* Errores (LM19) */
+.lm-doc .lm-h2d .lm-eN{display:block;margin-bottom:2px;font-size:.55em;letter-spacing:2px;color:#0a8fb0}
+.lm-doc .lm-final .ac{color:#4fe0f5}

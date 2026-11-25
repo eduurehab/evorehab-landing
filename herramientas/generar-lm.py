@@ -770,6 +770,16 @@ def html_contenido(elementos, destino, num=0):
             if _h is not None:
                 _ult = max(i for i, o in enumerate(out) if o.startswith("<ul class=\"lm-lista\"><li>Si has marcado"))
                 out[_qi[0]:_ult + 1] = [_w, '<script src="../lm-cuestionario.js?v=1" defer></script>']
+    if num == 19:
+        _r = []
+        for o in out:
+            _m = re.match(r'<h3 class="lm-h3d"><em><strong>(\d) ?- ?(.*?)</strong></em></h3>', o)
+            if _m:
+                o = f'<h2 class="lm-h2d"><span class="lm-eN">Error {_m.group(1)}</span>{_m.group(2)}</h2>'
+            elif o.startswith("<p><strong>Si te has sentido identificado"):
+                o = '<div class="lm-final"><p class="g">' + o[3:-4] + '</p></div>'
+            _r.append(o)
+        out = _r
     if num == 18:
         _r = []
         for _i, o in enumerate(out):
@@ -946,7 +956,7 @@ def pagina(titulo, lead, cuerpo, kicker, num):
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700;1,800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../landing.css?v=6" />
-  <link rel="stylesheet" href="../lm.css?v=26" />
+  <link rel="stylesheet" href="../lm.css?v=27" />
   <link rel="stylesheet" href="../cookies.css?v=1" />
 </head>
 <body>
