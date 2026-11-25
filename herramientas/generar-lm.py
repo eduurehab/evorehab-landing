@@ -620,7 +620,7 @@ def cta_card(titulo, sub, clave, despues, wa_texto, boton="Escribirme por WhatsA
     k = f'<div class="k">“{clave}”</div>' if clave else ""
     h = f'<div class="lm-cta-a"><p class="t">{titulo}</p>'
     if sub:
-        h += f'<p class="s">{sub}</p>'
+        h += f'<div class="s">{sub}</div>' if sub.startswith("<p") else f'<p class="s">{sub}</p>'
     h += k
     if despues:
         h += f'<p class="s">{despues}</p>'
@@ -771,6 +771,14 @@ def html_contenido(elementos, destino, num=0):
                 continue
             res.append(out[i]); i += 1
         out = res
+    if num == 13:
+        a = next((i for i, o in enumerate(out) if "Mira este caso real" in o), None)
+        if a is not None and a + 1 < len(out):
+            href = re.search(r'href="([^"]+)"', out[a + 1])
+            t1 = re.sub(r"<[^>]+>", "", out[a]).strip()
+            t2 = re.sub(r"<[^>]+>", "", out[a + 1]).split("👉")[0].strip()
+            if href:
+                out[a:a + 2] = [f'<p><strong>{t1} {t2}</strong></p>', f'<p class="lm-cta"><a class="lm-btn" href="{href.group(1)}" target="_blank" rel="noopener noreferrer">Ver el caso real</a></p>']
     if num == 10:
         a = next((i for i, o in enumerate(out) if "lm-mont" in o), None)
         if a is not None and a + 6 < len(out) and all(o.startswith("<p") for o in out[a + 1:a + 7]):

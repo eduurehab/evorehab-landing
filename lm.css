@@ -220,3 +220,5 @@
 .lm-doc .lm-cta-a { margin-top: 44px; }
 .lm-fin .lm-cta-a { margin-top: 0; }
 .lm-doc .lm-cta-a .btn-wa, .lm-doc .lm-cta-a .btn-wa:hover { color: #fff; text-decoration: none; }
+.lm-cta-a .s p { margin: 8px 0 0; }
+.lm-cta-a .s { text-align: center; }
