@@ -53,4 +53,4 @@ Los que vienen de PDF se generaron con `herramientas/generar-lm.py` y después s
 
 Índice de todas las páginas con botón de copiar enlace: `/indicepaginas-evo-k7x2m9q4w8` (noindex, sin enlazar).
 
-Case studies (sistema propio): `/cs1-adri-a`, `/cs2-alvaro-m`. Pendiente `/cs3-luzia-r` (sin grabar aún).
+Listado de estudios de caso: `/case-studies` (noindex). Case studies (sistema propio): `/cs1-adri-a`, `/cs2-alvaro-m`. Pendiente `/cs3-luzia-r` (sin grabar aún).
