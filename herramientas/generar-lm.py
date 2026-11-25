@@ -45,6 +45,7 @@ CAPSULAS = {
         "~Fase 4 · Maximización del rendimiento y contexto deportivo real",
         "~Fase 5 · Evolución y prevención", "~Extra · Preoperatorio", "No te olvides de <span class=\"cy\">esto</span>"],
 }
+CTA_WA = {9: "Hola Edu! Vengo del documento del impacto con las condromalacias y quiero agendar una reunión contigo"}
 CTA = "!Quiero agendar una reunión con Edu y contarle mi caso"
 CAPSULAS[9] = ["~Isometría en ángulos seguros", "~Fuerza excéntrica controlada", "~Pliometría extensiva de bajo impacto", CTA]
 CAPSULAS[10] = ["~Extensión máxima (0°) y flexión de al menos 110-120°", "~Ausencia de inflamación activa", "~Capacidad de carga con ejercicios clave", "~Déficit de fuerza entre piernas menos al 15-10%", CTA]
@@ -633,7 +634,7 @@ def html_contenido(elementos, destino, num=0):
                 if t.startswith("~"):
                     out.append(f'<h3 class="lm-cap">{t[1:]}</h3>')
                 elif t.startswith("!"):
-                    wa_t = urllib.parse.quote(t[1:])
+                    wa_t = urllib.parse.quote(CTA_WA.get(num, t[1:]))
                     out.append(f'<p class="lm-cta"><a class="btn-wa" href="https://wa.me/34644516082?text={wa_t}" target="_blank" rel="noopener noreferrer">{WA_SVG} {t[1:]}</a></p>')
                 else:
                     out.append(f'<h2 class="lm-h2d">{t}</h2>')
