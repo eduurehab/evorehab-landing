@@ -770,6 +770,46 @@ def html_contenido(elementos, destino, num=0):
             if _h is not None:
                 _ult = max(i for i, o in enumerate(out) if o.startswith("<ul class=\"lm-lista\"><li>Si has marcado"))
                 out[_qi[0]:_ult + 1] = [_w, '<script src="../lm-cuestionario.js?v=1" defer></script>']
+    if num == 15:
+        out = [o.replace("En la siguiente página te dejo una hoja en blanco con 30 posibles sesiones para que rellenes", "Justo debajo te dejo una hoja en blanco con 30 posibles sesiones para que la rellenes.") for o in out]
+    if num == 13:
+        out = [o.replace("En la siguiente página, te dejo 4 ejercicios", "Más abajo te dejo 4 ejercicios").replace('<div class="lm-figs">', '<div class="lm-figs stack">') for o in out]
+    if num == 5:
+        _EVA = [
+            ("Sin dolor", "#2fbf71", "", [(0, "Sin dolor", "")]),
+            ("Leve", "#9ac93a", "Dolor leve: persistente, pero en realidad no interfiere con las actividades de la vida diaria.", [(1, "El dolor es muy leve,", " apenas perceptible. La mayor parte del tiempo no piensas en ello."), (2, "Dolor menor,", " molesto y puede tener punzadas ocasionales más fuertes."), (3, "El dolor se nota y distrae,", " sin embargo, puedes acostumbrarte y adaptarte.")]),
+            ("Moderado", "#f5b523", "Dolor moderado: interfiere significativamente con las actividades de la vida diaria.", [(4, "Dolor moderado,", " si está profundamente involucrado en una actividad, puede ignorarla por un período de tiempo, pero aún lo distrae."), (5, "Dolor moderadamente fuerte,", " no se puede ignorar por más de unos minutos, pero con esfuerzo aún puedes trabajar o participar en algunas actividades sociales."), (6, "Dolor fuerte", " que interfiere con las actividades diarias normales, dificultad para concentrarse.")]),
+            ("Severo", "#ee7a3a", "Dolor severo – Incapacitante; incapaz de realizar las actividades de la vida diaria.", [(7, "Dolor severo", " que domina sus sentidos y limita significativamente su capacidad para realizar actividades diarias normales o mantener relaciones sociales. Interfiere con el sueño."), (8, "Dolor intenso,", " la actividad física está severamente limitada. Conversar requiere un gran esfuerzo.")]),
+            ("Insoportable", "#d93025", "", [(9, "Dolor insoportable,", " incapaz de conversar. Llorar y/o gemir incontrolablemente."), (10, "Dolor indecible,", " postrado en cama y posiblemente delirando. Muy pocas personas alguna vez experimentarán este nivel de dolor.")]),
+        ]
+        _h = '<div class="lm-eva">'
+        for _n, _c, _b, _rows in _EVA:
+            _h += f'<div class="eva-g" style="--c:{_c}"><span class="eva-chip">{_n}</span>'
+            if _b:
+                _h += f'<p class="eva-b">{_b}</p>'
+            for _v, _t, _r in _rows:
+                _h += f'<div class="eva-r"><span class="n">{_v}</span><p><b>{_t}</b>{_r}</p></div>'
+            _h += '</div>'
+        _h += '</div>'
+        _tab = '<div class="lm-tabla"><table class="lm-t lm-t-vacia"><thead><tr><th>Día / sesión</th><th>Dolor (0-10)</th><th>Sensaciones generales y comentarios</th></tr></thead><tbody>' + "".join('<tr><td></td><td></td><td></td></tr>' for _ in range(16)) + '</tbody></table></div>'
+        _f = [i for i, o in enumerate(out) if o.startswith('<figure')]
+        for _i in _f:
+            if 'img-01.jpg' in out[_i]:
+                out[_i] = _h
+            elif 'img-02.jpg' in out[_i]:
+                out[_i] = _tab
+    if num == 7:
+        _G = [("Gestión del rango de movimiento", ["Más cuidado con la flexión profunda de rodilla", "Progresión de rangos más controlada"], ["El problema principal no es el rango. Suele tolerarse mejor", "Deberás darle más atención al manejo de cargas"]),
+              ("Tipo de fuerza prioritaria", ["Isométricos en angulaciones específicas", "Excéntricos controlados", "Mayor énfasis en cuádriceps y sus diferentes cabezas"], ["Fuerza global de la pierna", "Mejorar absorción y redistribución de cargas", "Menos foco en “aislar”, y más en moverte bien"]),
+              ("Impacto y ejercicios dinámicos", ["Impacto más tardío", "Introducción muy progresiva (intensidad y volumen)"], ["Impacto suele ser necesario antes", "También progresivo y bien dosificado, pero clave para mejorar tolerancia"])]
+        _h = '<div class="lm-vs">'
+        for _t, _a, _b in _G:
+            _h += f'<h3 class="lm-h3d">{_t}</h3><div class="vs-g"><div class="vs-c rot"><b>Rotuliana</b><ul>' + "".join(f'<li>{x}</li>' for x in _a) + '</ul></div><div class="vs-c fem"><b>Femoral</b><ul>' + "".join(f'<li>{x}</li>' for x in _b) + '</ul></div></div>'
+        _h += '</div>'
+        _f = [i for i, o in enumerate(out) if o.startswith('<figure') and 'img-03.jpg' in o]
+        for _i in _f:
+            out[_i] = _h
+        out = [o.replace("En las siguientes páginas voy a contarte", "A continuación te cuento") for o in out]
     if num == 21:
         _a = next((i for i, o in enumerate(out) if o.startswith('<figure') and 'img-01.jpg' in o), None)
         if _a is not None:
@@ -987,7 +1027,7 @@ def pagina(titulo, lead, cuerpo, kicker, num):
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700;1,800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../landing.css?v=6" />
-  <link rel="stylesheet" href="../lm.css?v=31" />
+  <link rel="stylesheet" href="../lm.css?v=33" />
   <link rel="stylesheet" href="../cookies.css?v=1" />
 </head>
 <body>

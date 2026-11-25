@@ -385,3 +385,24 @@
 .lm-doc .lm-lema p{margin:0;font-family:"Barlow Condensed",sans-serif;font-weight:800;font-size:clamp(30px,6vw,42px);line-height:1.08;text-transform:uppercase;color:var(--black)}
 .lm-lema p b{color:var(--cyan);font-weight:800}
 .lm-lema::after{content:"";display:block;width:70px;height:5px;margin:18px auto 0;border-radius:99px;background:var(--cyan)}
+@media(max-width:600px){.lm-figs.stack{flex-direction:column}}
+
+/* Escala EVA (LM5) y comparativa (LM7) */
+.lm-doc .lm-eva{max-width:640px;margin:22px auto;display:grid;gap:12px;text-align:left}
+.eva-g{padding:14px 16px 6px;border-radius:18px;background:#fff;border:1px solid var(--line);border-left:7px solid var(--c);box-shadow:0 8px 22px rgba(11,42,61,.06)}
+.eva-chip{display:inline-block;padding:4px 16px;border-radius:999px;background:var(--c);color:#fff;font-size:12.5px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase}
+.eva-b{margin:10px 0 2px;font-style:italic;font-weight:700;color:var(--black);font-size:15px}
+.eva-r{display:flex;gap:12px;align-items:flex-start;padding:10px 0}
+.eva-r+.eva-r{border-top:1px solid #edf1f5}
+.eva-r .n{flex:none;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--c);color:#fff;font-weight:800;font-size:14px}
+.eva-r p{margin:0;font-size:15.5px;line-height:1.5}
+.eva-r b{color:var(--black)}
+.lm-doc .lm-vs{max-width:680px;margin:20px auto}
+.vs-g{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:22px;text-align:left}
+.vs-c{padding:16px 18px;border-radius:18px;border:1px solid var(--line);background:#fff;box-shadow:0 8px 22px rgba(11,42,61,.06)}
+.vs-c.rot{border-top:5px solid var(--cyan)}.vs-c.fem{border-top:5px solid var(--navy)}
+.vs-c b{display:block;margin-bottom:6px;font-family:"Barlow Condensed",sans-serif;text-transform:uppercase;font-size:22px;color:var(--black)}
+.vs-c ul{margin:0;padding-left:18px;font-size:15px;line-height:1.5}
+.vs-c li+li{margin-top:5px}
+@media(max-width:600px){.vs-g{grid-template-columns:1fr}}
+.lm-vs .lm-h3d{margin:26px 0 12px}
