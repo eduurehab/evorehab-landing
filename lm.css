@@ -114,3 +114,5 @@
 .lm-h3c { margin: 36px 0 4px; padding: 12px 20px; border-radius: 16px; border: 2px solid var(--cyan); background: var(--cyan-soft); font-size: 17px; line-height: 1.3; font-weight: 800; text-align: center; color: var(--navy); }
 .lm-cta { margin: 34px 0 0; text-align: center; }
 .lm-cta .btn-wa { max-width: 100%; white-space: normal; text-align: center; }
+.lm-doc .lm-lab:has(+ .lm-h2d) { margin-top: 48px; text-align: center; }
+.lm-doc .lm-lab + .lm-h2d { margin-top: 8px; }

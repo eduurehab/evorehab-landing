@@ -48,9 +48,10 @@ CAPSULAS = {
 CTA = "!Quiero agendar una reunión con Edu y contarle mi caso"
 CAPSULAS[9] = ["~Isometría en ángulos seguros", "~Fuerza excéntrica controlada", "~Pliometría extensiva de bajo impacto", CTA]
 CAPSULAS[10] = ["~Extensión máxima (0°) y flexión de al menos 110-120°", "~Ausencia de inflamación activa", "~Capacidad de carga con ejercicios clave", "~Déficit de fuerza entre piernas menos al 15-10%", CTA]
+KICKERS_11 = {"1": "FASE 1 · POSTOPERATORIO O CONSERVADOR", "2": "FASE 2 · FUERZA Y SIMETRÍAS", "3": "FASE 3 · IMPACTOS, CARRERA Y CAMBIOS DE DIRECCIÓN", "4": "FASE 4 · RENDIMIENTO EN TU DEPORTE", "5": "FASE 5 · PREVENCIÓN DE POR VIDA"}
 SIN_CIERRE = {1, 2, 3}   # sin botón de WhatsApp: el texto del PDF ya manda al chat de Instagram
 SIN_PORTADA = {15: ["Cómo retomar la carrera", "Método CaCo (caminar-correr)"], 16: ["Checklist de señales de progreso"]}
-CABECERA = re.compile(r"^(pregunta\s+s[ií]\s+no|evorehab\s*·\s*las 5 fases.*|.*edurehab.*c[oó]mo retomar.*|puedes preguntarme lo que quieras.*|pregunta\s+s[ií]\s+no|siguiente p[aá]gina|[↓⬇⬇️]+|programa\s*evorehab|eduardo est[ée]vez|@edu\.rehab|sigue leyendo|evorehab)$", re.I)
+CABECERA = re.compile(r"^(pregunta\s+s[ií]\s+no|evorehab\s*·\s*las 5 fases.*|.*edurehab.*c[oó]mo retomar.*|puedes preguntarme lo que quieras.*|pregunta\s+s[ií]\s+no|siguiente p[aá]gina|[↓⬇⬇️]+|programa\s*evorehab|eduardo est[ée]vez|@edu\.rehab|sigue leyendo( las siguientes p[aá]ginas)?|evorehab)$", re.I)
 AUTOR = re.compile(r"(^lesiones de rodilla$|eduardo est[ée]vez|@edu\.rehab|graduado en|posgrado|ceo programa|especialista en readaptaci|programa\s*evorehab|ciencias de la (a\.f|actividad)|experto universitario|m[úu]ltiples formaciones)", re.I)
 BULLETS = set("⬜⬛•·▪●○◦■□☐☑✓✔✅❌-–—➤➔►▶→") | {chr(c) for c in range(0xE000, 0xF900)}
 CHECK = set("⬜□☐☑✓✔")
@@ -157,6 +158,10 @@ def parrafos(lineas, ph=842):
     der = anchos[int(len(anchos) * 0.85)] if anchos else 0
     """Agrupa líneas en párrafos/viñetas/títulos."""
     lineas = sorted(lineas, key=lambda l: (round(l["bbox"][1] / 2), l["bbox"][0]))
+    der_blk = {}
+    for l in lineas:
+        if l.get("blk") is not None:
+            der_blk[l["blk"]] = max(der_blk.get(l["blk"], 0), l["bbox"][2])
     res = []
     cur = None
     for l in lineas:
@@ -168,9 +173,14 @@ def parrafos(lineas, ph=842):
             mismo = abs(l["size"] - cur["size"]) < 1.5
             # continuación si el hueco es pequeño, mismo tamaño y no hay salto grande de x
             izq = abs(l["bbox"][0] - cur["bbox"][0]) < 4 or (cur.get("bullet") and 0 <= l["bbox"][0] - cur["bbox"][0] < 26)
-            lleno = der and cur.get("x1", 0) >= der - 0.07 * max(1, der - cur["bbox"][0])
+            pares = [o["bbox"][2] for o in lineas if abs(o["bbox"][0] - cur["bbox"][0]) < 4 and abs(o["bbox"][1] - cur["bbox"][1]) < 90 and abs(o["size"] - cur["size"]) < 1.5]
+            d_ = max(pares) if len(pares) >= 2 else der
+            lleno = d_ and cur.get("x1", 0) >= d_ - 0.07 * max(1, d_ - cur["bbox"][0])
             suelto = izq and lleno and gap < 2.6 * l["size"] and l["bbox"][0] - cur["bbox"][0] > -4
-            if (gap < 0.55 * l["size"] or suelto) and mismo and not cur.get("solo"):
+            neg_cur = all(estilo_span(x)[0] for x in cur["spans"] if x["text"].strip())
+            neg_l = all(estilo_span(x)[0] for x in l["spans"] if x["text"].strip())
+            titulo_suelto = neg_cur and not neg_l and len(cur["text"]) < 110 and not cur.get("bullet")
+            if (gap < 0.55 * l["size"] or suelto) and mismo and not cur.get("solo") and not titulo_suelto:
                 cur["spans"] += [dict(s, text=" " + s["text"]) if i == 0 else s for i, s in enumerate(l["spans"])]
                 cur["bbox"] = (min(cur["bbox"][0], l["bbox"][0]), cur["bbox"][1], max(cur["bbox"][2], l["bbox"][2]), l["bbox"][3])
                 cur["text"] += " " + t
@@ -200,7 +210,11 @@ def clasificar(p, tam_cuerpo, sobre_caja):
     n = len(p["text"])
     if p.get("bullet"):
         return "li"
-    if sobre_caja and n < 160:
+    if p["text"].startswith("FASE ") and p["text"].isupper() and p["size"] < tam_cuerpo:
+        return "lab"
+    if p["size"] >= 1.7 * tam_cuerpo and n < 120 and not re.fullmatch(r"[\d\s%+.,]+", p["text"].strip()):
+        return "h2"
+    if sobre_caja and n < 160 and (todo_neg or p["size"] >= tam_cuerpo + 2):
         return "h2"
     if todo_neg and (todo_ac or p["size"] >= tam_cuerpo + 2.5) and n < 140:
         return "h2" if p["size"] >= tam_cuerpo + 6 else "h3"
@@ -337,12 +351,18 @@ def procesar(doc, destino, nombre_base, num=0):
         portada = (pi == 0 and num not in SIN_PORTADA)
         if portada:
             reales = []
-        # --- cabecera: fuera
+        # --- cabecera: fuera (solo si la página lleva banda de cabecera; si no, solo la regex CABECERA)
+        banda = any(pymupdf.Rect(im_["bbox"]).y0 <= 3 and pymupdf.Rect(im_["bbox"]).width >= 520 and pymupdf.Rect(im_["bbox"]).y1 <= 320 for im_ in infos)
         util = []
         for l in lin:
             y0 = l["bbox"][1]
-            if pi > 0 and y0 < 85:
+            if pi > 0 and y0 < 85 and banda:
                 continue
+            mk = re.match(r"FA\s*S\s*E\s*(\d)", l["text"]) if num == 11 else None
+            if mk:
+                l = dict(l, text=KICKERS_11[mk.group(1)], spans=[dict(l["spans"][0], text=KICKERS_11[mk.group(1)])])
+            if re.fullmatch(r"\d", l["text"].strip()) and l["size"] > 60:
+                continue                      # número decorativo gigante
             if CABECERA.match(l["text"].strip()):
                 continue
             if y0 > ph * 0.88 and re.fullmatch(r"\d{1,2}", l["text"].strip()):
@@ -432,12 +452,12 @@ def procesar(doc, destino, nombre_base, num=0):
     res = []
     pend = None
     for e in elementos:
-        if e[3] == "h2" and re.fullmatch(r"\d{1,2}", e[4]["text"].strip()):
+        if e[3] in ("h2", "h3") and re.fullmatch(r"\d{1,2}", e[4]["text"].strip()):
             pend = e[4]["text"].strip()
             continue
-        if pend and e[3] == "h2":
+        if pend and e[3] in ("h2", "h3", "p"):
             e[4]["spans"].insert(0, dict(e[4]["spans"][0], text=pend + ". ", href=None))
-        pend = None if e[3] in ("h2", "h3") else pend
+        pend = None if e[3] in ("h2", "h3", "p") else pend
         res.append(e)
     return titulo, lead, res
 
@@ -544,7 +564,7 @@ def pagina(titulo, lead, cuerpo, kicker, num):
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../landing.css?v=6" />
-  <link rel="stylesheet" href="../lm.css?v=5" />
+  <link rel="stylesheet" href="../lm.css?v=6" />
   <link rel="stylesheet" href="../cookies.css?v=1" />
 </head>
 <body>
