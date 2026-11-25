@@ -170,3 +170,6 @@
 .lm-doc .lm-cierre p, .lm-doc .lm-cierre strong { color: #fff; }
 .lm-doc .lm-cierre p { font-size: 17px; line-height: 1.65; }
 .lm-doc .lm-cierre .lm-btn, .lm-doc .lm-cierre .lm-btn:hover { color: #fff; text-decoration: none; }
+.lm-doc .lm-cierre { margin: 44px auto 0; padding: 28px 28px 30px; }
+.lm-doc .lm-cierre p:first-child { margin-top: 0; }
+.lm-doc .lm-cierre p:last-child { margin-bottom: 0; }
