@@ -21,3 +21,33 @@ Esta página está pensada para que una persona que ya ha agendado una llamada p
 ## Publicación
 
 La web se publicará como Static Site en Render usando el enlace gratuito de Render.
+
+## Lead magnets en formato web
+
+Cada lead magnet es una carpeta con su `index.html` (página `noindex`, comparte `landing.css` y `lm.css`).
+Los que vienen de PDF se generaron con `herramientas/generar-lm.py` y después se retocan a mano.
+
+| URL | Contenido |
+|---|---|
+| `/lm1-bienvenida-eliminar-dolor` | Bienvenida (1) · Eliminar dolor y pinchazos |
+| `/lm2-bienvenida-gym-con-dolor` | Bienvenida (2) · Entrenar en gym con dolor |
+| `/lm3-bienvenida-cirugia-5-fases` | Bienvenida (3) · Cirugía 5 fases |
+| `/lm4-guia-definitiva-dolor` | Guía definitiva del dolor |
+| `/lm5-tabla-autoevaluacion-dolor` | Tabla de autoevaluación del dolor |
+| `/lm6-sesion-iso-exc-dolor-rodilla` | Sesión ISO + EXC dolor de rodilla |
+| `/lm7-tratamiento-condromalacias` | Condromalacia rotuliana vs femoral |
+| `/lm8-variantes-sentadillas` | Variantes de sentadillas |
+| `/lm9-impacta-sin-miedo` | Impacta sin miedo |
+| `/lm10-antes-del-bisturi` | Antes del bisturí |
+| `/lm11-5-fases-lca` | 5 fases LCA |
+| `/lm12-tests-lca` | Tests tras reconstrucción de LCA |
+| `/lm13-artrofibrosis-adherencias` | Artrofibrosis y adherencias |
+| `/lm14-de-la-camilla-al-gimnasio` | De la camilla al gimnasio |
+| `/lm15-progresion-caco-carrera` | Progresión CaCo (carrera) |
+| `/lm16-checklist-senales-progreso` | Checklist de señales de progreso |
+| `/lm17-20-preguntas-plan-optimo` | 20 preguntas plan óptimo |
+| `/lm18-3-claves-masa-muscular` | 3 claves para ganar masa muscular |
+| `/lm19-errores-que-cometi` | 5 errores que cometí |
+| `/lm23-test4preguntas` | Árbol de decisión (4 preguntas) |
+
+Pendientes: `lm20` (vídeo Ejs Prohibidos Miró) y los case study (`/case-study-adri-a`, `/case-study-alvaro-m`, `/case-study-luzia-r`), a falta de los enlaces de YouTube.
