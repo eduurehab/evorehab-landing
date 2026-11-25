@@ -773,7 +773,17 @@ def html_contenido(elementos, destino, num=0):
     if num == 15:
         out = [o.replace("En la siguiente página te dejo una hoja en blanco con 30 posibles sesiones para que rellenes", "Justo debajo te dejo una hoja en blanco con 30 posibles sesiones para que la rellenes.") for o in out]
     if num == 13:
-        out = [o.replace("En la siguiente página, te dejo 4 ejercicios", "Más abajo te dejo 4 ejercicios").replace('<div class="lm-figs">', '<div class="lm-figs stack">') for o in out]
+        _tb = '<div class="lm-tabla"><table class="lm-t lm-t-ej"><caption>Tabla 1. Clasificación de Shelbourne</caption><thead><tr><th>Tipo</th><th>Déficit de extensión</th><th>Déficit de flexión</th><th>Otros criterios</th></tr></thead><tbody>' + "".join(f'<tr><th>{a}</th><td>{b}</td><td>{c}</td><td>{d}</td></tr>' for a, b, c, d in [("I", "≤ 10°", "No", "No"), ("II", "> 10°", "No", "No"), ("III", "> 10°", "> 25°", "Patela retraída"), ("IV", "> 10°", "≥ 30°", "Patela baja")]) + '</tbody></table></div>'
+        _r = []
+        for o in out:
+            o = o.replace("En la siguiente página, te dejo 4 ejercicios", "Más abajo te dejo 4 ejercicios")
+            if o.startswith('<div class="lm-figs') and 'img-02.jpg' in o:
+                _m = re.search(r'<img[^>]*src="img-01.jpg"[^>]*>', o)
+                o = '<figure class="lm-fig" style="width:70%;margin-left:auto;margin-right:auto">' + (_m.group(0) if _m else '') + '</figure>' + _tb
+            _r.append(o)
+        out = _r
+    if num in (11, 12):
+        out = [re.sub(r'(<figure class="lm-fig"[^>]*>)(<img[^>]*src="img-01.jpg"[^>]*>)(</figure>)', r'<a class="zoom" href="img-01.jpg" target="_blank" rel="noopener"></a><small class="zoomtip">Toca la imagen para ampliarla</small>', o) for o in out]
     if num == 5:
         _EVA = [
             ("Sin dolor", "#2fbf71", "", [(0, "Sin dolor", "")]),
@@ -1027,7 +1037,7 @@ def pagina(titulo, lead, cuerpo, kicker, num):
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700;1,800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../landing.css?v=6" />
-  <link rel="stylesheet" href="../lm.css?v=34" />
+  <link rel="stylesheet" href="../lm.css?v=35" />
   <link rel="stylesheet" href="../cookies.css?v=1" />
 </head>
 <body>

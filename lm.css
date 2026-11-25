@@ -424,3 +424,8 @@
   .lm-cmp td::before{content:attr(data-l);display:inline-block;margin-bottom:6px;padding:3px 14px;border-radius:999px;font-weight:800;font-size:12.5px;letter-spacing:1.2px;text-transform:uppercase;color:#fff;background:var(--cyan)}
   .lm-cmp td[data-l="Femoral"]::before{background:var(--navy)}
 }
+
+.lm-t caption{caption-side:top;padding:12px 14px;text-align:left;font-weight:800;font-size:13.5px;color:var(--black);background:#fff}
+.lm-t-ej td{text-align:center}
+.zoomtip{display:block;margin-top:6px;font-size:12.5px;color:var(--muted);text-align:center}
+.zoom{display:block;cursor:zoom-in}
