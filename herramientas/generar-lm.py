@@ -39,11 +39,11 @@ CAPSULAS = {
     1: ["La falsa solución que está <span class=\"cy\">debilitando</span> tu rodilla", "El camino real para <span class=\"cy\">recuperar tu rodilla</span>", "Tu punto de partida <span class=\"cy\">hoy mismo</span>"],
     2: ["Los errores que hacen que <span class=\"cy\">no te quites el dolor</span> ni la lesión", "Los 3 pilares de tu entrenamiento", "Lo más importante de todo"],
     3: ["Los problemas de hacer una <span class=\"cy\">mala rehab</span>", "El mapa de las 5 fases",
-        "Fase 1 · Movilidad base, musculatura base, entrenamiento cruzado y recuperación de la marcha <small>Semanas 1 a 6, aprox.</small>",
-        "Fase 2 · Movilidad avanzada, reducción de asimetrías y ganancia de masa muscular",
-        "Fase 3 · Carrera, pliometría, potencia y cambios de dirección (COD)",
-        "Fase 4 · Maximización del rendimiento y contexto deportivo real",
-        "Fase 5 · Evolución y prevención", "Extra · Preoperatorio", "No te olvides de <span class=\"cy\">esto</span>"],
+        "~Fase 1 · Movilidad base, musculatura base, entrenamiento cruzado y recuperación de la marcha <span class=\"cy\">(Semanas 1 a 6, aprox.)</span>",
+        "~Fase 2 · Movilidad avanzada, reducción de asimetrías y ganancia de masa muscular",
+        "~Fase 3 · Carrera, pliometría, potencia y cambios de dirección (COD)",
+        "~Fase 4 · Maximización del rendimiento y contexto deportivo real",
+        "~Fase 5 · Evolución y prevención", "~Extra · Preoperatorio", "No te olvides de <span class=\"cy\">esto</span>"],
 }
 CTA = "!Quiero agendar una reunión con Edu y contarle mi caso"
 CAPSULAS[9] = ["~Isometría en ángulos seguros", "~Fuerza excéntrica controlada", "~Pliometría extensiva de bajo impacto", CTA]
@@ -503,7 +503,7 @@ def html_contenido(elementos, destino, num=0):
             if len(dat) == 1 and caps and dat[0][1] / dat[0][2] > 4.5:
                 t = caps.pop(0)
                 if t.startswith("~"):
-                    out.append(f'<h3 class="lm-h3c">{t[1:]}</h3>')
+                    out.append(f'<h3 class="lm-cap">{t[1:]}</h3>')
                 elif t.startswith("!"):
                     wa_t = urllib.parse.quote(t[1:])
                     out.append(f'<p class="lm-cta"><a class="btn-wa" href="https://wa.me/34644516082?text={wa_t}" target="_blank" rel="noopener noreferrer">{WA_SVG} {t[1:]}</a></p>')
@@ -589,9 +589,9 @@ def pagina(titulo, lead, cuerpo, kicker, num):
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700;1,800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../landing.css?v=6" />
-  <link rel="stylesheet" href="../lm.css?v=8" />
+  <link rel="stylesheet" href="../lm.css?v=9" />
   <link rel="stylesheet" href="../cookies.css?v=1" />
 </head>
 <body>
