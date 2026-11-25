@@ -62,7 +62,7 @@ ENFASIS = {4: ["El dolor no es tu enemigo", "algo PUEDE estar en peligro", "El d
                "(VERDE, AMARILLO Y ROJO)", "el dolor no es tu enemigo, sino tu aliado", "pedir ayuda es de sabios",
                "PORQUE SÍ, YO TAMBIÉN ESTUVE CON DOLOR CRÓNICO Y LLENO DE LESIONES, Y CONSEGUÍ ELIMINARLAS DE MI VIDA"]}
 # Guías cuyo PDF ya trae su propia llamada final (chat de Instagram, botón de reunión, etc.): no se añade el cierre estándar
-SIN_CIERRE = {1, 2, 3, 6, 9, 10}
+SIN_CIERRE = {1, 2, 3, 6, 9, 10, 16}
 WA_TEXTO = {4: "Hola Edu! Acabo de terminar de leer tu guía del dolor y me han surgido algunas dudas. ¿Podrías ayudarme a resolverlas?"}
 STRAY = re.compile(r"^(@edu\.rehab|evorehab|e\s*v\s*o\s*r\s*e\s*h\s*a\s*b|evorehab\s*·\s*especialista.*|pregunta\s+s[ií]\s+no|ya casi estamos terminando.*|mira la siguiente p[aá]gina|pincha aqu[ií]:?)$", re.I)
 DEMOTE = {10: ["Muy atent@"]}          # titulares que en realidad son subtítulos
@@ -766,9 +766,23 @@ def html_contenido(elementos, destino, num=0):
                 o = '<div class="lm-res">' + "".join(f'<div class="r{i+1}"><b>{_tit[i]}</b><p>{re.sub(r"^Si has marcado (con un tick )?(menos de 5 ítems|entre 5 y 6|entre 7 y 8)[^,]*,\s*", "", x, flags=re.I).strip().capitalize() if False else x}</p></div>' for i, x in enumerate(_it[:3])) + '</div>'
             _res.append(o)
         out = _res
+        _fases = []
+        for _i, _o in enumerate(out):
+            _m = re.match(r'<h3 class="lm-h3d">Fase (\d) \W+ (.*?) \((.*?)\)\s*</h3>', _o)
+            if _m and _i + 1 < len(out) and out[_i + 1].startswith('<ul class="lm-chk">'):
+                _fases.append((_i, _m.group(1), _m.group(2), _m.group(3).replace("-", "–"), out[_i + 1]))
+        if len(_fases) == 4:
+            _tabs = "".join(f'<button type="button" class="lm-tab" role="tab" data-f="{f[1]}"><b>Fase {f[1]}</b><span>{f[3]}</span></button>' for f in _fases)
+            _pan = "".join(f'<div class="lm-panel" data-f="{f[1]}" role="tabpanel"><h3>{f[2]}</h3>{f[4]}</div>' for f in _fases)
+            _w = f'<div class="lm-form" id="lm-form"><p class="lm-solo">Solo para personas <strong>operadas de LCA o menisco</strong></p><p class="lm-form-paso"><b>1</b> Elige en qué fase estás según el tiempo desde tu cirugía</p><div class="lm-tabs" role="tablist">{_tabs}</div><p class="lm-form-paso"><b>2</b> Marca lo que ya cumples</p>{_pan}<div class="lm-result" aria-live="polite"></div></div><script src="../lm-checklist.js?v=1" defer></script>'
+            _ini, _fin = _fases[0][0], _fases[3][0] + 2
+            _j = _fin
+            while _j < len(out) and not out[_j].startswith("<p>Sea cual sea"):
+                _j += 1
+            out[_ini:_j] = [_w]
         a = next((i for i, o in enumerate(out) if "escanea" in o.lower()), None)
         if a is not None:
-            out[a:a + 2] = ['<p class="lm-cta"><a class="lm-btn" href="https://www.notion.so/Casos-de-xito-1b5391c16449809aa18deb61bd534e8a" target="_blank" rel="noopener noreferrer">Ver los casos de éxito</a></p>']
+            out[a:a + 2] = ['<p class="lm-cta"><a class="lm-btn" href="https://edurehab.onrender.com/testimonios" target="_blank" rel="noopener noreferrer">Ver testimonios</a></p>']
     if num == 11:
         res, i = [], 0
         while i < len(out):
@@ -887,7 +901,7 @@ def pagina(titulo, lead, cuerpo, kicker, num):
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700;1,800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../landing.css?v=6" />
-  <link rel="stylesheet" href="../lm.css?v=19" />
+  <link rel="stylesheet" href="../lm.css?v=21" />
   <link rel="stylesheet" href="../cookies.css?v=1" />
 </head>
 <body>
