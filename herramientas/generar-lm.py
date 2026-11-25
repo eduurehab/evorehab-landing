@@ -49,6 +49,8 @@ CTA = "!Quiero agendar una reunión con Edu y contarle mi caso"
 CAPSULAS[9] = ["~Isometría en ángulos seguros", "~Fuerza excéntrica controlada", "~Pliometría extensiva de bajo impacto", CTA]
 CAPSULAS[10] = ["~Extensión máxima (0°) y flexión de al menos 110-120°", "~Ausencia de inflamación activa", "~Capacidad de carga con ejercicios clave", "~Déficit de fuerza entre piernas menos al 15-10%", CTA]
 KICKERS_11 = {"1": "FASE 1 · POSTOPERATORIO O CONSERVADOR", "2": "FASE 2 · FUERZA Y SIMETRÍAS", "3": "FASE 3 · IMPACTOS, CARRERA Y CAMBIOS DE DIRECCIÓN", "4": "FASE 4 · RENDIMIENTO EN TU DEPORTE", "5": "FASE 5 · PREVENCIÓN DE POR VIDA"}
+# Enlaces de Drive que ahora deben ir a otra página de la web
+ENLACES = {"12wCIOtKwoSVlOHbinH_KErYIXswrshVP": "../lm10-antes-del-bisturi/"}
 SIN_CIERRE = {1, 2, 3}   # sin botón de WhatsApp: el texto del PDF ya manda al chat de Instagram
 SIN_PORTADA = {15: ["Cómo retomar la carrera", "Método CaCo (caminar-correr)"], 16: ["Checklist de señales de progreso"]}
 CABECERA = re.compile(r"^(pregunta\s+s[ií]\s+no|evorehab\s*·\s*las 5 fases.*|.*edurehab.*c[oó]mo retomar.*|puedes preguntarme lo que quieras.*|pregunta\s+s[ií]\s+no|siguiente p[aá]gina|[↓⬇⬇️]+|programa\s*evorehab|eduardo est[ée]vez|@edu\.rehab|sigue leyendo( las siguientes p[aá]ginas)?|evorehab)$", re.I)
@@ -558,6 +560,8 @@ def html_contenido(elementos, destino, num=0):
                 f'<div class="lm-ig-msgs"><div class="lm-ig-b in"><b>{preg}</b></div><div class="lm-ig-b out">{interior_c}</div></div>'
                 f'<div class="lm-ig-nota">{nota}</div>'
                 '</div></div>']
+    for fid, ruta in ENLACES.items():
+        out = [re.sub(r'<a href="[^"]*' + fid + r'[^"]*" target="_blank" rel="noopener noreferrer">', f'<a href="{ruta}">', o) for o in out]
     return "\n".join(out)
 
 
