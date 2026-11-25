@@ -787,7 +787,7 @@ def html_contenido(elementos, destino, num=0):
             elif o.startswith("<p>Nosotros te hemos planteado"):
                 o = '<p>Nosotros te hemos planteado <strong>a grosso modo</strong> el tipo de ejercicio que hay que hacer, pero luego <strong>cada rodilla y cómo responda a los ejercicios es completamente diferente</strong>.</p>'
             elif "Ahí es donde una progresión" in o:
-                o = '<h2 class="lm-h2d">Ahí es donde una progresión individualizada marca la diferencia</h2>'
+                o = '<div class="lm-lema"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg></span><p>Ahí es donde una <b>progresión individualizada</b> marca la diferencia</p></div>'
             _n.append(o)
         out = _n
     if num == 19:
@@ -987,7 +987,7 @@ def pagina(titulo, lead, cuerpo, kicker, num):
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700;1,800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../landing.css?v=6" />
-  <link rel="stylesheet" href="../lm.css?v=30" />
+  <link rel="stylesheet" href="../lm.css?v=31" />
   <link rel="stylesheet" href="../cookies.css?v=1" />
 </head>
 <body>

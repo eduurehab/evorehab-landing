@@ -377,3 +377,11 @@
 .lm-arbol-res p{margin:0 0 18px}
 .lm-arbol-res .lm-btn{border:0;cursor:pointer;font:inherit;font-weight:800;color:#fff}
 @media(max-width:600px){.lm-arbol-card h3{font-size:19px}}
+
+/* Lema destacado (LM21) */
+.lm-doc .lm-lema{max-width:560px;margin:44px auto 34px;text-align:center}
+.lm-lema .ic{width:56px;height:56px;margin:0 auto 14px}
+.lm-lema .ic svg{width:28px;height:28px}
+.lm-doc .lm-lema p{margin:0;font-family:"Barlow Condensed",sans-serif;font-weight:800;font-size:clamp(30px,6vw,42px);line-height:1.08;text-transform:uppercase;color:var(--black)}
+.lm-lema p b{color:var(--cyan);font-weight:800}
+.lm-lema::after{content:"";display:block;width:70px;height:5px;margin:18px auto 0;border-radius:99px;background:var(--cyan)}
