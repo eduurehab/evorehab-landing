@@ -221,6 +221,7 @@ def parrafos(lineas, ph=842):
     for l in lineas:
         t = l["text"]
         primero = t[:1]
+        ind_nuevo = False
         es_bullet = primero in BULLETS and (len(t) == 1 or t[1:2] in " \t" or primero in CHECK or ord(primero) >= 0xE000)
         if cur is not None and not es_bullet:
             gap = l["bbox"][1] - cur["bbox"][3]
@@ -235,7 +236,12 @@ def parrafos(lineas, ph=842):
             neg_l = all(estilo_span(x)[0] for x in l["spans"] if x["text"].strip())
             titulo_suelto = neg_cur and not neg_l and len(cur["text"]) < 150 and not cur.get("bullet")
             corto = NUM_ACTUAL in LISTA_CORTA and bool(d_) and len(pares) >= 3 and (cur.get("x1", 0) - cur["bbox"][0]) < 0.6 * (d_ - cur["bbox"][0]) and l["text"][:1].isupper() and not cur.get("bullet") and not neg_cur
-            if (gap < PAR_GAP * l["size"] or suelto) and mismo and not cur.get("solo") and not titulo_suelto and not corto:
+            lc = NUM_ACTUAL in LISTA_CORTA
+            sangria = lc and 14 <= l["bbox"][0] - cur["bbox"][0] < 60 and -3 <= gap < 0.7 * l["size"] and not cur.get("bullet")
+            vuelta = lc and cur.get("bullet") and l["bbox"][0] - cur["bbox"][0] < -10
+            sub_neg = lc and neg_l and not neg_cur and l["text"].rstrip().endswith(":")
+            sig_item = lc and cur.get("ind") and abs(l["bbox"][0] - cur["bbox"][0]) < 4 and cur.get("x1", 0) < der - 60
+            if (gap < PAR_GAP * l["size"] or suelto) and mismo and not cur.get("solo") and not titulo_suelto and not corto and not sangria and not vuelta and not sub_neg and not sig_item:
                 cur["spans"] += [dict(s, text=" " + s["text"]) if i == 0 else s for i, s in enumerate(l["spans"])]
                 cur["bbox"] = (min(cur["bbox"][0], l["bbox"][0]), cur["bbox"][1], max(cur["bbox"][2], l["bbox"][2]), l["bbox"][3])
                 cur["text"] += " " + t
@@ -244,9 +250,13 @@ def parrafos(lineas, ph=842):
         if cur is not None and not es_bullet and corto_prev(cur, l, lineas):
             cur["bullet"] = True
             es_bullet = True
-        elif NUM_ACTUAL in LISTA_CORTA and cur is not None and not es_bullet and 14 <= l["bbox"][0] - cur["bbox"][0] < 60 and 0 <= l["bbox"][1] - cur["bbox"][3] < 0.7 * l["size"] and abs(l["size"] - cur["size"]) < 1.5:
+        elif NUM_ACTUAL in LISTA_CORTA and cur is not None and not es_bullet and cur.get("ind") and abs(l["bbox"][0] - cur["bbox"][0]) < 4:
             es_bullet = True
-        cur = {"bbox": tuple(l["bbox"]), "spans": [dict(s) for s in l["spans"]], "text": t, "size": l["size"], "bullet": es_bullet, "blk": l.get("blk"), "x1": l["bbox"][2]}
+            ind_nuevo = True
+        elif NUM_ACTUAL in LISTA_CORTA and cur is not None and not es_bullet and 14 <= l["bbox"][0] - cur["bbox"][0] < 60 and -3 <= l["bbox"][1] - cur["bbox"][3] < 0.7 * l["size"] and abs(l["size"] - cur["size"]) < 1.5 and not cur.get("bullet"):
+            es_bullet = True
+            ind_nuevo = True
+        cur = {"bbox": tuple(l["bbox"]), "spans": [dict(s) for s in l["spans"]], "text": t, "size": l["size"], "bullet": es_bullet, "blk": l.get("blk"), "x1": l["bbox"][2], "ind": ind_nuevo}
         if es_bullet:
             # quita el símbolo
             sp = cur["spans"]
