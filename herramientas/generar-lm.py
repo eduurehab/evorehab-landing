@@ -45,7 +45,7 @@ CAPSULAS = {
         "~Fase 4 · Maximización del rendimiento y contexto deportivo real",
         "~Fase 5 · Evolución y prevención", "~Extra · Preoperatorio", "No te olvides de <span class=\"cy\">esto</span>"],
 }
-CTA_WA = {9: "Hola Edu! Vengo del documento de \"Impacta sin miedo\", el de las condromalacias, y quiero agendar una reunión contigo a ver si me puedes ayudar"}
+CTA_WA = {10: "Hola Edu! He visto el documento del preoperatorio y quiero agendar una reunión contigo", 9: "Hola Edu! Vengo del documento de \"Impacta sin miedo\", el de las condromalacias, y quiero agendar una reunión contigo a ver si me puedes ayudar"}
 CTA = "!Quiero agendar una reunión con Edu y contarle mi caso"
 CAPSULAS[9] = ["~Isometría en ángulos seguros", "~Fuerza excéntrica controlada", "~Pliometría extensiva de bajo impacto", CTA]
 CAPSULAS[10] = ["~Extensión máxima (0°) y flexión de al menos 110-120°", "~Ausencia de inflamación activa", "~Capacidad de carga con ejercicios clave", "~Déficit de fuerza entre piernas menos al 15-10%", CTA]
@@ -720,6 +720,14 @@ def html_contenido(elementos, destino, num=0):
         a = next((i for i, o in enumerate(out) if "ESCANEA" in o), None)
         if a is not None:
             out[a:a + 2] = ['<p class="lm-cta"><a class="lm-btn" href="https://www.notion.so/Casos-de-xito-1b5391c16449809aa18deb61bd534e8a" target="_blank" rel="noopener noreferrer">Ver los casos de éxito</a></p>']
+    if num == 10:
+        a = next((i for i, o in enumerate(out) if "lm-mont" in o), None)
+        if a is not None and a + 6 < len(out) and all(o.startswith("<p") for o in out[a + 1:a + 7]):
+            fig = re.sub(r' style="width:\d+%[^"]*"', "", out[a])
+            ps = out[a + 1:a + 7]
+            casos = [ps[0:1], ps[1:4], ps[4:6]]
+            txt = "".join('<div class="lm-caso">' + "".join(c) + "</div>" for c in casos)
+            out[a:a + 7] = [f'<div class="lm-casos"><div class="lm-casos-txt">{txt}</div>{fig}</div>']
     if num == 6:
         a = next((i for i, o in enumerate(out) if "Te ha sido de utilidad" in o), None)
         if a is not None and a + 1 < len(out):

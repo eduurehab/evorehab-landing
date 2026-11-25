@@ -181,3 +181,18 @@
 .lm-lista li::before { position: static; display: inline-block; vertical-align: middle; margin-right: 10px; }
 .lm-lista li.chk::before { width: 13px; height: 13px; }
 .lm-lista li::before { top: auto; left: auto; }
+
+/* Historias: cada caso a la izquierda de su tarjeta */
+.lm-casos { display: grid; grid-template-columns: 1fr minmax(0, 340px); gap: 28px; align-items: stretch; margin-top: 26px; }
+.lm-casos .lm-fig { margin: 0; align-self: start; }
+.lm-casos-txt { display: flex; flex-direction: column; }
+.lm-caso { display: flex; flex-direction: column; justify-content: center; }
+.lm-caso:nth-child(1) { flex: 32.6; }
+.lm-caso:nth-child(2) { flex: 30.2; }
+.lm-caso:nth-child(3) { flex: 37.2; }
+.lm-caso p:first-child { margin-top: 0; }
+@media (max-width: 760px) {
+  .lm-casos { grid-template-columns: 1fr; }
+  .lm-casos .lm-fig { order: -1; max-width: 340px; margin: 0 auto; }
+  .lm-caso { padding: 8px 0; }
+}
