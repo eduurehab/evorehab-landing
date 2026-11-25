@@ -45,6 +45,9 @@ CAPSULAS = {
         "Fase 4 · Maximización del rendimiento y contexto deportivo real",
         "Fase 5 · Evolución y prevención", "Extra · Preoperatorio", "No te olvides de <span class=\"cy\">esto</span>"],
 }
+CTA = "!Quiero agendar una reunión con Edu y contarle mi caso"
+CAPSULAS[9] = ["~Isometría en ángulos seguros", "~Fuerza excéntrica controlada", "~Pliometría extensiva de bajo impacto", CTA]
+CAPSULAS[10] = ["~Extensión máxima (0°) y flexión de al menos 110-120°", "~Ausencia de inflamación activa", "~Capacidad de carga con ejercicios clave", "~Déficit de fuerza entre piernas menos al 15-10%", CTA]
 SIN_CIERRE = {1, 2, 3}   # sin botón de WhatsApp: el texto del PDF ya manda al chat de Instagram
 SIN_PORTADA = {15: ["Cómo retomar la carrera", "Método CaCo (caminar-correr)"], 16: ["Checklist de señales de progreso"]}
 CABECERA = re.compile(r"^(pregunta\s+s[ií]\s+no|evorehab\s*·\s*las 5 fases.*|.*edurehab.*c[oó]mo retomar.*|puedes preguntarme lo que quieras.*|pregunta\s+s[ií]\s+no|siguiente p[aá]gina|[↓⬇⬇️]+|programa\s*evorehab|eduardo est[ée]vez|@edu\.rehab|sigue leyendo|evorehab)$", re.I)
@@ -313,7 +316,9 @@ def procesar(doc, destino, nombre_base, num=0):
         reales = []
         for r in unicas:
             dentro = [l for l in lin if pymupdf.Rect(l["bbox"]).intersects(r) and (pymupdf.Rect(l["bbox"]) & r).get_area() > 0.9 * pymupdf.Rect(l["bbox"]).get_area()]
-            if dentro and r.height < 260:
+            if r.width >= 480 and r.width / r.height >= 4.4 and r.y0 > 3:
+                reales.append(r)          # título en cápsula (imagen): texto de debajo no es suyo
+            elif dentro and r.height < 260:
                 cajas.append(r)
             elif dentro and r.height >= 260 and pi == 0:
                 cajas.append(r)
@@ -472,7 +477,14 @@ def html_contenido(elementos, destino, num=0):
         cerrar_ul()
         if k == "img":
             if len(dat) == 1 and caps and dat[0][1] / dat[0][2] > 4.5:
-                out.append(f'<h2 class="lm-h2d">{caps.pop(0)}</h2>')
+                t = caps.pop(0)
+                if t.startswith("~"):
+                    out.append(f'<h3 class="lm-h3c">{t[1:]}</h3>')
+                elif t.startswith("!"):
+                    wa_t = urllib.parse.quote(t[1:])
+                    out.append(f'<p class="lm-cta"><a class="btn-wa" href="https://wa.me/34644516082?text={wa_t}" target="_blank" rel="noopener noreferrer">{WA_SVG} {t[1:]}</a></p>')
+                else:
+                    out.append(f'<h2 class="lm-h2d">{t}</h2>')
                 continue
             if len(dat) == 1:
                 n, w, h, pct = dat[0]
@@ -532,7 +544,7 @@ def pagina(titulo, lead, cuerpo, kicker, num):
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../landing.css?v=6" />
-  <link rel="stylesheet" href="../lm.css?v=4" />
+  <link rel="stylesheet" href="../lm.css?v=5" />
   <link rel="stylesheet" href="../cookies.css?v=1" />
 </head>
 <body>
