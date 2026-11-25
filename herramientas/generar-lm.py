@@ -771,14 +771,25 @@ def html_contenido(elementos, destino, num=0):
                 _ult = max(i for i, o in enumerate(out) if o.startswith("<ul class=\"lm-lista\"><li>Si has marcado"))
                 out[_qi[0]:_ult + 1] = [_w, '<script src="../lm-cuestionario.js?v=1" defer></script>']
     if num == 19:
+        ICO19 = [
+            '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+            '<svg viewBox="0 0 24 24"><path d="M6.5 6.5v11M17.5 6.5v11M3.5 9v6M20.5 9v6M6.5 12h11"/></svg>',
+            '<svg viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v1a3 3 0 0 0 3 3M17 6h3v1a3 3 0 0 1-3 3"/></svg>',
+            '<svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>',
+            '<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>']
+        _nom = ["Esperar a que pase", "Sin preparación física", "Mi ego", "Descanso y comida", "Hacerlo solo"]
+        _res19 = '<div class="lm-resumen">' + "".join(f'<div><span class="ic">{ICO19[i]}</span><b>{_nom[i]}</b></div>' for i in range(5)) + '</div>'
         _r = []
         for o in out:
             _m = re.match(r'<h3 class="lm-h3d"><em><strong>(\d) ?- ?(.*?)</strong></em></h3>', o)
             if _m:
-                o = f'<h2 class="lm-h2d"><span class="lm-eN">Error {_m.group(1)}</span>{_m.group(2)}</h2>'
+                o = f'<div class="lm-err"><span class="ic">{ICO19[int(_m.group(1)) - 1]}</span></div><h2 class="lm-h2d"><span class="lm-eN">Error {_m.group(1)}</span>{_m.group(2)}</h2>'
             elif o.startswith("<p><strong>Si te has sentido identificado"):
                 o = '<div class="lm-final"><p class="g">' + o[3:-4] + '</p></div>'
             _r.append(o)
+        _p = next((i for i, o in enumerate(_r) if o.startswith('<div class="lm-err">')), None)
+        if _p is not None:
+            _r.insert(_p, _res19)
         out = _r
     if num == 18:
         _r = []
@@ -956,7 +967,7 @@ def pagina(titulo, lead, cuerpo, kicker, num):
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700;1,800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../landing.css?v=6" />
-  <link rel="stylesheet" href="../lm.css?v=27" />
+  <link rel="stylesheet" href="../lm.css?v=28" />
   <link rel="stylesheet" href="../cookies.css?v=1" />
 </head>
 <body>

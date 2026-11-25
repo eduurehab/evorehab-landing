@@ -337,3 +337,17 @@
 /* Errores (LM19) */
 .lm-doc .lm-h2d .lm-eN{display:block;margin-bottom:2px;font-size:.55em;letter-spacing:2px;color:#0a8fb0}
 .lm-doc .lm-final .ac{color:#4fe0f5}
+
+/* Iconos LM19 */
+.lm-doc .lm-resumen{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:6px auto 34px;max-width:680px}
+.lm-resumen div{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 6px;border-radius:16px;background:#fff;border:1px solid var(--line);box-shadow:0 8px 22px rgba(11,42,61,.06)}
+.lm-resumen b{font-size:12.5px;line-height:1.25;color:var(--black)}
+.lm-doc .ic{display:grid;place-items:center;width:48px;height:48px;border-radius:50%;background:var(--navy);box-shadow:0 8px 18px rgba(11,42,61,.22)}
+.lm-doc .ic svg{width:24px;height:24px;fill:none;stroke:#4fe0f5;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.lm-doc .lm-err{display:flex;justify-content:center;margin:44px 0 -14px;position:relative;z-index:2}
+.lm-doc .lm-err .ic{width:60px;height:60px;border:4px solid #fff}
+.lm-doc .lm-err .ic svg{width:28px;height:28px}
+.lm-doc .lm-err + .lm-h2d{padding-top:26px}
+@media(max-width:600px){.lm-doc .lm-resumen{grid-template-columns:repeat(3,1fr)}}
+.lm-doc .lm-err{margin:46px 0 -32px}
+.lm-doc .lm-err + .lm-h2d{padding-top:40px;margin-top:0}
