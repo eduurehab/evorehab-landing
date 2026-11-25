@@ -755,7 +755,18 @@ def html_contenido(elementos, destino, num=0):
         if a is not None and a + 1 < len(out):
             out[a:a + 2] = ['<div class="lm-stats"><div><b>+150</b><span>deportistas recuperados</span></div><div><b>+60</b><span>clientes activos cada mes</span></div><div><b>100 %</b><span>especialistas en rodilla</span></div></div>']
     if num == 16:
-        a = next((i for i, o in enumerate(out) if "ESCANEA" in o), None)
+        _res = []
+        for o in out:
+            if o.startswith('<ul class="lm-lista"><li class="chk">'):
+                _it = re.findall(r"<li class=\"chk\">(.*?)</li>", o, flags=re.S)
+                o = '<ul class="lm-chk">' + "".join(f'<li><label><input type="checkbox" /><span>{x.strip()}</span></label></li>' for x in _it) + '</ul>'
+            elif o.startswith('<ul class="lm-lista"><li>') and "has marcado" in o:
+                _it = [x.strip() for x in re.findall(r"<li>(.*?)</li>", o, flags=re.S)]
+                _tit = ["Menos de 5 ítems", "Entre 5 y 6", "Entre 7 y 8"]
+                o = '<div class="lm-res">' + "".join(f'<div class="r{i+1}"><b>{_tit[i]}</b><p>{re.sub(r"^Si has marcado (con un tick )?(menos de 5 ítems|entre 5 y 6|entre 7 y 8)[^,]*,\s*", "", x, flags=re.I).strip().capitalize() if False else x}</p></div>' for i, x in enumerate(_it[:3])) + '</div>'
+            _res.append(o)
+        out = _res
+        a = next((i for i, o in enumerate(out) if "escanea" in o.lower()), None)
         if a is not None:
             out[a:a + 2] = ['<p class="lm-cta"><a class="lm-btn" href="https://www.notion.so/Casos-de-xito-1b5391c16449809aa18deb61bd534e8a" target="_blank" rel="noopener noreferrer">Ver los casos de éxito</a></p>']
     if num == 11:
@@ -876,7 +887,7 @@ def pagina(titulo, lead, cuerpo, kicker, num):
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700;1,800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../landing.css?v=6" />
-  <link rel="stylesheet" href="../lm.css?v=18" />
+  <link rel="stylesheet" href="../lm.css?v=19" />
   <link rel="stylesheet" href="../cookies.css?v=1" />
 </head>
 <body>
