@@ -51,6 +51,6 @@ Los que vienen de PDF se generaron con `herramientas/generar-lm.py` y después s
 | `/lm20-ejercicios-prohibidos` | Ejercicios prohibidos (vídeo Miró) |
 | `/lm21-test4preguntas` | Árbol de decisión (4 preguntas) |
 
-Índice de todas las páginas con botón de copiar enlace: `/indicepaginas-evo-k7x2m9q4w8` (noindex, sin enlazar).
+Índice de todas las páginas con botón de copiar enlace: `/indice-paginas-er` (noindex, sin enlazar).
 
 Listado de estudios de caso: `/case-studies` (noindex). Case studies (sistema propio): `/cs1-adri-a`, `/cs2-alvaro-m`. Pendiente `/cs3-luzia-r` (sin grabar aún).
