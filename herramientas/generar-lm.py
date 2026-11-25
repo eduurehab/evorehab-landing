@@ -51,7 +51,24 @@ CAPSULAS[10] = ["~Extensión máxima (0°) y flexión de al menos 110-120°", "~
 KICKERS_11 = {"1": "FASE 1 · POSTOPERATORIO O CONSERVADOR", "2": "FASE 2 · FUERZA Y SIMETRÍAS", "3": "FASE 3 · IMPACTOS, CARRERA Y CAMBIOS DE DIRECCIÓN", "4": "FASE 4 · RENDIMIENTO EN TU DEPORTE", "5": "FASE 5 · PREVENCIÓN DE POR VIDA"}
 # Enlaces de Drive que ahora deben ir a otra página de la web
 ENLACES = {"12wCIOtKwoSVlOHbinH_KErYIXswrshVP": "../lm10-antes-del-bisturi/"}
-SIN_CIERRE = {1, 2, 3}   # sin botón de WhatsApp: el texto del PDF ya manda al chat de Instagram
+CORTAR_DESDE = {4: "Te dejo el siguiente código QR"}   # se quita esa frase y todo lo que sigue (QR e iconos)
+# Frases que se ponen en negrita porque el PDF no las destaca (cuerpo ya semibold)
+ENFASIS = {4: ["El dolor no es tu enemigo", "algo PUEDE estar en peligro", "El dolor te protege, no es tu enemigo.",
+               "Hay veces que tenemos algo roto o una enfermedad grave y no sentimos nada de dolor.",
+               "el cerebro puede malinterpretar las señales", "es como un altavoz", "aumentar el umbral que hace saltar las alarmas",
+               "TODOS juegan un papel importante.", "el dolor se ha cronificado", "demostrarle al cerebro que ya no existe peligro",
+               "son los que mayor efecto analgésico tienen", "Todo aquello que supere el 4, se deberá adaptar o modificar.",
+               "(VERDE, AMARILLO Y ROJO)", "el dolor no es tu enemigo, sino tu aliado", "pedir ayuda es de sabios",
+               "PORQUE SÍ, YO TAMBIÉN ESTUVE CON DOLOR CRÓNICO Y LLENO DE LESIONES, Y CONSEGUÍ ELIMINARLAS DE MI VIDA"]}
+# Guías cuyo PDF ya trae su propia llamada final (chat de Instagram, botón de reunión, etc.): no se añade el cierre estándar
+SIN_CIERRE = {1, 2, 3, 9, 10}
+WA_TEXTO = {4: "Hola Edu! Acabo de terminar de leer tu guía del dolor y me han surgido algunas dudas. ¿Podrías ayudarme a resolverlas?"}
+STRAY = re.compile(r"^(@edu\.rehab|evorehab|e\s*v\s*o\s*r\s*e\s*h\s*a\s*b|evorehab\s*·\s*especialista.*|pregunta\s+s[ií]\s+no|ya casi estamos terminando.*|mira la siguiente p[aá]gina|pincha aqu[ií]:?)$", re.I)
+DEMOTE = {10: ["Muy atent@"]}          # titulares que en realidad son subtítulos
+H2_MAYUS = {12}                          # en estas guías los titulares en mayúsculas son los principales
+CIERRE_DESDE = {13: "Si después de leer esta guía"}   # esas frases pasan a la caja de cierre con el botón
+PAR_GAP = 0.55
+LISTA_CORTA = {12}   # guías donde las líneas cortas seguidas son una lista sin viñetas
 SIN_PORTADA = {15: ["Cómo retomar la carrera", "Método CaCo (caminar-correr)"], 16: ["Checklist de señales de progreso"]}
 CABECERA = re.compile(r"^(pregunta\s+s[ií]\s+no|evorehab\s*·\s*las 5 fases.*|.*edurehab.*c[oó]mo retomar.*|puedes preguntarme lo que quieras.*|pregunta\s+s[ií]\s+no|siguiente p[aá]gina|[↓⬇⬇️]+|programa\s*evorehab|eduardo est[ée]vez|@edu\.rehab|sigue leyendo( las siguientes p[aá]ginas)?|evorehab)$", re.I)
 AUTOR = re.compile(r"(^lesiones de rodilla$|eduardo est[ée]vez|@edu\.rehab|graduado en|posgrado|ceo programa|especialista en readaptaci|programa\s*evorehab|ciencias de la (a\.f|actividad)|experto universitario|m[úu]ltiples formaciones)", re.I)
@@ -122,9 +139,24 @@ def segmentar(page, doc_tipo_portada):
     return lineas, links
 
 
+PESOS = [("thin", 100), ("extralight", 200), ("light", 300), ("regular", 400), ("medium", 500), ("semibold", 600), ("demibold", 600), ("extrabold", 800), ("bold", 700), ("black", 900), ("heavy", 900)]
+BASE_PESO = 400   # peso del cuerpo del documento actual
+
+
+def peso(f):
+    f = f.lower().replace("-", "").replace(" ", "")
+    for k, v in PESOS:
+        if k in f:
+            return v
+    return None
+
+
 def estilo_span(s):
     f = s["font"].lower()
     neg = bool(s["flags"] & 16) or "bold" in f or "black" in f or "heavy" in f
+    if BASE_PESO >= 600:                  # documentos cuyo cuerpo ya es semibold: solo es negrita lo más pesado
+        pw = peso(s["font"])
+        neg = pw is not None and pw > BASE_PESO
     cur = bool(s["flags"] & 2) or "italic" in f or "oblique" in f
     return neg, cur, acento(s["color"])
 
@@ -155,6 +187,25 @@ def html_spans(spans):
     return out
 
 
+NUM_ACTUAL = 0
+
+
+def corto_prev(cur, l, lineas):
+    if NUM_ACTUAL not in LISTA_CORTA:
+        return False
+    """True si la línea anterior es corta (no llena el ancho) y esta empieza con mayúscula pegada debajo: lista sin viñetas."""
+    gap = l["bbox"][1] - cur["bbox"][3]
+    if gap > 0.55 * l["size"] or abs(l["size"] - cur["size"]) > 1.5 or abs(l["bbox"][0] - cur["bbox"][0]) > 4:
+        return False
+    pares = [o["bbox"][2] for o in lineas if abs(o["bbox"][0] - cur["bbox"][0]) < 4 and abs(o["bbox"][1] - cur["bbox"][1]) < 90 and abs(o["size"] - cur["size"]) < 1.5]
+    if len(pares) < 3:
+        return False
+    d_ = max(pares)
+    if all(estilo_span(x)[0] for x in cur["spans"] if x["text"].strip()):
+        return False
+    return (cur.get("x1", 0) - cur["bbox"][0]) < 0.6 * (d_ - cur["bbox"][0]) and l["text"][:1].isupper()
+
+
 def parrafos(lineas, ph=842):
     anchos = sorted(l["bbox"][2] for l in lineas if len(l["text"]) > 45)
     der = anchos[int(len(anchos) * 0.85)] if anchos else 0
@@ -181,13 +232,19 @@ def parrafos(lineas, ph=842):
             suelto = izq and lleno and gap < 2.6 * l["size"] and l["bbox"][0] - cur["bbox"][0] > -4
             neg_cur = all(estilo_span(x)[0] for x in cur["spans"] if x["text"].strip())
             neg_l = all(estilo_span(x)[0] for x in l["spans"] if x["text"].strip())
-            titulo_suelto = neg_cur and not neg_l and len(cur["text"]) < 110 and not cur.get("bullet")
-            if (gap < 0.55 * l["size"] or suelto) and mismo and not cur.get("solo") and not titulo_suelto:
+            titulo_suelto = neg_cur and not neg_l and len(cur["text"]) < 150 and not cur.get("bullet")
+            corto = NUM_ACTUAL in LISTA_CORTA and bool(d_) and len(pares) >= 3 and (cur.get("x1", 0) - cur["bbox"][0]) < 0.6 * (d_ - cur["bbox"][0]) and l["text"][:1].isupper() and not cur.get("bullet") and not neg_cur
+            if (gap < PAR_GAP * l["size"] or suelto) and mismo and not cur.get("solo") and not titulo_suelto and not corto:
                 cur["spans"] += [dict(s, text=" " + s["text"]) if i == 0 else s for i, s in enumerate(l["spans"])]
                 cur["bbox"] = (min(cur["bbox"][0], l["bbox"][0]), cur["bbox"][1], max(cur["bbox"][2], l["bbox"][2]), l["bbox"][3])
                 cur["text"] += " " + t
                 cur["x1"] = l["bbox"][2]
                 continue
+        if cur is not None and not es_bullet and corto_prev(cur, l, lineas):
+            cur["bullet"] = True
+            es_bullet = True
+        elif NUM_ACTUAL in LISTA_CORTA and cur is not None and not es_bullet and 14 <= l["bbox"][0] - cur["bbox"][0] < 60 and 0 <= l["bbox"][1] - cur["bbox"][3] < 0.7 * l["size"] and abs(l["size"] - cur["size"]) < 1.5:
+            es_bullet = True
         cur = {"bbox": tuple(l["bbox"]), "spans": [dict(s) for s in l["spans"]], "text": t, "size": l["size"], "bullet": es_bullet, "blk": l.get("blk"), "x1": l["bbox"][2]}
         if es_bullet:
             # quita el símbolo
@@ -212,14 +269,19 @@ def clasificar(p, tam_cuerpo, sobre_caja):
     n = len(p["text"])
     if p.get("bullet"):
         return "li"
+    tt = p["text"].strip()
+    if (re.fullmatch(r"[“\"”][^“”\"]{2,40}[”\"“]", tt) and tt.upper() == tt) or tt in ("CONTÁNDOMELO", "¡DALE CAÑA!"):
+        return "clave"          # palabra clave: se destaca aparte, no es un título
+    if p["text"].strip() in ("SÍ", "TAMBIÉN"):
+        return "pill"          # etiquetas de respuesta, no títulos
     if p["text"].startswith("FASE ") and p["text"].isupper() and p["size"] < tam_cuerpo:
         return "lab"
     if p["size"] >= 1.7 * tam_cuerpo and n < 120 and not re.fullmatch(r"[\d\s%+.,]+", p["text"].strip()):
-        return "h2"
+        return "h2" if n <= 80 else "h3"
     if sobre_caja and re.match(r"PILAR \d", p["text"].strip()):
         return "h3"
     if sobre_caja and n < 160 and (todo_neg or p["size"] >= tam_cuerpo + 2):
-        return "h2"
+        return "h2" if n <= 80 else "h3"
     if todo_neg and (todo_ac or p["size"] >= tam_cuerpo + 2.5) and n < 140:
         return "h2" if p["size"] >= tam_cuerpo + 6 else "h3"
     if todo_neg and n < 70 and p["size"] >= tam_cuerpo + 0.8:
@@ -286,6 +348,18 @@ def render_xref(doc, xref, destino, nombre, ancho_max=1100):
 
 
 def procesar(doc, destino, nombre_base, num=0):
+    global BASE_PESO, PAR_GAP, NUM_ACTUAL
+    NUM_ACTUAL = num
+    PAR_GAP = 0.75 if num == 11 else 0.55
+    from collections import Counter as _C
+    cp = _C()
+    for pg in doc:
+        for b in pg.get_text("dict")["blocks"]:
+            for ln in b.get("lines", []):
+                for sp in ln["spans"]:
+                    if sp["text"].strip() and 8 <= sp["size"] <= 18 and peso(sp["font"]):
+                        cp[peso(sp["font"])] += len(sp["text"])
+    BASE_PESO = cp.most_common(1)[0][0] if cp else 400
     os.makedirs(destino, exist_ok=True)
     elementos = []  # (pagina, y, x, tipo, datos)
     titulo = []
@@ -367,7 +441,7 @@ def procesar(doc, destino, nombre_base, num=0):
                 l = dict(l, text=KICKERS_11[mk.group(1)], spans=[dict(l["spans"][0], text=KICKERS_11[mk.group(1)])])
             if re.fullmatch(r"\d", l["text"].strip()) and l["size"] > 60:
                 continue                      # número decorativo gigante
-            if CABECERA.match(l["text"].strip()):
+            if CABECERA.match(l["text"].strip()) or STRAY.match(re.sub(r"^[\s\-–—·•_]+", "", l["text"].strip())):
                 continue
             if y0 > ph * 0.88 and re.fullmatch(r"\d{1,2}", l["text"].strip()):
                 continue
@@ -384,7 +458,7 @@ def procesar(doc, destino, nombre_base, num=0):
             tit = [l for l in util if l["size"] >= 0.9 * mx or (l["size"] >= 0.7 * mx and l["size"] >= 35)]
             resto = [l for l in util if l not in tit and l["size"] >= 16]
             tit.sort(key=lambda l: l["bbox"][1])
-            titulo = [l["text"] for l in tit]
+            titulo = [l["text"].replace("ARBOL", "ÁRBOL") for l in tit]
             resto.sort(key=lambda l: l["bbox"][1])
             lead = []
             prev = None
@@ -449,18 +523,31 @@ def procesar(doc, destino, nombre_base, num=0):
                     imgcount -= 1
                     continue
                 inf = inf or render_clip(doc, page, r, destino, f"img-{imgcount:02d}.jpg", 1100 if len(f_) == 1 else 700)
-                if inf: infs.append(tuple(inf) + (min(100, round(100 * r.width / (pw * 0.85))),))
+                lks = []
+                for lk in page.get_links():
+                    if lk.get("uri") and yt_id(lk["uri"]):
+                        cx, cy = (lk["from"].x0 + lk["from"].x1) / 2, (lk["from"].y0 + lk["from"].y1) / 2
+                        if r.x0 <= cx <= r.x1 and r.y0 <= cy <= r.y1:
+                            lks.append((lk["uri"], round(100 * (lk["from"].x0 - r.x0) / r.width, 2), round(100 * (lk["from"].y0 - r.y0) / r.height, 2), round(100 * lk["from"].width / r.width, 2), round(100 * lk["from"].height / r.height, 2)))
+                if inf: infs.append(tuple(inf) + (min(100, round(100 * r.width / (pw * 0.85))), lks))
             if infs:
                 elementos.append((pi, f_[0].y0, 0, "img", infs))
     elementos.sort(key=lambda e: (e[0], e[1], e[2]))
+    if num in CORTAR_DESDE:
+        k0 = next((i for i, e in enumerate(elementos) if isinstance(e[4], dict) and CORTAR_DESDE[num] in e[4].get("text", "")), None)
+        if k0 is not None:
+            elementos = elementos[:k0]
     res = []
     pend = None
     for e in elementos:
         if e[3] in ("h2", "h3") and re.fullmatch(r"\d{1,2}", e[4]["text"].strip()):
-            pend = e[4]["text"].strip()
+            pend = e[4]["text"].strip() + ". "
+            continue
+        if e[3] == "h2" and re.fullmatch(r"(ERROR|PILAR|PASO)\s*\d+", e[4]["text"].strip(), re.I):
+            pend = e[4]["text"].strip().capitalize() + " · "
             continue
         if pend and e[3] in ("h2", "h3", "p"):
-            e[4]["spans"].insert(0, dict(e[4]["spans"][0], text=pend + ". ", href=None))
+            e[4]["spans"].insert(0, dict(e[4]["spans"][0], text=pend, href=None))
         pend = None if e[3] in ("h2", "h3", "p") else pend
         res.append(e)
     return titulo, lead, res
@@ -481,6 +568,28 @@ def miniatura_yt(i, vertical, destino, nombre):
     return im.size
 
 
+def video_html(u, destino):
+    i = yt_id(u); vert = "shorts" in u
+    nom = f"yt-{i}.jpg"
+    try:
+        w, h = miniatura_yt(i, vert, destino, nom)
+    except Exception:
+        return f'<p><a href="{html.escape(u)}" target="_blank" rel="noopener noreferrer">Ver vídeo</a></p>'
+    cls = "lm-vid" + ("" if vert else " h")
+    return f'<div class="lm-vidwrap{"" if vert else " h"}"><div class="{cls}"><a class="lm-yt" href="{html.escape(u)}" rel="noopener noreferrer" data-yt-embed="{i}" data-titulo="Vídeo"><img loading="lazy" decoding="async" width="{w}" height="{h}" src="{nom}" alt="Vídeo" /><span class="play"><span class="round">▶</span></span></a></div></div>'
+
+
+def trocear_ejercicios(spans):
+    """Parte un párrafo en un trozo por cada «Ejercicio N»."""
+    trozos, cur = [], []
+    for sp in spans:
+        if re.match(r"\s*Ejercicio\s*\d", sp["text"]) and any(x["text"].strip() and not x.get("href") for x in cur):
+            trozos.append(cur); cur = []
+        cur.append(sp)
+    trozos.append(cur)
+    return trozos
+
+
 def html_contenido(elementos, destino, num=0):
     caps = list(CAPSULAS.get(num, []))
     out = []
@@ -494,6 +603,25 @@ def html_contenido(elementos, destino, num=0):
             ul = []
 
     for pi, y, x, k, dat in elementos:
+        if k in ("p", "li") and any(yt_id(sp.get("href")) for sp in dat["spans"]) and re.search(r"pincha|clica|ver el v[ií]deo", dat["text"], re.I):
+            cerrar_ul()
+            for tr in trocear_ejercicios(dat["spans"]):
+                links = []
+                for sp in tr:
+                    if yt_id(sp.get("href")) and sp["href"] not in links:
+                        links.append(sp["href"])
+                txt = [sp for sp in tr if not sp.get("href")]
+                txt = [dict(sp, text=re.sub(r"\s*(pincha aqu[ií]\s*)?(para )?ver (el )?v[ií]deo", "", sp["text"], flags=re.I)) for sp in txt]
+                plano = re.sub(r"\s+", " ", "".join(sp["text"] for sp in txt)).strip(" |-–:")
+                if plano:
+                    es_tit = k == "li" or re.match(r"Ejercicio\s*\d", plano)
+                    if es_tit and len(plano) < 120:
+                        out.append(f'<h3 class="lm-h3d">{esc(plano)}</h3>')
+                    else:
+                        out.append(f"<p>{html_spans(txt)}</p>")
+                for u in links:
+                    out.append(video_html(u, destino))
+            continue
         if k == "li":
             cl = ' class="chk"' if dat.get("check") else ""
             ul.append(f"<li{cl}>{html_spans(dat['spans'])}</li>")
@@ -511,16 +639,21 @@ def html_contenido(elementos, destino, num=0):
                     out.append(f'<h2 class="lm-h2d">{t}</h2>')
                 continue
             if len(dat) == 1:
-                n, w, h, pct = dat[0]
+                n, w, h, pct, *extra = dat[0]
                 est = f' style="width:{pct}%;margin-left:auto;margin-right:auto"' if pct < 90 else ""
-                out.append(f'<figure class="lm-fig"{est}><img loading="lazy" decoding="async" src="{n}" width="{w}" height="{h}" alt="" /></figure>')
+                hits = "".join(f'<a class="lm-hit" style="left:{a}%;top:{b}%;width:{c}%;height:{d}%" href="{html.escape(u)}" target="_blank" rel="noopener noreferrer" aria-label="Ver vídeo"><span class="lm-hit-play">▶</span></a>' for u, a, b, c, d in (extra[0] if extra else []))
+                cl = "lm-fig lm-mont" if hits else "lm-fig"
+                out.append(f'<figure class="{cl}"{est}><img loading="lazy" decoding="async" src="{n}" width="{w}" height="{h}" alt="" />{hits}</figure>')
             else:
-                out.append('<div class="lm-figs">' + "".join(f'<img loading="lazy" decoding="async" src="{n}" width="{w}" height="{h}" alt="" />' for n, w, h, _p in dat) + "</div>")
+                out.append('<div class="lm-figs">' + "".join(f'<img loading="lazy" decoding="async" src="{d_[0]}" width="{d_[1]}" height="{d_[2]}" alt="" />' for d_ in dat) + "</div>")
             continue
         sp = [s for s in dat["spans"] if s["text"].strip()]
         hrefs = {s["href"] for s in sp}
-        if len(hrefs) == 1 and None not in hrefs and len(dat["text"]) < 40 and yt_id(next(iter(hrefs))):
+        titulo_enlace = k in ("h2", "h3") and len(dat["text"]) < 90 and not re.search(r"pincha|aqu[ií]|ver v[ií]deo", dat["text"], re.I)
+        if len(hrefs) == 1 and None not in hrefs and (len(dat["text"]) < 40 or titulo_enlace) and yt_id(next(iter(hrefs))):
             u = next(iter(hrefs)); i = yt_id(u); vert = "shorts" in u
+            if titulo_enlace:
+                out.append(f'<h3 class="lm-h3d">{esc(dat["text"].strip())}</h3>')
             nom = f"yt-{i}.jpg"
             try:
                 w, h = miniatura_yt(i, vert, destino, nom)
@@ -530,10 +663,18 @@ def html_contenido(elementos, destino, num=0):
             cls = "lm-vid" + ("" if vert else " h")
             out.append(f'<div class="lm-vidwrap{"" if vert else " h"}"><div class="{cls}"><a class="lm-yt" href="{html.escape(u)}" rel="noopener noreferrer" data-yt-embed="{i}" data-titulo="Vídeo"><img loading="lazy" decoding="async" width="{w}" height="{h}" src="{nom}" alt="Vídeo" /><span class="play"><span class="round">▶</span></span></a></div></div>')
             continue
+        if k == "h2" and dat["text"].strip() in DEMOTE.get(num, []):
+            k = "h3"
+        if k == "h3" and num in H2_MAYUS and dat["text"].strip().isupper() and len(dat["text"].strip()) > 10:
+            k = "h2"
         if k == "h2":
             out.append(f"<h2 class=\"lm-h2d\">{html_spans(dat['spans'])}</h2>")
+        elif k == "clave":
+            out.append(f"<p class=\"lm-clave\"><span>{esc(dat['text'].strip())}</span></p>")
         elif k == "h3":
             out.append(f"<h3 class=\"lm-h3d\">{html_spans(dat['spans'])}</h3>")
+        elif k == "pill":
+            out.append(f"<p class=\"lm-pill\">{esc(dat['text'].strip())}</p>")
         elif k == "lab":
             out.append(f"<p class=\"lm-lab\">{esc(dat['text'])}</p>")
         else:
@@ -560,11 +701,46 @@ def html_contenido(elementos, destino, num=0):
                 f'<div class="lm-ig-msgs"><div class="lm-ig-b in"><b>{preg}</b></div><div class="lm-ig-b out">{interior_c}</div></div>'
                 f'<div class="lm-ig-nota">{nota}</div>'
                 '</div></div>']
+    global CIERRE_PROPIO
+    CIERRE_PROPIO = ""
+    if num in CIERRE_DESDE:
+        a = next((i for i, o in enumerate(out) if CIERRE_DESDE[num] in o), None)
+        if a is not None:
+            CIERRE_PROPIO = "\n".join(o for o in out[a:] if o.startswith("<p"))
+            out = out[:a]
+    if num == 11:
+        a = next((i for i, o in enumerate(out) if "+150" in o), None)
+        if a is not None and a + 1 < len(out):
+            out[a:a + 2] = ['<div class="lm-stats"><div><b>+150</b><span>deportistas recuperados</span></div><div><b>+60</b><span>clientes activos cada mes</span></div><div><b>100 %</b><span>especialistas en rodilla</span></div></div>']
+    if num == 16:
+        a = next((i for i, o in enumerate(out) if "ESCANEA" in o), None)
+        if a is not None:
+            out[a:a + 2] = ['<p class="lm-cta"><a class="lm-btn" href="https://www.notion.so/Casos-de-xito-1b5391c16449809aa18deb61bd534e8a" target="_blank" rel="noopener noreferrer">Ver los casos de éxito</a></p>']
+    for fr in ENFASIS.get(num, []):
+        ok = False
+        for i, o in enumerate(out):
+            if o.startswith(("<p>", "<p ", "<li")) and esc(fr) in o and "<strong>" + esc(fr) not in o:
+                out[i] = o.replace(esc(fr), "<strong>" + esc(fr) + "</strong>", 1); ok = True; break
+        if not ok:
+            print("  (énfasis sin encontrar:", fr[:40], ")")
+    if num == 4:
+        a = next((i for i, o in enumerate(out) if "SI ALGUNA VEZ HAS PENSADO" in o), None)
+        b = next((i for i, o in enumerate(out) if "ESTA GUÍA ES PARA TI" in o), None)
+        if a is not None and b is not None and b > a:
+            out = out[:a] + ['<div class="lm-llamada">'] + out[a:b + 1] + ["</div>"] + out[b + 1:]
+        a = next((i for i, o in enumerate(out) if o.startswith("<p>5 claves que te van")), None)
+        if a is not None:
+            items = []
+            while a < len(out) and (out[a].startswith("<p>5 claves") or out[a].startswith("<p>2 estrategias") or out[a].startswith("<p>Una mini rutina")):
+                items.append(f'<li class="chk">{out[a][3:-4]}</li>'); out.pop(a)
+            out.insert(a, '<ul class="lm-lista">' + "".join(items) + "</ul>")
+    out = [o for o in out if not re.fullmatch(r"<p[^>]*>\s*(<strong>)?Pregunta\s+S[ií]\s+No(</strong>)?\s*</p>", o.strip())]
     for fid, ruta in ENLACES.items():
         out = [re.sub(r'<a href="[^"]*' + fid + r'[^"]*" target="_blank" rel="noopener noreferrer">', f'<a href="{ruta}">', o) for o in out]
     return "\n".join(out)
 
 
+CIERRE_PROPIO = ""
 WA_SVG = '<svg class="wa-ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>'
 
 
@@ -576,7 +752,7 @@ def pagina(titulo, lead, cuerpo, kicker, num):
     if DESTACAR.get(num):
         h1 = re.sub("(" + re.escape(esc(DESTACAR[num])) + ")", lambda m: '<span class="cy">' + m.group(1) + "</span>", h1, count=1, flags=re.I)
     leadh = "".join(f'<p class="lm-sub">{esc(x)}</p>' for x in lead[:3])
-    wa = urllib.parse.quote(f"Hola Edu! Acabo de ver «{t_plano}» y quiero comentarte mi caso")
+    wa = urllib.parse.quote(WA_TEXTO.get(num) or f"Hola Edu! Acabo de ver «{t_plano}» y quiero comentarte mi caso")
     meta = html.escape(t_plano[:150])
     return f"""<!DOCTYPE html>
 <html lang="es">
@@ -591,7 +767,7 @@ def pagina(titulo, lead, cuerpo, kicker, num):
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700;1,800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../landing.css?v=6" />
-  <link rel="stylesheet" href="../lm.css?v=9" />
+  <link rel="stylesheet" href="../lm.css?v=14" />
   <link rel="stylesheet" href="../cookies.css?v=1" />
 </head>
 <body>
@@ -637,8 +813,8 @@ def pagina(titulo, lead, cuerpo, kicker, num):
 
 <section class="lm-sec lm-fin">
   <div class="wrap">
-    {"" if num in SIN_CIERRE else f'''<div class="lm-cierre">
-      <p><strong>¿Quieres que lo veamos aplicado a tu caso?</strong> Cada rodilla y cada proceso es distinto, y muchas veces pequeños ajustes marcan una gran diferencia.</p>
+    {"" if (num in SIN_CIERRE and not CIERRE_PROPIO) else f'''<div class="lm-cierre">
+      {CIERRE_PROPIO or '<p><strong>¿Quieres que lo veamos aplicado a tu caso?</strong> Cada rodilla y cada proceso es distinto, y muchas veces pequeños ajustes marcan una gran diferencia.</p>'}
       <a class="btn-wa" href="https://wa.me/34644516082?text={wa}" target="_blank" rel="noopener noreferrer">{WA_SVG} Escríbeme sin compromiso</a>
     </div>'''}
   </div>
