@@ -802,10 +802,10 @@ def html_contenido(elementos, destino, num=0):
         _G = [("Gestión del rango de movimiento", ["Más cuidado con la flexión profunda de rodilla", "Progresión de rangos más controlada"], ["El problema principal no es el rango. Suele tolerarse mejor", "Deberás darle más atención al manejo de cargas"]),
               ("Tipo de fuerza prioritaria", ["Isométricos en angulaciones específicas", "Excéntricos controlados", "Mayor énfasis en cuádriceps y sus diferentes cabezas"], ["Fuerza global de la pierna", "Mejorar absorción y redistribución de cargas", "Menos foco en “aislar”, y más en moverte bien"]),
               ("Impacto y ejercicios dinámicos", ["Impacto más tardío", "Introducción muy progresiva (intensidad y volumen)"], ["Impacto suele ser necesario antes", "También progresivo y bien dosificado, pero clave para mejorar tolerancia"])]
-        _h = '<div class="lm-vs">'
+        _h = '<div class="lm-tabla"><table class="lm-cmp"><thead><tr><th></th><th class="rot">Rotuliana</th><th class="fem">Femoral</th></tr></thead><tbody>'
         for _t, _a, _b in _G:
-            _h += f'<h3 class="lm-h3d">{_t}</h3><div class="vs-g"><div class="vs-c rot"><b>Rotuliana</b><ul>' + "".join(f'<li>{x}</li>' for x in _a) + '</ul></div><div class="vs-c fem"><b>Femoral</b><ul>' + "".join(f'<li>{x}</li>' for x in _b) + '</ul></div></div>'
-        _h += '</div>'
+            _h += f'<tr><th scope="row">{_t}</th><td data-l="Rotuliana"><ul>' + "".join(f'<li>{x}</li>' for x in _a) + '</ul></td><td data-l="Femoral"><ul>' + "".join(f'<li>{x}</li>' for x in _b) + '</ul></td></tr>'
+        _h += '</tbody></table></div>'
         _f = [i for i, o in enumerate(out) if o.startswith('<figure') and 'img-03.jpg' in o]
         for _i in _f:
             out[_i] = _h
@@ -1027,7 +1027,7 @@ def pagina(titulo, lead, cuerpo, kicker, num):
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700;1,800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../landing.css?v=6" />
-  <link rel="stylesheet" href="../lm.css?v=33" />
+  <link rel="stylesheet" href="../lm.css?v=34" />
   <link rel="stylesheet" href="../cookies.css?v=1" />
 </head>
 <body>
