@@ -537,8 +537,25 @@ def html_contenido(elementos, destino, num=0):
     cerrar_ul()
     if num in SIN_CIERRE:
         k = next((i for i, o in enumerate(out) if "chat abierto" in o), None)
-        if k is not None:
-            out = out[:k] + ['<div class="lm-chat">'] + out[k:] + ["</div>"]
+        c = next((i for i, o in enumerate(out) if i > k and 'class="ac"' in o), None) if k is not None else None
+        if k is not None and c is not None and c > k + 1:
+            def interior(o):
+                o = o.strip()
+                if o.startswith("<ul"):
+                    return "<br />".join(re.findall(r"<li[^>]*>(.*?)</li>", o, re.S))
+                return re.sub(r"^<p[^>]*>|</p>$", "", o)
+            preg = "<br />".join(interior(o) for o in out[k + 1:c])
+            interior_c = interior(out[c])
+            nota = "".join(out[c + 1:])
+            intro = interior(out[k])
+            out = out[:k] + [
+                f'<p class="lm-ig-intro">{intro}</p>',
+                '<div class="lm-ig"><div class="lm-ig-in">'
+                '<div class="lm-ig-top"><span class="lm-ig-av"><img src="../assets/perfil-instagram.jpg" alt="" /></span>'
+                '<div><b>edu.rehab</b><span>Instagram · Mensajes</span></div><span class="lm-ig-badge">1 mensaje nuevo</span></div>'
+                f'<div class="lm-ig-msgs"><div class="lm-ig-b in"><b>{preg}</b></div><div class="lm-ig-b out">{interior_c}</div></div>'
+                f'<div class="lm-ig-nota">{nota}</div>'
+                '</div></div>']
     return "\n".join(out)
 
 
@@ -568,7 +585,7 @@ def pagina(titulo, lead, cuerpo, kicker, num):
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../landing.css?v=6" />
-  <link rel="stylesheet" href="../lm.css?v=7" />
+  <link rel="stylesheet" href="../lm.css?v=8" />
   <link rel="stylesheet" href="../cookies.css?v=1" />
 </head>
 <body>
