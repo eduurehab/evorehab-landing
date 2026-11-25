@@ -51,4 +51,4 @@ Los que vienen de PDF se generaron con `herramientas/generar-lm.py` y después s
 | `/lm20-ejercicios-prohibidos` | Ejercicios prohibidos (vídeo Miró) |
 | `/lm21-test4preguntas` | Árbol de decisión (4 preguntas) |
 
-Pendientes: los case study, con su propio sistema de nombres (`/cs1-adri-a`, `/cs2-alvaro-m`, `/cs3-luzia-r`), a falta de los enlaces de YouTube.
+Case studies (sistema propio): `/cs1-adri-a`, `/cs2-alvaro-m`. Pendiente `/cs3-luzia-r` (sin grabar aún).
