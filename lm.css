@@ -306,3 +306,23 @@
 .lm-doc .lm-final p.g{margin-bottom:12px;font-size:19px;color:#fff}
 .lm-doc .lm-final strong{color:#fff}
 .lm-doc .lm-final .ac{color:#4fe0f5;background:none}
+
+/* Cuestionario LM17 */
+.lm-doc .lm-cuest{max-width:680px;margin:24px auto;text-align:left}
+.lm-cuest-bar{display:flex;align-items:center;gap:12px;margin-bottom:14px;font-size:14px;font-weight:700;color:var(--black);position:sticky;top:0;z-index:5;background:rgba(255,255,255,.95);padding:10px 0}
+.lm-cuest-bar i{flex:1;height:8px;border-radius:99px;background:#e2e8ee;overflow:hidden}
+.lm-cuest-bar b{display:block;height:100%;width:0;background:var(--cyan);border-radius:99px;transition:width .2s}
+.lm-qs{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.lm-q{display:grid;grid-template-columns:30px 1fr auto;gap:12px;align-items:center;padding:14px 16px;border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:0 6px 18px rgba(11,42,61,.05)}
+.lm-q .n{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--cyan-soft);color:#0a8fb0;font-weight:800;font-size:13px}
+.lm-q .t{font-weight:600;line-height:1.45;color:var(--black);font-size:15.5px}
+.lm-q .ops{display:flex;gap:8px}
+.lm-q .ops input{position:absolute;opacity:0;pointer-events:none}
+.lm-q .ops label span{display:inline-block;min-width:54px;text-align:center;padding:8px 14px;border:2px solid var(--line);border-radius:999px;font-weight:800;font-size:14px;color:var(--ink);cursor:pointer;transition:.15s}
+.lm-q .ops label:hover span{border-color:var(--cyan)}
+.lm-q .ops input:checked+span{background:var(--navy);border-color:var(--navy);color:#4fe0f5}
+.lm-q .ops input:focus-visible+span{outline:3px solid rgba(0,184,212,.4)}
+.lm-q:has(input:checked){border-color:rgba(0,184,212,.45)}
+.lm-doc .lm-tail{margin-top:26px}
+.lm-doc .lm-tail[hidden]{display:none}
+@media(max-width:600px){.lm-q{grid-template-columns:28px 1fr}.lm-q .ops{grid-column:1 / -1;justify-content:flex-end}}

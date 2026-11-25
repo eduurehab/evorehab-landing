@@ -754,6 +754,24 @@ def html_contenido(elementos, destino, num=0):
         a = next((i for i, o in enumerate(out) if "+150" in o), None)
         if a is not None and a + 1 < len(out):
             out[a:a + 2] = ['<div class="lm-stats"><div><b>+150</b><span>deportistas recuperados</span></div><div><b>+60</b><span>clientes activos cada mes</span></div><div><b>100 %</b><span>especialistas en rodilla</span></div></div>']
+    if num == 17:
+        _qi = [i for i, o in enumerate(out) if o.startswith("<p><em>¿")]
+        if len(_qi) == 19:
+            _qs = []
+            for i in _qi:
+                t = re.sub(r"<[^>]+>", "", out[i]).strip()
+                if t.startswith("¿Sientes que los ejercicios realmente"):
+                    _qs += ["¿Sientes que los ejercicios realmente te están acercando a tu objetivo?", "¿Sabes qué hacer ante un aumento de dolor o hinchazón en la rodilla?"]
+                else:
+                    _qs.append(t)
+            _lis = "".join(f'<li class="lm-q"><span class="n">{k + 1}</span><span class="t">{q}</span><span class="ops"><label><input type="radio" name="q{k}" value="1" /><span>Sí</span></label><label><input type="radio" name="q{k}" value="0" /><span>No</span></label></span></li>' for k, q in enumerate(_qs))
+            _w = f'<div class="lm-cuest" id="lm-cuest"><div class="lm-cuest-bar"><span id="lm-cuest-n">0 de 20 respondidas</span><i><b id="lm-cuest-b"></b></i></div><ol class="lm-qs">{_lis}</ol><div class="lm-result" id="lm-cuest-res" aria-live="polite"><p class="lm-vacio">Responde las 20 preguntas para ver tu resultado.</p></div></div>'
+            _h = next((i for i, o in enumerate(out) if "comprobemos los resultados" in o.lower()), None)
+            if _h is not None:
+                _ult = max(i for i, o in enumerate(out) if o.startswith("<ul class=\"lm-lista\"><li>Si has marcado"))
+                out[_qi[0]:_ult + 1] = [_w, '<script src="../lm-cuestionario.js?v=1" defer></script>']
+    if num == 17:
+        out = [o.replace("Responde con total sinceridad a estas 20 preguntas y pasa a la siguiente página para analizar los resultados", "Responde con total sinceridad a estas 20 preguntas") for o in out]
     if num == 16:
         _res = []
         for o in out:
@@ -857,6 +875,10 @@ def html_contenido(elementos, destino, num=0):
         if a is not None:
             out = out[:a] + [cta_card(tit, sub, clave, despues, wa_t)]
             CTA_DENTRO = True
+    if num == 17:
+        _t = next((i for i, o in enumerate(out) if o.startswith("<p>Si has llegado hasta aqu")), None)
+        if _t is not None:
+            out = out[:_t] + ['<div class="lm-tail" id="lm-tail" hidden>'] + out[_t:] + ['</div>']
     for fr in ENFASIS.get(num, []):
         ok = False
         for i, o in enumerate(out):
@@ -908,7 +930,7 @@ def pagina(titulo, lead, cuerpo, kicker, num):
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700;1,800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../landing.css?v=6" />
-  <link rel="stylesheet" href="../lm.css?v=22" />
+  <link rel="stylesheet" href="../lm.css?v=24" />
   <link rel="stylesheet" href="../cookies.css?v=1" />
 </head>
 <body>
