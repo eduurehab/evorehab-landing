@@ -222,3 +222,24 @@
 .lm-doc .lm-cta-a .btn-wa, .lm-doc .lm-cta-a .btn-wa:hover { color: #fff; text-decoration: none; }
 .lm-cta-a .s p { margin: 8px 0 0; }
 .lm-cta-a .s { text-align: center; }
+
+/* Tablas reales (LM15) */
+.lm-doc .lm-tabla{margin:26px 0 8px;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 10px 30px rgba(11,42,61,.08);text-align:center}
+.lm-t{width:100%;border-collapse:collapse;font-size:15px}
+.lm-t thead th{background:var(--navy);color:#fff;font-size:11.5px;letter-spacing:1.2px;text-transform:uppercase;font-weight:800;padding:13px 8px}
+.lm-t thead th.cy{color:#4fe0f5}
+.lm-t thead small{display:block;font-size:10px;letter-spacing:.3px;text-transform:none;font-weight:500;opacity:.8}
+.lm-t tbody th{background:#e8eef4;color:var(--black);font-weight:800;width:15%}
+.lm-t td,.lm-t tbody th{padding:9px 8px;border-top:1px solid #edf1f5}
+.lm-t tbody tr:nth-child(even) td{background:#f5f8fb}
+.lm-t .mu{color:var(--muted)}
+.lm-t b{color:var(--black)}
+.lm-t .barra{display:flex;align-items:center;gap:10px;border-top:0;padding:9px 14px}
+.lm-t .barra .bar{flex:1;height:8px;border-radius:99px;background:#e2e8ee;overflow:hidden}
+.lm-t .barra .bar i{display:block;height:100%;border-radius:99px;background:#38d4ee}
+.lm-t .barra b{min-width:34px;text-align:right}
+.lm-t-vacia td{height:30px}
+.lm-t-vacia tbody th{width:12%}
+.lm-doc .lm-nota{font-size:13px;color:var(--muted);margin-top:8px}
+@media(max-width:600px){.lm-t{font-size:13px}.lm-t thead th{font-size:10px;padding:10px 4px;letter-spacing:.6px}.lm-t .barra{gap:6px;padding:9px 8px}}
+.lm-t-vacia td{border-left:1px solid #e3e9ef}

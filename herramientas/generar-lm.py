@@ -771,6 +771,15 @@ def html_contenido(elementos, destino, num=0):
                 continue
             res.append(out[i]); i += 1
         out = res
+    if num == 15:
+        _filas = [(8,"1'30\"","1'","8'"),(8,"1'","1'30\"","12'"),(10,"1'","1'30\"","15'"),(8,"1'","2'","16'"),(10,"1'","2'","20'"),(6,"1'","3'","18'"),(8,"1'","3'","24'"),(6,"1'","4'","24'"),(5,"1'","5'","25'"),(3,"1'","8'","24'"),(4,"1'","8'","32'"),(3,"1'","10'","30'"),(4,"1'","10'","40'"),(3,"1'","12'","36'"),(4,"1'","12'","48'"),(3,"1'","15'","45'"),(3,"1'","15'","45'"),(2,"1'","20'","40'"),(2,"1'","20'","40'"),(1,"—","40'","40'")]
+        _mx = max(int(f[3][:-1]) for f in _filas)
+        t1 = '<div class="lm-tabla"><table class="lm-t lm-t-ej"><thead><tr><th>Sesión</th><th>Series</th><th>Caminar</th><th class="cy">Correr</th><th>Tiempo total de carrera</th></tr></thead><tbody>' + "".join(f'<tr><th>{i+1}</th><td>{f[0]}</td><td class="mu">{f[1]}</td><td><b>{f[2]}</b></td><td class="barra"><span class="bar"><i style="width:{int(f[3][:-1])*100//_mx}%"></i></span><b>{f[3]}</b></td></tr>' for i, f in enumerate(_filas)) + '</tbody></table></div><p class="lm-nota">Ca = caminar · Co = correr. La barra muestra el tiempo total corriendo en cada sesión.</p>'
+        t2 = '<div class="lm-tabla"><table class="lm-t lm-t-vacia"><thead><tr><th>Sesión</th><th>Nº series</th><th>Nº semana</th><th class="cy">Correr (min)</th><th>Caminar (min)</th><th>Ritmo<small>km/h o min/km</small></th></tr></thead><tbody>' + "".join(f'<tr><th>{i}</th><td></td><td></td><td></td><td></td><td></td></tr>' for i in range(1, 31)) + '</tbody></table></div>'
+        _figs = [i for i, o in enumerate(out) if o.startswith('<figure')]
+        if len(_figs) >= 2:
+            out[_figs[0]] = t1
+            out[_figs[1]] = t2
     if num == 13:
         a = next((i for i, o in enumerate(out) if "Mira este caso real" in o), None)
         if a is not None and a + 1 < len(out):
@@ -855,7 +864,7 @@ def pagina(titulo, lead, cuerpo, kicker, num):
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700;1,800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../landing.css?v=6" />
-  <link rel="stylesheet" href="../lm.css?v=16" />
+  <link rel="stylesheet" href="../lm.css?v=17" />
   <link rel="stylesheet" href="../cookies.css?v=1" />
 </head>
 <body>
