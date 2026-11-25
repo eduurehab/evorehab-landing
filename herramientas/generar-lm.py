@@ -62,7 +62,7 @@ ENFASIS = {4: ["El dolor no es tu enemigo", "algo PUEDE estar en peligro", "El d
                "(VERDE, AMARILLO Y ROJO)", "el dolor no es tu enemigo, sino tu aliado", "pedir ayuda es de sabios",
                "PORQUE SÍ, YO TAMBIÉN ESTUVE CON DOLOR CRÓNICO Y LLENO DE LESIONES, Y CONSEGUÍ ELIMINARLAS DE MI VIDA"]}
 # Guías cuyo PDF ya trae su propia llamada final (chat de Instagram, botón de reunión, etc.): no se añade el cierre estándar
-SIN_CIERRE = {1, 2, 3, 6, 9, 10, 16}
+SIN_CIERRE = {1, 2, 3, 6, 9, 10, 16, 18}
 WA_TEXTO = {4: "Hola Edu! Acabo de terminar de leer tu guía del dolor y me han surgido algunas dudas. ¿Podrías ayudarme a resolverlas?"}
 STRAY = re.compile(r"^(@edu\.rehab|evorehab|e\s*v\s*o\s*r\s*e\s*h\s*a\s*b|evorehab\s*·\s*especialista.*|pregunta\s+s[ií]\s+no|ya casi estamos terminando.*|mira la siguiente p[aá]gina|pincha aqu[ií]:?)$", re.I)
 DEMOTE = {10: ["Muy atent@"]}          # titulares que en realidad son subtítulos
@@ -778,8 +778,10 @@ def html_contenido(elementos, destino, num=0):
                 o = f'<h2 class="lm-h2d">{_m.group(1)} – {_m.group(2)}</h2>'
             elif o.startswith('<ul class="lm-lista">'):
                 o = o.replace('<ul class="lm-lista">', '<ul class="lm-claves">', 1)
+            elif 'en mi perfil tienes bastantes' in o:
+                o = o.replace('en mi perfil tienes', 'en la web tienes')
             elif 'lm-clave"><span>¡DALE' in o:
-                o = '<p class="lm-cta"><a class="lm-btn" href="https://www.instagram.com/edu.rehab/" target="_blank" rel="noopener noreferrer">¡Dale caña! Ver casos reales en mi perfil</a></p>'
+                o = '<p class="lm-cta"><a class="lm-btn" href="https://edurehab.onrender.com/testimonios">¡Dale caña! Ver testimonios</a></p>'
             elif o.startswith('<figure') and 'img-03.jpg' in o:
                 continue
             _r.append(o)
@@ -944,7 +946,7 @@ def pagina(titulo, lead, cuerpo, kicker, num):
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700;1,800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../landing.css?v=6" />
-  <link rel="stylesheet" href="../lm.css?v=25" />
+  <link rel="stylesheet" href="../lm.css?v=26" />
   <link rel="stylesheet" href="../cookies.css?v=1" />
 </head>
 <body>
