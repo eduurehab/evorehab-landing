@@ -11,24 +11,7 @@
     estado = v;
     try { localStorage.setItem(K, v); } catch (e) {}
     oyentes.forEach(function (f) { f(v); });
-    if (v === 'todas') pixel();
-    else if (pixelCargado && window.fbq) fbq('consent', 'revoke');
   }
-
-  // Píxel de Meta: solo en las páginas que definan window.EVO_PIXEL (con el ID) y solo si se aceptan las cookies.
-  // Cada clic a WhatsApp se cuenta como evento «Contacto», sin enviar ningún dato de la persona.
-  var pixelCargado = false;
-  function pixel() {
-    if (!window.EVO_PIXEL || pixelCargado || estado !== 'todas') return;
-    pixelCargado = true;
-    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', window.EVO_PIXEL);
-    fbq('track', 'PageView');
-  }
-  document.addEventListener('click', function (e) {
-    var a = e.target.closest && e.target.closest('a[href*="wa.me"]');
-    if (a && pixelCargado && window.fbq) fbq('track', 'Contact');
-  });
 
   function cerrar() { if (aviso) { aviso.remove(); aviso = null; } }
 
@@ -39,9 +22,7 @@
     aviso.setAttribute('role', 'dialog');
     aviso.setAttribute('aria-label', 'Cookies');
     aviso.innerHTML =
-      '<p><b>Cookies</b><br>' + (window.EVO_PIXEL
-        ? 'Usamos cookies de YouTube para reproducir los vídeos y el píxel de Meta para medir nuestra publicidad. '
-        : 'Usamos cookies de YouTube solo para reproducir los vídeos en esta página. ') +
+      '<p><b>Cookies</b><br>Usamos cookies de YouTube solo para reproducir los vídeos en esta página. ' +
       'Puedes aceptarlas o quedarte solo con las esenciales. <a href="' + RAIZ + 'cookies/">Más información</a></p>' +
       '<div class="ck-bt"><button type="button" data-ck="esenciales">Solo esenciales</button>' +
       '<button type="button" data-ck="todas">Aceptar</button></div>';
@@ -90,8 +71,6 @@
     if (v !== 'todas') return;
     document.querySelectorAll('[data-yt-embed]').forEach(function (p) { montar(p, false); });
   });
-
-  pixel();   // si ya había aceptado en una visita anterior
 
   window.EvoCookies = { acepta: acepta, embed: embed, reabrir: mostrar };
 })();
