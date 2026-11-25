@@ -669,6 +669,9 @@ def html_contenido(elementos, destino, num=0):
             k = "h2"
         if k == "h2":
             out.append(f"<h2 class=\"lm-h2d\">{html_spans(dat['spans'])}</h2>")
+        elif k == "clave" and re.match(r"cont[aá]ndomelo", dat["text"].strip(), re.I):
+            wa_u = "https://wa.me/34644516082?text=" + urllib.parse.quote("Hola Edu! Acabo de hacer tu sesión de ejercicios para el dolor de rodilla y quiero comentarte algo")
+            out.append(f'<p class="lm-cta"><a class="lm-btn" href="{wa_u}" target="_blank" rel="noopener noreferrer">Contándomelo</a></p>')
         elif k == "clave":
             out.append(f"<p class=\"lm-clave\"><span>{esc(dat['text'].strip())}</span></p>")
         elif k == "h3":
