@@ -591,6 +591,34 @@ def trocear_ejercicios(spans):
     return trozos
 
 
+
+CTA_A = {
+    5: ("¿Quieres que analicemos tus resultados y te orientemos?", "Escríbeme por privado diciendo", "EVALUACIÓN", "", "Hola Edu! Acabo de ver la guía «Tabla de autoevaluación del dolor» y quiero que analicemos mis resultados. EVALUACIÓN", "¿Quieres que analicemos"),
+    7: ("¿Quieres que lo veamos en tu caso?", "Cuéntame tu caso y qué crees que no está funcionando, y lo vemos con calma.", "", "", "Hola Edu! Acabo de ver la guía «Condromalacia rotuliana vs femoral» y quiero comentarte mi caso", "Mándame un mensaje privado en Instagram"),
+    10: ("¿Tienes una cirugía de rodilla programada?", "Analizamos tu caso y diseñamos tu plan de fuerza pre-operatorio personalizado. Mándame un mensaje privado diciendo", "BISTURÍ", "", "Hola Edu! He visto el documento del preoperatorio y quiero agendar una reunión contigo para ver si me puedes ayudar. BISTURÍ", "Si tienes programada"),
+    11: ("¿No sabes en qué fase estás o te has quedado atascado en una?", "Cuéntame tu caso y te digo en qué fase estás y cuál es tu siguiente paso.", "", "", "Hola Edu! Acabo de ver la guía «Las 5 fases para volver a tu deporte después del LCA» y quiero que me digas en qué fase estoy", "¿No sabes en qué fase"),
+    12: ("Estamos deseando ayudarte", "Mándame un mensaje privado diciendo", "EDU NECESITO AYUDA", "y analizaremos tu situación actual al detalle para ponerle el punto y final a tu lesión.", "Hola Edu! Acabo de ver la guía «Tests a realizar tras una reconstrucción de LCA» y necesito ayuda. EDU NECESITO AYUDA", "Estamos deseando ayudarte"),
+    14: ("Elimina tu dolor de rodilla para siempre y deja de depender de “parches” temporales", "Mándame un mensaje privado diciendo", "PARCHE", "y te explico mi sistema en 5 fases.", "Hola Edu! Acabo de ver la guía «De la camilla al gimnasio» y quiero que me expliques tu sistema en 5 fases. PARCHE", "Si quieres conseguir eliminar"),
+    17: ("Solicita tu valoración gratuita de 45 minutos", "Escríbeme un mensaje privado diciendo", "LLAMADA", "y lo vemos con calma. Queremos ayudarte a salir de este estancamiento.", "Hola Edu! Acabo de ver la guía de las 20 preguntas y quiero solicitar la valoración gratuita. LLAMADA", "Para solicitarla"),
+}
+CTA_QUITAR = {16: "Además, te invito a que me escribas"}
+CTA_DENTRO = False
+
+
+def cta_card(titulo, sub, clave, despues, wa_texto, boton="Escribirme por WhatsApp"):
+    url = "https://wa.me/34644516082?text=" + urllib.parse.quote(wa_texto)
+    k = f'<div class="k">“{clave}”</div>' if clave else ""
+    h = f'<div class="lm-cta-a"><p class="t">{titulo}</p>'
+    if sub:
+        h += f'<p class="s">{sub}</p>'
+    h += k
+    if despues:
+        h += f'<p class="s">{despues}</p>'
+    if clave:
+        h += '<p class="n">Se abre WhatsApp con el mensaje ya escrito. Solo dale a enviar.</p>'
+    return h + f'<a class="btn-wa" href="{url}" target="_blank" rel="noopener noreferrer">{WA_SVG} {boton}</a></div>'
+
+
 def html_contenido(elementos, destino, num=0):
     caps = list(CAPSULAS.get(num, []))
     out = []
@@ -748,6 +776,16 @@ def html_contenido(elementos, destino, num=0):
             btn = re.search(r'<a class="lm-btn".*?</a>', out[a + 1])
             resto = "".join(o for o in out[a + 2:] if o.startswith("<p"))
             out[a:] = ['<div class="lm-cierre"><p><strong>¿Te ha sido de utilidad la sesión? ¿Tienes alguna duda acerca de ella?</strong> Mándame un mensaje privado.</p><p style="margin-top:22px">' + (btn.group(0) if btn else "") + '</p>' + resto.replace("<p>", '<p style="margin-top:22px">') + '</div>']
+    global CTA_DENTRO
+    CTA_DENTRO = False
+    if num in CTA_QUITAR:
+        out = [o for o in out if CTA_QUITAR[num] not in o]
+    if num in CTA_A:
+        tit, sub, clave, despues, wa_t, marca = CTA_A[num]
+        a = next((i for i, o in enumerate(out) if marca in o), None)
+        if a is not None:
+            out = out[:a] + [cta_card(tit, sub, clave, despues, wa_t)]
+            CTA_DENTRO = True
     for fr in ENFASIS.get(num, []):
         ok = False
         for i, o in enumerate(out):
@@ -799,7 +837,7 @@ def pagina(titulo, lead, cuerpo, kicker, num):
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700;1,800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../landing.css?v=6" />
-  <link rel="stylesheet" href="../lm.css?v=15" />
+  <link rel="stylesheet" href="../lm.css?v=16" />
   <link rel="stylesheet" href="../cookies.css?v=1" />
 </head>
 <body>
@@ -845,10 +883,7 @@ def pagina(titulo, lead, cuerpo, kicker, num):
 
 <section class="lm-sec lm-fin">
   <div class="wrap">
-    {"" if (num in SIN_CIERRE and not CIERRE_PROPIO) else f'''<div class="lm-cierre">
-      {CIERRE_PROPIO or '<p><strong>¿Quieres que lo veamos aplicado a tu caso?</strong> Cada rodilla y cada proceso es distinto, y muchas veces pequeños ajustes marcan una gran diferencia.</p>'}
-      <a class="btn-wa" href="https://wa.me/34644516082?text={wa}" target="_blank" rel="noopener noreferrer">{WA_SVG} Escríbeme sin compromiso</a>
-    </div>'''}
+    {"" if ((num in SIN_CIERRE and not CIERRE_PROPIO) or CTA_DENTRO) else cta_card("¿Quieres que lo veamos aplicado a tu caso?", CIERRE_PROPIO or "Cada rodilla y cada proceso es distinto, y muchas veces pequeños ajustes marcan una gran diferencia.", "", "", urllib.parse.unquote(wa), "Escríbeme sin compromiso")}
   </div>
 </section>
 
