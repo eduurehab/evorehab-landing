@@ -58,13 +58,13 @@ Cal.ns.entrevista("ui", {
   layout: "month_view"
 });
 
-// En el móvil, al cambiar de día el calendario se encoge un instante y el navegador sube la página arriba.
-// La caja del calendario nunca se hace más baja de lo que ya ha sido, así la página no salta.
+// Cal.com, al cambiar de día, sube la página hasta el principio del calendario si ha quedado más de 1/4 por encima
+// de la pantalla (en el móvil ese principio es la descripción, muy arriba). Le quitamos ese salto.
 (function () {
-  var caja = document.getElementById("calendario"), alto = 0;
-  new ResizeObserver(function () {
-    if (caja.offsetHeight > alto) { alto = caja.offsetHeight; caja.style.minHeight = alto + "px"; }
-  }).observe(caja);
+  var caja = document.getElementById("calendario");
+  new MutationObserver(function () {
+    for (var i = 0; i < caja.children.length; i++) caja.children[i].scrollIntoView = function () {};
+  }).observe(caja, { childList: true });
 })();
 
 // Al terminar la reserva, a la página de prellamada con el vídeo (gratis, sin el «Redirigir al reservar» de pago).
