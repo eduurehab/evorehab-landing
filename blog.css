@@ -113,3 +113,6 @@
   .bl-hero { padding-top: 40px; }
   .bl-post-hero { padding-top: 36px; }
 }
+
+/* Tarjetas dentro de secciones centradas (home) */
+.bl-card { text-align: left; }
