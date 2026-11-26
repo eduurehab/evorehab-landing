@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Entrevista de acceso | EVOREHAB</title>
+
+  <!-- Página privada: solo se llega con el enlace que se manda por WhatsApp. Que no salga en Google. -->
+  <meta name="robots" content="noindex, nofollow" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://app.cal.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../landing.css?v=6" />
+  <link rel="stylesheet" href="../cookies.css?v=1" />
+  <style>
+    .agenda-hero { padding-bottom: 8px; }
+    .agenda-cal { max-width: 1000px; margin: 0 auto 56px; padding: 0 12px; min-height: 560px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <span class="logo"><img src="../assets/logo-evorehab.png" alt="EVOREHAB" /></span>
+  </div>
+</header>
+
+<div class="hero agenda-hero">
+  <div class="wrap">
+    <span class="kicker">Entrevista de acceso</span>
+    <h1>Elige el día y la hora<br /><span class="cy">de tu videollamada</span></h1>
+    <p class="lead">Son 60 minutos por Google Meet. Al reservar te llegará un correo con el enlace de la videollamada.</p>
+  </div>
+</div>
+
+<!-- Calendario de Cal.com (cal.com/edu.rehab/entrevista-acceso) -->
+<div class="agenda-cal" id="calendario"></div>
+
+<footer>© EVOREHAB · @edu.rehab<a class="ck-enlace" href="../cookies/" data-cookies>Cookies</a></footer>
+
+<script src="../cookies.js?v=1"></script>
+<script>
+// Código de inserción oficial de Cal.com
+(function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]); } else p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+
+Cal("init", "entrevista", { origin: "https://app.cal.com" });
+Cal.ns.entrevista("inline", {
+  elementOrSelector: "#calendario",
+  calLink: "edu.rehab/entrevista-acceso",
+  config: { layout: "month_view", theme: "light" }
+});
+Cal.ns.entrevista("ui", {
+  theme: "light",
+  cssVarsPerTheme: { light: { "cal-brand": "#00b8d4" } },
+  hideEventTypeDetails: false,
+  layout: "month_view"
+});
+
+// Al terminar la reserva, a la página de prellamada con el vídeo (gratis, sin el «Redirigir al reservar» de pago).
+var irAPrellamada = function () { window.location.href = "../prellamada/"; };
+Cal.ns.entrevista("on", { action: "bookingSuccessfulV2", callback: irAPrellamada });
+Cal.ns.entrevista("on", { action: "bookingSuccessful", callback: irAPrellamada });
+</script>
+</body>
+</html>
