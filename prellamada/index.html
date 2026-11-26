@@ -17,6 +17,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../landing.css?v=6" />
   <link rel="stylesheet" href="../cookies.css?v=1" />
+  <style>
+    /* Aviso grande de la duración, justo encima del vídeo */
+    .pre-dura { display: inline-flex; align-items: center; gap: 10px; margin: 40px 0 0; padding: 12px 28px; border-radius: 999px; background: var(--cyan); color: #fff; font-size: 22px; font-weight: 800; letter-spacing: -.3px; box-shadow: 0 4px 12px rgba(11,42,61,.12); }
+    .pre-dura svg { width: 26px; height: 26px; flex: none; }
+    .pre-dura + .pre-vid { margin-top: 24px; }
+    @media (max-width: 640px) {
+      .pre-dura { margin-top: 28px; padding: 10px 20px; font-size: 17px; }
+      .pre-dura svg { width: 21px; height: 21px; }
+      .pre-dura + .pre-vid { margin-top: 18px; }
+    }
+  </style>
   <script>
   // Portadas de YouTube en máxima calidad; si el vídeo no la tiene (error o imagen gris de 120 px), se usa hqdefault
   function ytThumb(img, failed) {
@@ -37,6 +48,7 @@
   <div class="wrap">
     <h1>Mira esto antes de<br /><span class="cy">tu videollamada</span></h1>
     <p class="lead">Para que aprovechemos al máximo el tiempo en ella, observa el siguiente vídeo, y así en la videollamada podremos centrarnos directamente en tu caso concreto, en lo que te está bloqueando ahora mismo y en qué pasos tendría sentido dar.</p>
+    <p class="pre-dura"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="8" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M12 9v4l2.5 2M9.5 2.5h5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>El vídeo dura solo 2 minutos</p>
     <div class="pre-vid">
       <a class="pre-yt" href="https://youtu.be/_WQz8iVJQ5g" rel="noopener noreferrer" data-yt-embed="_WQz8iVJQ5g" data-titulo="Vídeo prellamada EVOREHAB">
         <img fetchpriority="high" decoding="async" width="1280" height="720" src="https://img.youtube.com/vi/_WQz8iVJQ5g/maxresdefault.jpg" onload="ytThumb(this)" onerror="ytThumb(this, true)" alt="Vídeo prellamada EVOREHAB" />
