@@ -58,6 +58,15 @@ Cal.ns.entrevista("ui", {
   layout: "month_view"
 });
 
+// En el móvil, al cambiar de día el calendario se encoge un instante y el navegador sube la página arriba.
+// La caja del calendario nunca se hace más baja de lo que ya ha sido, así la página no salta.
+(function () {
+  var caja = document.getElementById("calendario"), alto = 0;
+  new ResizeObserver(function () {
+    if (caja.offsetHeight > alto) { alto = caja.offsetHeight; caja.style.minHeight = alto + "px"; }
+  }).observe(caja);
+})();
+
 // Al terminar la reserva, a la página de prellamada con el vídeo (gratis, sin el «Redirigir al reservar» de pago).
 var irAPrellamada = function () { window.location.href = "../prellamada/"; };
 Cal.ns.entrevista("on", { action: "bookingSuccessfulV2", callback: irAPrellamada });
